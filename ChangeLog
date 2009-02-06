@@ -1,0 +1,25 @@
+Version 0.1
+======================================
+-initial version of kbluetooth4
+ * Trayicon 
+ * Authorization/Passkey Agent 
+ * BT Adapter Configuration
+ * Device-Manager
+ * New BT Device Wizard
+ * KBlueLock
+ * obex-data-server session wrapper
+ * Send File
+
+Version 0.2
+=====================================
+ * obex-data-server server wrapper 
+ * Receive Files (~/.kbluetooth4/kbluelock.log)
+ * Screen unlock support for KBlueLock
+ * Log Away times from KBlueLock (~/.kbluetooth4/kbluelock.log)
+ * InputWizard queries SDP database of remote device to get HID capabilities
+
+Version 0.3
+=====================================
+ * major Bluez4 port
+ * a lot of Bluez4/solid-bluetooth API changes compatibility fixes
+ * KBlueLock disabled (Bluez DeviceDisappeared Signal is not working)

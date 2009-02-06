@@ -1,0 +1,23 @@
+[Desktop Entry]
+Name=Kdebluetooth4
+Name[x-test]=xxKdebluetooth4xx
+Exec=kbluetooth4
+Icon=kbluetooth4
+Type=Application
+Terminal=false
+Categories=Qt;KDE;Network;FileTransfer;
+Comment=Kdebluetooth - KDE4 Bluetooth Framework
+Comment[el]=Kdebluetooth - Σύστημα Bluetooth του KDE4
+Comment[et]=Kdebluetooth - KDE4 Bluetoothi raamistik
+Comment[fr]=Kdebluetooth - Composant Bluetooth de KDE4
+Comment[gl]=Kdebluetooth, un framework Bluetooth para KDE4
+Comment[km]=Kdebluetooth - គ្រោងការ​ងារ​ប្ល៊ូធូស​របស់ KDE4
+Comment[nds]=Kdebluetooth - Bluetoothrahmenwark för KDE4
+Comment[pa]=ਕੇਡੀਈ-ਬਲਿਊਟੁੱਥ - KDE4 ਬਲਿਊਟੁੱਥ ਫਰੇਮਵਰਕ
+Comment[pt]=Kdebluetooth - Plataforma de Bluetooth para o KDE4
+Comment[pt_BR]=Kdebluetooth - Plataforma de Bluetooth para o KDE4
+Comment[sv]=Kdebluetooth - KDE4:s Blåtandsramverk
+Comment[uk]=Kdebluetooth — оболонка Bluetooth для KDE4
+Comment[x-test]=xxKdebluetooth - KDE4 Bluetooth Frameworkxx
+X-DBUS-StartupType=Unique
+X-KDE-StartupNotify=false

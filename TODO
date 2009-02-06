@@ -1,0 +1,7 @@
+Post V0.3 TODO's:
+-----------------
+
+- kioslave obex module (browse remote filesystem) - gpothier is already working on that
+- pairing support for audio devices (for Device Manager and Wizard)
+- integrate KBlueLock again (dependent from proper working Bluez DeviceDisappeared Signal)
+-...
