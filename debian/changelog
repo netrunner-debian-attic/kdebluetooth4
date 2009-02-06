@@ -1,0 +1,6 @@
+kdebluetooth4 (0.3-1) unstable; urgency=low
+
+  * Initial release of kde4 version.
+
+ -- Michael Meskes <meskes@debian.org>  Fri, 06 Feb 2009 13:00:42 +0100
+
