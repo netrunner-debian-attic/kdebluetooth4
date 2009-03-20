@@ -1,4 +1,4 @@
-Source: kdebluetooth4
+Source: kdebluetooth
 Section: net
 Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
@@ -11,14 +11,11 @@ Homepage: http://sourceforge.net/projects/kde-bluetooth/
 Vcs-Git: git://git.debian.org/pkg-kde/kde-extras/kdebluetooth4.git
 Vcs-Browser: http://git.debian.org/?p=pkg-kde/kde-extras/kdebluetooth4.git
 
-Package: kdebluetooth4
+Package: kdebluetooth
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
  bluetooth, obex-data-server, python-qt4-dbus, python-qt4
 Suggests: python
-Conflicts: kdebluetooth
-Replaces: kdebluetooth
-Provides: kdebluetooth
 Description: KDE Bluetooth Framework
  The KDE Bluetooth Framework is a set of tools built on top of Linux' Bluetooth
  stack BlueZ. It provides easy access to the most common Bluetooth profiles and
