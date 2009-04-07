@@ -1,0 +1,18 @@
+#
+# Ubuntu: https://bugs.launchpad.net/bugs/334136
+# Upstream: https://bugs.kde.org/show_bug.cgi?id=172217
+# Description: save received files to $HOME and not $HOME/.kbluetooth4
+#
+Index: kdebluetooth-0.3/src/trayicon.cpp
+===================================================================
+--- kdebluetooth-0.3.orig/src/trayicon.cpp	2009-03-28 13:55:57.000000000 +0100
++++ kdebluetooth-0.3/src/trayicon.cpp	2009-03-28 14:01:40.000000000 +0100
+@@ -643,7 +643,7 @@
+ 
+ void KBlueTray::slotServerReady() {
+ 	if(!server->isStarted())
+-		server->start(QDir::homePath()+"/.kbluetooth4", true, false);
++		server->start(QDir::homePath(), true, false);
+ }
+ 
+ void KBlueTray::slotServerErrorOccured(const QString& error_name, const QString& error_message) {

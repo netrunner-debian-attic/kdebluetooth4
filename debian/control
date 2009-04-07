@@ -3,15 +3,15 @@ Section: kde
 Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Michael Meskes <meskes@debian.org>, Achim Bohnet <ach@mpe.mpg.de>, Mark Purcell <msp@debian.org>, Fathi Boudra <fabo@debian.org>
-Build-Depends: cdbs, debhelper (>= 5.0.0), automake, kdelibs5-dev, libdbus-qt-1-dev, libobexftp-dev
-Standards-Version: 3.8.q
+Build-Depends: cdbs, debhelper (>= 5.0.0), kdelibs5-dev, kdebase-workspace-dev, quilt, cmake
+Standards-Version: 3.8.1
 Homepage: http://sourceforge.net/projects/kde-bluetooth/
 Vcs-Git: git://git.debian.org/pkg-kde/kde-extras/kdebluetooth4.git
 Vcs-Browser: http://git.debian.org/?p=pkg-kde/kde-extras/kdebluetooth4.git
 
 Package: kdebluetooth4
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, bluez-utils (>= 3.13), python-qt4-dbus, python-qt4
+Depends: ${shlibs:Depends}, ${misc:Depends}, bluez-utils (>= 3.13), python-qt4-dbus, python-qt4, obex-data-server
 Suggests: python
 Conflicts: kdebluetooth
 Replaces: kdebluetooth
