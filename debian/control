@@ -3,8 +3,8 @@ Section: kde
 Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Michael Meskes <meskes@debian.org>, Achim Bohnet <ach@mpe.mpg.de>, Mark Purcell <msp@debian.org>, Fathi Boudra <fabo@debian.org>
-Build-Depends: cdbs, debhelper (>= 5.0.0), automake, kdelibs4-dev, kdepim-dev, libdbus-qt-1-dev, libobexftp-dev
-Standards-Version: 3.8.0
+Build-Depends: cdbs, debhelper (>= 5.0.0), automake, kdelibs5-dev, libdbus-qt-1-dev, libobexftp-dev
+Standards-Version: 3.8.q
 Homepage: http://sourceforge.net/projects/kde-bluetooth/
 Vcs-Git: git://git.debian.org/pkg-kde/kde-extras/kdebluetooth4.git
 Vcs-Browser: http://git.debian.org/?p=pkg-kde/kde-extras/kdebluetooth4.git
