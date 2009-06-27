@@ -1,11 +1,21 @@
 #!/usr/bin/make -f
 
+include /usr/share/pkg-kde-tools/makefiles/1/cdbs/kde.mk
 include /usr/share/cdbs/1/rules/debhelper.mk
+<<<<<<< HEAD:debian/rules
 include /usr/share/cdbs/1/class/cmake.mk
+=======
+include /usr/share/cdbs/1/rules/utils.mk
+>>>>>>> e997adc07c2ece34da89914d9692525ba3cf4ef0:debian/rules
 
-DEB_DH_INSTALL_ARGS = --sourcedir=debian/tmp
-
-install/kdebluetooth4::
+install/kdebluetooth::
 	dh_installdirs usr/share/autostart usr/bin
+<<<<<<< HEAD:debian/rules
 	install -m755 debian/kblueplugd debian/kdebluetooth/usr/bin/
 	install -m644 debian/kblueplugd.desktop debian/kdebluetooth/usr/share/autostart/
+=======
+	install -m 0755 debian/kblueplugd
+		 $(CURDIR)/debian/kdebluetooth/usr/bin/
+	install -m 0644 debian/kblueplugd.desktop
+		 $(CURDIR)/debian/kdebluetooth/usr/share/autostart/
+>>>>>>> e997adc07c2ece34da89914d9692525ba3cf4ef0:debian/rules
