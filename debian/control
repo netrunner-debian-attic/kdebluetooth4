@@ -5,8 +5,8 @@ Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Michael Meskes <meskes@debian.org>, Achim Bohnet <ach@mpe.mpg.de>,
  Mark Purcell <msp@debian.org>, Fathi Boudra <fabo@debian.org>
 Build-Depends: cdbs, debhelper (>= 7), cmake, pkg-kde-tools,
- kdelibs5-dev (>= 4:4.2.0), kdebase-workspace-dev (>= 4:4.2.0)
-Standards-Version: 3.8.1
+ kdelibs5-dev (>= 4:4.2.0), kdebase-workspace-dev (>= 4:4.2.0), quilt
+Standards-Version: 3.8.2
 Homepage: http://sourceforge.net/projects/kde-bluetooth/
 Vcs-Git: git://git.debian.org/pkg-kde/kde-extras/kdebluetooth4.git
 Vcs-Browser: http://git.debian.org/?p=pkg-kde/kde-extras/kdebluetooth4.git
