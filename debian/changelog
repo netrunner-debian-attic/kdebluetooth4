@@ -1,6 +1,6 @@
 kdebluetooth4 (0.3-1) experimental; urgency=low
 
-  * Initial release of kde4 version.
+  * Initial release of kde4 version, closes: #504109
   * Merged in some changes from Ubuntu.
   * Made package replace old kdebluetooth package.
 
