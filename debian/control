@@ -16,6 +16,9 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
  bluetooth, obex-data-server, python-qt4-dbus, python-qt4
 Suggests: python
+Replaces: kdebluetooth
+Provides: kdebluetooth
+Conflicts: kdebluetooth
 Description: KDE Bluetooth Framework
  The KDE Bluetooth Framework is a set of tools built on top of Linux' Bluetooth
  stack BlueZ. It provides easy access to the most common Bluetooth profiles and

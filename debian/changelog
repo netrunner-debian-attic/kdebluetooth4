@@ -1,6 +1,7 @@
-kdebluetooth4 (0.3-1) unstable; urgency=low
+kdebluetooth4 (0.3-1) experimental; urgency=low
 
   * Initial release of kde4 version.
   * Merged in some changes from Ubuntu.
+  * Made package replace old kdebluetooth package.
 
- -- Michael Meskes <meskes@debian.org>  Mon, 13 Jul 2009 14:53:33 +0200
+ -- Michael Meskes <meskes@debian.org>  Sat, 18 Jul 2009 12:57:59 +0200
