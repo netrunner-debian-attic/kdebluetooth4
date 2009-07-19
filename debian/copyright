@@ -1,61 +1,65 @@
-This package was debianized by Michael Meskes <meskes@debian.org>
-on Fri, 06 Feb 2009 13:01:34 +0100
+This package was debianized by:
 
-It was downloaded from http://sourceforge.net/projects/kde-bluetooth/
+    Michael Meskes <meskes@debian.org> on Fri, 06 Feb 2009 13:01:34 +0100
+
+It was downloaded from:
+
+    http://sourceforge.net/projects/kde-bluetooth/
 
 Upstream Authors:
-	Mattia Merzi <merzi@itc.it>
-		khciconfig
-		kbluelock
-	
-	Fred Schaettgen <kdebluetooth@schaettgen.de>
-		kbluetoothd
-		kbtobexsrv
-		kio_sdp
-		kio_bluetooth
-		kbtserialchat
-		khandsfree
-		kbemusedsrv
-		likbluetooth
-		kioclient
-		kbtsearch
-	
-	Simone Gotti <simone.gotti@email.it>
-		kbtobexclient
-		IrMCSync Konnector
-		libkobex
-		Service Discovery
-		Autotools Scripts
-	
-	Alex Ibrado <alex@kdex.org>
-		kbemusedsrv
-	
-	Mathias Froehlich <Mathias.Froehlich@web.de>
-		libqobex
-		kio_obex
-	
-	Daniel Gollub <dgollub@suse.de>
-		BlueZ D-Bus API rewrite
-	
-	Tom Patzig <tpatzig@suse.de>
-		kbluemon
-		kbluelock (rewrite)
-		kinputwizard
 
-Copyright holders:
-	Copyright 2003 by Simone Gotti <simone.gotti@email.it>
-	Copyright 2003 Sebastian Trueg <trueg@k3b.org>
-	Copyright 1998-2003 Sebastian Trueg <trueg@k3b.org>
-	Copyright 2007 Tom Patzig <tpatzig@suse.de>
-	Copyright 2007 Novell, Inc
-	Copyright 2006 Daniel Gollub <dgollub@suse.de>
-	Copyright 2004 Fred Schaettgen <kdebluetooth@schaettgen.de>
-	Copyright 2006 Marcin Przylucki <marcin.przylucki@kdemail.net>
-	Copyright 2006 Kevin Ottens <ervin ipsquad net>
-	Copyright 2006 Marco Gulino <marco@kmobiletools.org>
+    Mattia Merzi <merzi@itc.it>
+        khciconfig
+        kbluelock
+
+    Fred Schaettgen <kdebluetooth@schaettgen.de>
+        kbluetoothd
+        kbtobexsrv
+        kio_sdp
+        kio_bluetooth
+        kbtserialchat
+        khandsfree
+        kbemusedsrv
+        likbluetooth
+        kioclient
+        kbtsearch
+
+    Simone Gotti <simone.gotti@email.it>
+        kbtobexclient
+        IrMCSync Konnector
+        libkobex
+        Service Discovery
+        Autotools Scripts
+
+    Alex Ibrado <alex@kdex.org>
+        kbemusedsrv
+
+    Mathias Froehlich <Mathias.Froehlich@web.de>
+        libqobex
+        kio_obex
+
+    Daniel Gollub <dgollub@suse.de>
+        BlueZ D-Bus API rewrite
+
+    Tom Patzig <tpatzig@suse.de>
+        kbluemon
+        kbluelock (rewrite)
+        kinputwizard
+
+Copyright:
+
+    Copyright 2003 by Simone Gotti <simone.gotti@email.it>
+    Copyright 2003 Sebastian Trueg <trueg@k3b.org>
+    Copyright 1998-2003 Sebastian Trueg <trueg@k3b.org>
+    Copyright 2007 Tom Patzig <tpatzig@suse.de>
+    Copyright 2007 Novell, Inc
+    Copyright 2006 Daniel Gollub <dgollub@suse.de>
+    Copyright 2004 Fred Schaettgen <kdebluetooth@schaettgen.de>
+    Copyright 2006 Marcin Przylucki <marcin.przylucki@kdemail.net>
+    Copyright 2006 Kevin Ottens <ervin ipsquad net>
+    Copyright 2006 Marco Gulino <marco@kmobiletools.org>
 
 License:
-All the software:
 
     This package is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -71,5 +75,12 @@ All the software:
     along with this package; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-On Debian systems, the complete text of the GNU General
-Public License can be found in `/usr/share/common-licenses/GPL'.
+On Debian systems, the complete text of the GNU General Public License
+version 2 or later can be found in `/usr/share/common-licenses/GPL-2'
+and `/usr/share/common-licenses/GPL-3'.
+
+The Debian packaging is:
+
+    Copyright (C) 2005-2009, Michael Meskes <meskes@debian.org>
+
+and is licensed under the GPL-2 or any later version, see above.
