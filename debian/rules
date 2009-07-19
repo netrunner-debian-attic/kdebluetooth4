@@ -6,7 +6,7 @@ include /usr/share/cdbs/1/rules/utils.mk
 
 install/kdebluetooth::
 	dh_installdirs usr/share/autostart usr/bin
-	install -m 0755 debian/kblueplugd
+	install -m 0755 debian/kblueplugd \
 		 $(CURDIR)/debian/kdebluetooth/usr/bin/
-	install -m 0644 debian/kblueplugd.desktop
+	install -m 0644 debian/kblueplugd.desktop \
 		 $(CURDIR)/debian/kdebluetooth/usr/share/autostart/
