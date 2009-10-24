@@ -16,11 +16,11 @@ kde4_add_ui_files(deviceman_SRCS
                         deviceman.ui
 )
 
-kde4_add_executable(kbluetooth4-devicemanager ${deviceman_SRCS})
+kde4_add_executable(kbluetooth-devicemanager ${deviceman_SRCS})
 
-target_link_libraries(kbluetooth4-devicemanager
+target_link_libraries(kbluetooth-devicemanager
                       ${KDE4_KIO_LIBRARY} ${KDE4_KDEUI_LIBS} ${KDE4_SOLID_LIBS} solidcontrol)
  
-install(TARGETS kbluetooth4-devicemanager
+install(TARGETS kbluetooth-devicemanager
         DESTINATION ${KDE4_BIN_INSTALL_DIR})
 

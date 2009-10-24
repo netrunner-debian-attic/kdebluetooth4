@@ -1,36 +1,31 @@
-/*
- *
- *  KBluetooth4 - KDE Bluetooth Framework
- *
- *  Copyright (C) 2008  Tom Patzig <tpatzig@suse.de>
- *
- *  This file is part of kbluetooth4.
- *
- *  kbluetooth4 is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  kbluetooth4 is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with kbluetooth4; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- *
-*/
+/***************************************************************************
+ *   Copyright (C) 2008  Tom Patzig <tpatzig@suse.de>                      *
+ *   Copyright (C) 2008  Alex Fiestas <alex@eyeos.org>                     *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA            *
+ ***************************************************************************/
 
+#include "adapterconfig.h"
 
 #include <KDebug>
-#include "adapterconfig.h"
 
 AdapterConfig::AdapterConfig(QObject* parent) : Ui_AdapterUi(),btmanager(Solid::Control::BluetoothManager::self())
 {
 	m_parent = parent;
 	setupUi(this);
-	setWindowIcon(KIcon("kbluetooth4"));
+	setWindowIcon(KIcon("kbluetooth"));
 	adapterTabWidget->clear();
 	closePushButton->setIcon(KIcon("dialog-ok"));
 	connect(closePushButton,SIGNAL(clicked()),this, SLOT(slotQuit()));	
@@ -41,7 +36,6 @@ AdapterConfig::AdapterConfig(QObject* parent) : Ui_AdapterUi(),btmanager(Solid::
 	adapterMap = new QMap<QString,AdapterWidget*>();
 
 	initialize();
-	
 }
 
 AdapterConfig::~AdapterConfig()
@@ -59,7 +53,7 @@ void AdapterConfig::initialize()
 void AdapterConfig::searchAdapters()
 {
 	Solid::Control::BluetoothInterfaceList adapters = btmanager.bluetoothInterfaces();	
-	foreach (Solid::Control::BluetoothInterface dev,adapters) {
+	foreach (const Solid::Control::BluetoothInterface &dev,adapters) {
 
 		if(adapterMap->find(dev.ubi()) == adapterMap->end()) {
 
@@ -79,13 +73,13 @@ void AdapterConfig::searchAdapters()
 
 void AdapterConfig::setAdapterWidgetProperties(AdapterWidget* tab,Solid::Control::BluetoothInterface dev)
 {
-		tab->setMac(dev.address());
+	tab->setMac(dev.address());
 //bluez4//		tab->setVersion(dev.version());
 //bluez4//		tab->setDetails(dev.revision(),dev.manufacturer());
 
-		tab->setName(dev.name());
-		tab->setDiscoverable(dev.isDiscoverable());
-		tab->setDiscoverableTimeout(dev.discoverableTimeout());
+	tab->setName(dev.name());
+	tab->setDiscoverable(dev.isDiscoverable());
+	tab->setDiscoverableTimeout(dev.discoverableTimeout());
 //bluez4//		tab->setMinorClass(dev.minorClass());
 }
 
@@ -118,6 +112,8 @@ void AdapterConfig::adapterRemoved(const QString& ubi)
 
 void AdapterConfig::slotQuit()
 {
+	emit adapterConfigClosed();
+	kDebug() << "ConfigClosed";
 	close();
 }
 

@@ -1,41 +1,37 @@
-/*
- *
- *  KBluetooth4 - KDE Bluetooth Framework
- *
- *  Copyright (C) 2008  Tom Patzig <tpatzig@suse.de>
- *
- *  This file is part of kbluetooth4.
- *
- *  kbluetooth4 is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  kbluetooth4 is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with kbluetooth4; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- *
-*/
-
-#include <QtDBus>
-#include <QtGui>
-
-#include <QObject>
+/***************************************************************************
+ *   Copyright (C) 2008  Tom Patzig <tpatzig@suse.de>                      *
+ *   Copyright (C) 2008  Alex Fiestas <alex@eyeos.org>                     *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA            *
+ ***************************************************************************/
 
 #ifndef OBEXSERVERSESSION_H
 #define OBEXSERVERSESSION_H
 
+#include "obexserversessionfiletransfer.h"
+#include <QtDBus>
+#include <QObject>
+
+class ObexServer;
+class KJob;
 class ObexServerSession : public QObject
 {
 Q_OBJECT
 
 public:
-	ObexServerSession(QObject* ,const QString&);
+	ObexServerSession(QObject*, ObexServer*, const QString&);
 	~ObexServerSession();
 
 	void accept();
@@ -44,36 +40,31 @@ public:
 	QMap<QString,QVariant> getTransferInfo();
 	void cancel();
 
+	QString path();
+	ObexServer* server();
 
 private:
-        QObject* m_parent;
+	QObject* m_parent;
 	QDBusInterface* manager;
 	QDBusInterface* session;
+	ObexServer* m_obexServer;
 
-	QString sessionPath;	
-	QString sessionIface;
 	QString obexService;
+	QString m_path;
+	ObexServerSessionFileTransfer *fileTransfer;
 
-public slots:
-
+private slots:
 	void slotCancelled();
 	void slotDisconnected();
 	void slotTransferStarted(const QString& filename, const QString& local_path, qulonglong total_bytes);
-	void slotTransferProgress(qulonglong bytes_transferred);
-	void slotTransferCompleted();
 	void slotErrorOccurred(const QString& error_name, const QString& error_message);
 
 
 signals:
-
 	void cancelled();
 	void disconnected();
-	void transferStarted(const QString&, const QString&, qulonglong);
-	void transferProgress(qulonglong);
-	void transferCompleted();
+	void transferStarted(KJob*);
 	void errorOccurred(const QString&, const QString&);
-	
-
 };
 
 #endif

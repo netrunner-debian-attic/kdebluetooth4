@@ -1,29 +1,24 @@
-/*
- *
- *  KBluetooth4 - KDE Bluetooth Framework
- *
- *  Copyright (C) 2008  Tom Patzig <tpatzig@suse.de>
- *
- *  This file is part of kbluetooth4.
- *
- *  kbluetooth4 is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  kbluetooth4 is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with kbluetooth4; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- *
-*/
+/***************************************************************************
+ *   Copyright (C) 2008  Tom Patzig <tpatzig@suse.de>                      *
+ *   Copyright (C) 2008  Alex Fiestas <alex@eyeos.org>                     *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA            *
+ ***************************************************************************/
 
-#include <KDebug>
 #include "adapterconfig.h"
+#include <KDebug>
 
 AdapterWidget::AdapterWidget(QString ubi, QWidget* parent) : Ui_AdapterWidget(),m_ubi(ubi)
 {
@@ -39,15 +34,12 @@ AdapterWidget::AdapterWidget(QString ubi, QWidget* parent) : Ui_AdapterWidget(),
 	connect(timeoutHorizontalSlider,SIGNAL(sliderMoved(int)),this,SLOT(slotSliderMoved(int)));
 	connect(nameLineEdit,SIGNAL(editingFinished()),this,SLOT(slotNameChanged()));
 
-
-	connect(iface,SIGNAL(discoverableTimeoutChanged(int)),this,SLOT(setDiscoverableTimeout(int)));
-	connect(iface,SIGNAL(nameChanged(const QString&)),this,SLOT(setName(QString)));
-
+	//connect(iface,SIGNAL(discoverableTimeoutChanged(int)),this,SLOT(setDiscoverableTimeout(int)));
+	//connect(iface,SIGNAL(nameChanged(const QString&)),this,SLOT(setName(QString)));
 }
 
 AdapterWidget::~AdapterWidget()
 {
-
 }
 
 void AdapterWidget::setMac(QString mac)
@@ -80,12 +72,10 @@ QString AdapterWidget::getName()
 
 void AdapterWidget::setDiscoverable(bool mode)
 {
-        if (mode)
-	    modeComboBox->setCurrentIndex(1);
-        else
-	    modeComboBox->setCurrentIndex(0);
-	
-	
+	if (mode)
+		modeComboBox->setCurrentIndex(1);
+	else
+		modeComboBox->setCurrentIndex(0);
 }
 
 QString AdapterWidget::getMode()
@@ -103,7 +93,6 @@ void AdapterWidget::setDiscoverableTimeout(int timeout)
 		timeoutLabel->setText("none");
 	else
 		timeoutLabel->setText(QString::number(timeout/60) + "min");
-	
 }
 
 int AdapterWidget::getDiscoverableTimeout()
@@ -113,7 +102,7 @@ int AdapterWidget::getDiscoverableTimeout()
 
 void AdapterWidget::slotModeChanged(const QString& mode)
 {
-        bool discoverable = false;
+	bool discoverable = false;
 	if (mode == "discoverable") {
 		timeoutHorizontalSlider->setEnabled(true);
 		timeoutLabel->setEnabled(true);
@@ -141,8 +130,6 @@ void AdapterWidget::slotSliderMoved(int val)
 		iface->setDiscoverableTimeout(0);
 	else
 		iface->setDiscoverableTimeout(val);
-		
-	
 }
 
 void AdapterWidget::setDetails(QString rev, QString manu)
@@ -151,7 +138,6 @@ void AdapterWidget::setDetails(QString rev, QString manu)
 			"\n<b>Version: </b>" + m_version + \
 			"\n<b>Revision: </b>" + rev + \
 			"\n<b>Manufactor: </b>" + manu);
-	
 	infoGroupBox->setToolTip(msg);
 }
 /*
@@ -169,6 +155,5 @@ void AdapterWidget::slotNameChanged()
 	m_name = nameLineEdit->text();
 	emit nameFieldChanged(this,m_name);
 }
-
 
 #include "moc_adapterwidget.cpp"

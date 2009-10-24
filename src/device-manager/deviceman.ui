@@ -1,52 +1,45 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>DeviceManager</class>
- <widget class="QMainWindow" name="DeviceManager" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="DeviceManager">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>687</width>
-    <height>330</height>
+    <height>307</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Bluetooth Device Manager</string>
   </property>
-  <widget class="QWidget" name="centralwidget" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>28</y>
-     <width>687</width>
-     <height>277</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout" >
-    <item row="0" column="0" >
-     <widget class="QSplitter" name="splitter" >
-      <property name="orientation" >
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
-      <widget class="QListWidget" name="deviceListWidget" />
-      <widget class="QWidget" name="layoutWidget" >
-       <layout class="QVBoxLayout" name="verticalLayout_2" >
+      <widget class="QListWidget" name="deviceListWidget"/>
+      <widget class="QWidget" name="layoutWidget">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout" >
+         <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4" >
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QLabel" name="label" >
-              <property name="text" >
+             <widget class="QLabel" name="label">
+              <property name="text">
                <string>Address:</string>
               </property>
              </widget>
             </item>
             <item>
-             <spacer name="horizontalSpacer_7" >
-              <property name="orientation" >
+             <spacer name="horizontalSpacer_7">
+              <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
-              <property name="sizeHint" stdset="0" >
+              <property name="sizeHint" stdset="0">
                <size>
                 <width>40</width>
                 <height>20</height>
@@ -55,8 +48,8 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="addressLabel" >
-              <property name="text" >
+             <widget class="QLabel" name="addressLabel">
+              <property name="text">
                <string/>
               </property>
              </widget>
@@ -64,20 +57,20 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3" >
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="QLabel" name="label_2" >
-              <property name="text" >
+             <widget class="QLabel" name="label_2">
+              <property name="text">
                <string>Type:</string>
               </property>
              </widget>
             </item>
             <item>
-             <spacer name="horizontalSpacer_4" >
-              <property name="orientation" >
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
-              <property name="sizeHint" stdset="0" >
+              <property name="sizeHint" stdset="0">
                <size>
                 <width>40</width>
                 <height>20</height>
@@ -86,8 +79,8 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="typeLabel" >
-              <property name="text" >
+             <widget class="QLabel" name="typeLabel">
+              <property name="text">
                <string/>
               </property>
              </widget>
@@ -95,20 +88,20 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2" >
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-             <widget class="QLabel" name="label_3" >
-              <property name="text" >
+             <widget class="QLabel" name="label_3">
+              <property name="text">
                <string>Trust:</string>
               </property>
              </widget>
             </item>
             <item>
-             <spacer name="horizontalSpacer_5" >
-              <property name="orientation" >
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
-              <property name="sizeHint" stdset="0" >
+              <property name="sizeHint" stdset="0">
                <size>
                 <width>40</width>
                 <height>20</height>
@@ -117,8 +110,8 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="trustLabel" >
-              <property name="text" >
+             <widget class="QLabel" name="trustLabel">
+              <property name="text">
                <string/>
               </property>
              </widget>
@@ -126,20 +119,20 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout" >
+           <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
-             <widget class="QLabel" name="label_4" >
-              <property name="text" >
+             <widget class="QLabel" name="label_4">
+              <property name="text">
                <string>Status:</string>
               </property>
              </widget>
             </item>
             <item>
-             <spacer name="horizontalSpacer_6" >
-              <property name="orientation" >
+             <spacer name="horizontalSpacer_6">
+              <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
-              <property name="sizeHint" stdset="0" >
+              <property name="sizeHint" stdset="0">
                <size>
                 <width>40</width>
                 <height>20</height>
@@ -148,8 +141,8 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="statusLabel" >
-              <property name="text" >
+             <widget class="QLabel" name="statusLabel">
+              <property name="text">
                <string/>
               </property>
              </widget>
@@ -159,11 +152,11 @@
          </layout>
         </item>
         <item>
-         <spacer name="verticalSpacer" >
-          <property name="orientation" >
+         <spacer name="verticalSpacer">
+          <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
-          <property name="sizeHint" stdset="0" >
+          <property name="sizeHint" stdset="0">
            <size>
             <width>17</width>
             <height>55</height>
@@ -172,13 +165,13 @@
          </spacer>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_5" >
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
-           <spacer name="horizontalSpacer" >
-            <property name="orientation" >
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
-            <property name="sizeHint" stdset="0" >
+            <property name="sizeHint" stdset="0">
              <size>
               <width>40</width>
               <height>20</height>
@@ -187,18 +180,18 @@
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="iconLabel" >
-            <property name="text" >
+           <widget class="QLabel" name="iconLabel">
+            <property name="text">
              <string/>
             </property>
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_2" >
-            <property name="orientation" >
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
-            <property name="sizeHint" stdset="0" >
+            <property name="sizeHint" stdset="0">
              <size>
               <width>40</width>
               <height>20</height>
@@ -212,28 +205,42 @@
       </widget>
      </widget>
     </item>
-    <item row="1" column="0" >
-     <layout class="QHBoxLayout" name="horizontalLayout_6" >
+    <item row="1" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
       <item>
-       <widget class="QPushButton" name="newDevButton" >
-        <property name="text" >
+       <widget class="QPushButton" name="newDevButton">
+        <property name="text">
          <string>New...</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="removeButton" >
-        <property name="text" >
+       <widget class="QPushButton" name="removeButton">
+        <property name="text">
          <string>Remove</string>
         </property>
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_3" >
-        <property name="orientation" >
+       <widget class="QPushButton" name="connectButton">
+        <property name="text">
+         <string>Connect</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="setTrustButton">
+        <property name="text">
+         <string>Set Trusted</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeHint" stdset="0" >
+        <property name="sizeHint" stdset="0">
          <size>
           <width>258</width>
           <height>20</height>
@@ -242,8 +249,8 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="closeButton" >
-        <property name="text" >
+       <widget class="QPushButton" name="closeButton">
+        <property name="text">
          <string>Close</string>
         </property>
        </widget>
@@ -252,66 +259,34 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>687</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuEdit" >
-    <property name="title" >
-     <string>Tasks</string>
-    </property>
-    <addaction name="actionNew" />
-    <addaction name="separator" />
-    <addaction name="actionRemove" />
-    <addaction name="actionConnect" />
-    <addaction name="actionRemove_Trust" />
-    <addaction name="separator" />
-    <addaction name="actionQuit" />
-   </widget>
-   <addaction name="menuEdit" />
-  </widget>
-  <widget class="QStatusBar" name="statusbar" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>305</y>
-     <width>687</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
-  <action name="actionNew" >
-   <property name="text" >
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionNew">
+   <property name="text">
     <string>New...</string>
    </property>
   </action>
-  <action name="actionRemove" >
-   <property name="text" >
+  <action name="actionRemove">
+   <property name="text">
     <string>Remove</string>
    </property>
   </action>
-  <action name="actionConnect" >
-   <property name="text" >
+  <action name="actionConnect">
+   <property name="text">
     <string>Connect</string>
    </property>
   </action>
-  <action name="actionRemove_Trust" >
-   <property name="text" >
+  <action name="actionRemove_Trust">
+   <property name="text">
     <string>Remove Trust</string>
    </property>
   </action>
-  <action name="actionQuit" >
-   <property name="text" >
+  <action name="actionQuit">
+   <property name="text">
     <string>Quit</string>
    </property>
   </action>
-  <action name="actionPair" >
-   <property name="text" >
+  <action name="actionPair">
+   <property name="text">
     <string>Pair</string>
    </property>
   </action>
@@ -324,11 +299,11 @@
    <receiver>DeviceManager</receiver>
    <slot>close()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>659</x>
      <y>260</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>516</x>
      <y>273</y>
     </hint>
@@ -340,11 +315,11 @@
    <receiver>DeviceManager</receiver>
    <slot>close()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>319</x>
      <y>154</y>
     </hint>
