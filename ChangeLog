@@ -1,3 +1,30 @@
+Version 0.4
+=====================================
+ * Fix quite a lot dbus related crashes.
+ * The receive directory is now configurable with an interface.
+ * The receive dialog allows you to configure where the file will be saved.
+ * Add devices to a "white list" to auto accept files comming from these devices (uses KWallet so is secure).
+ * Send to allow to select more than one file to be send.
+ * Fix some issues while receiving more than one file in the same execution.
+ * Integration with nepomuk (this was done before, but not announced).
+ * Nepomuk is optional at build time.
+ * Compatible with kde 4.3/4.4
+ * i18n should be fixed now, let's go to translate!
+
+Version 0.3
+=====================================
+ * major Bluez4 port
+ * a lot of Bluez4/solid-bluetooth API changes compatibility fixes
+ * KBlueLock disabled (Bluez DeviceDisappeared Signal is not working)
+
+Version 0.2
+=====================================
+ * obex-data-server server wrapper 
+ * Receive Files (~/.kbluetooth4/kbluelock.log)
+ * Screen unlock support for KBlueLock
+ * Log Away times from KBlueLock (~/.kbluetooth4/kbluelock.log)
+ * InputWizard queries SDP database of remote device to get HID capabilities
+
 Version 0.1
 ======================================
 -initial version of kbluetooth4
@@ -9,17 +36,3 @@ Version 0.1
  * KBlueLock
  * obex-data-server session wrapper
  * Send File
-
-Version 0.2
-=====================================
- * obex-data-server server wrapper 
- * Receive Files (~/.kbluetooth4/kbluelock.log)
- * Screen unlock support for KBlueLock
- * Log Away times from KBlueLock (~/.kbluetooth4/kbluelock.log)
- * InputWizard queries SDP database of remote device to get HID capabilities
-
-Version 0.3
-=====================================
- * major Bluez4 port
- * a lot of Bluez4/solid-bluetooth API changes compatibility fixes
- * KBlueLock disabled (Bluez DeviceDisappeared Signal is not working)

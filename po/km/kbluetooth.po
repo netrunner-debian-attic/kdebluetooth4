@@ -1,0 +1,675 @@
+# translation of kbluetooth4.po to Khmer
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Khoem Sokhem <khoemsokhem@khmeros.info>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: kbluetooth4\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2009-09-30 07:22+0200\n"
+"PO-Revision-Date: 2009-06-04 08:54+0700\n"
+"Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
+"Language-Team: Khmer <support@khmeros.info>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: main.cpp:30 device-manager/main.cpp:29 inputwizard/main.cpp:30
+#, fuzzy
+#| msgid "Bluetooth Device Manager"
+msgid "Bluetooth management software"
+msgstr "កម្មវិធី​គ្រប់គ្រង​ឧបករណ៍​ប្ល៊ូធូស"
+
+#: main.cpp:37 device-manager/main.cpp:36 inputwizard/main.cpp:37
+#, fuzzy
+#| msgid "KBluetooth4"
+msgid "KBluetooth"
+msgstr "KBluetooth4"
+
+#: main.cpp:41 device-manager/main.cpp:40 inputwizard/main.cpp:41
+msgid "(c) 2008-2009, The KBluetooth Developers"
+msgstr ""
+
+#: main.cpp:43 device-manager/main.cpp:42 inputwizard/main.cpp:43
+msgid "Alex Fiestas"
+msgstr ""
+
+#: main.cpp:43 device-manager/main.cpp:42 inputwizard/main.cpp:43
+msgid "Maintainer"
+msgstr ""
+
+#: main.cpp:44 device-manager/main.cpp:43 inputwizard/main.cpp:44
+msgid "Tom Patzig"
+msgstr "Tom Patzig"
+
+#: main.cpp:44 device-manager/main.cpp:43 inputwizard/main.cpp:44
+msgid "Former Developer"
+msgstr ""
+
+#. i18n: file: adapterConf.ui:13
+#. i18n: ectx: property (windowTitle), widget (QMainWindow, AdapterUi)
+#: rc.cpp:3 rc.cpp:51
+msgid "Bluetooth Adapter"
+msgstr "អាដាប់ទ័រ Bluetooth"
+
+#. i18n: file: adapterConf.ui:40
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: rc.cpp:6 rc.cpp:54
+msgid "Tab 1"
+msgstr "ផ្ទាំង ១"
+
+#. i18n: file: adapterConf.ui:53
+#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
+#: rc.cpp:9 rc.cpp:57
+msgid "Tab 2"
+msgstr "ផ្ទាំង ២"
+
+#. i18n: file: adapterConf.ui:76
+#. i18n: ectx: property (text), widget (QPushButton, closePushButton)
+#. i18n: file: agent/passkeydialog.ui:111
+#. i18n: ectx: property (text), widget (QPushButton, okButton)
+#: rc.cpp:12 rc.cpp:60 rc.cpp:164
+msgid "OK"
+msgstr "យល់ព្រម"
+
+#. i18n: file: adapterWidget.ui:22
+#. i18n: ectx: property (title), widget (QGroupBox, infoGroupBox)
+#: rc.cpp:15 rc.cpp:63
+msgid "Information"
+msgstr "ព័ត៌មាន"
+
+#. i18n: file: adapterWidget.ui:37
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: rc.cpp:18 rc.cpp:66
+msgid "MAC Address: "
+msgstr "អាសយដ្ឋាន MAC ៖ "
+
+#. i18n: file: adapterWidget.ui:79
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: rc.cpp:22 rc.cpp:70 trayicon.cpp:184
+msgid "Settings"
+msgstr "ការ​កំណត់"
+
+#. i18n: file: adapterWidget.ui:94
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: rc.cpp:25 rc.cpp:73
+msgid "Adapter Name: "
+msgstr "ឈ្មោះ​អាដាប់ទ័រ ៖ "
+
+#. i18n: file: adapterWidget.ui:119
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: rc.cpp:28 rc.cpp:76 agent/confirmdialog.cpp:50
+msgid "Mode: "
+msgstr "របៀប ៖"
+
+#. i18n: file: adapterWidget.ui:132
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: rc.cpp:31 rc.cpp:79
+msgid "hidden"
+msgstr "បាន​លាក់"
+
+#. i18n: file: adapterWidget.ui:137
+#. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
+#: rc.cpp:34 rc.cpp:82
+msgid "discoverable"
+msgstr "មិន​អាច​រក​ឃើញ"
+
+#. i18n: file: adapterWidget.ui:154
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: rc.cpp:37 rc.cpp:85
+msgid "Discoverable Timeout:"
+msgstr "អស់ពេល​មិនអាច​រកឃើញ​ទេ ៖"
+
+#. i18n: file: adapterWidget.ui:179
+#. i18n: ectx: property (text), widget (QLabel, timeoutLabel)
+#: rc.cpp:40 rc.cpp:88
+msgid "none"
+msgstr "គ្មាន"
+
+#. i18n: file: receiveDialogWidget.ui:26
+#. i18n: ectx: property (text), widget (QLabel, saveToLbl)
+#: rc.cpp:43 rc.cpp:91
+msgid "Save file to:"
+msgstr ""
+
+#. i18n: file: receiveDialogWidget.ui:46
+#. i18n: ectx: property (text), widget (QCheckBox, saveCheck)
+#: rc.cpp:46 rc.cpp:94
+msgid "Accept all files from this device"
+msgstr ""
+
+#: rc.cpp:47
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "ខឹម សុខែម,​អេង វណ្ណៈ, អោក ពិសិដ្ឋ​"
+
+#: rc.cpp:48
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "khoemsokhem@khmeros.info,vannak@khmeros.info,piseth_dv@khmeros.info"
+
+#. i18n: file: agent/authdialog.ui:19
+#. i18n: ectx: property (windowTitle), widget (QDialog, AuthDialog)
+#. i18n: file: agent/confirmdialog.ui:19
+#. i18n: ectx: property (windowTitle), widget (QDialog, ConfirmDialog)
+#. i18n: file: agent/passkeydialog.ui:13
+#. i18n: ectx: property (windowTitle), widget (QDialog, PasskeyDialog)
+#: rc.cpp:97 rc.cpp:125 rc.cpp:146
+msgid "Dialog"
+msgstr "ប្រអប់"
+
+#. i18n: file: agent/authdialog.ui:31
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: rc.cpp:100
+msgid ""
+"The following Bluetooth device attempts to use local Bluetooth services."
+msgstr "ឧបករណ៍​ប្ល៊ូធូស​ដូច​ខាង​ក្រោម ប៉ុនប៉ង​ប្រើ​សេវា​ប្ល៊ូធូស​មូលដ្ឋាន ។"
+
+#. i18n: file: agent/authdialog.ui:53
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: file: agent/confirmdialog.ui:53
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: file: agent/passkeydialog.ui:41
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: rc.cpp:103 rc.cpp:129 rc.cpp:152
+msgid "Name: "
+msgstr "ឈ្មោះ ៖ "
+
+#. i18n: file: agent/authdialog.ui:77
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: file: agent/confirmdialog.ui:77
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: file: agent/passkeydialog.ui:65
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: rc.cpp:107 rc.cpp:133 rc.cpp:156
+msgid "Address: "
+msgstr "អាសយដ្ឋាន ៖ "
+
+#. i18n: file: agent/authdialog.ui:101
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: rc.cpp:111
+msgid "Service: "
+msgstr "សេវា ៖ "
+
+#. i18n: file: agent/authdialog.ui:133
+#. i18n: ectx: property (text), widget (QPushButton, allwTrustButton)
+#: rc.cpp:116
+msgid "Always Trust"
+msgstr "ទុកចិត្ត​ជា​និច្ច"
+
+#. i18n: file: agent/authdialog.ui:140
+#. i18n: ectx: property (text), widget (QPushButton, trustButton)
+#: rc.cpp:119
+msgid "Trust"
+msgstr "ទុកចិត្ត"
+
+#. i18n: file: agent/authdialog.ui:147
+#. i18n: ectx: property (text), widget (QPushButton, cancelButton)
+#. i18n: file: agent/passkeydialog.ui:118
+#. i18n: ectx: property (text), widget (QPushButton, cancelButton)
+#. i18n: file: deviceselector/deviceselector.ui:120
+#. i18n: ectx: property (text), widget (QPushButton, cancelButton)
+#: rc.cpp:122 rc.cpp:167 rc.cpp:195
+msgid "Cancel"
+msgstr "បោះបង់"
+
+#. i18n: file: agent/confirmdialog.ui:129
+#. i18n: ectx: property (text), widget (QPushButton, yesButton)
+#: rc.cpp:140
+msgid "Yes"
+msgstr "បាទ/ចាស"
+
+#. i18n: file: agent/confirmdialog.ui:136
+#. i18n: ectx: property (text), widget (QPushButton, noButton)
+#: rc.cpp:143
+msgid "No"
+msgstr "ទេ"
+
+#. i18n: file: agent/passkeydialog.ui:19
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: rc.cpp:149
+#, fuzzy
+#| msgid ""
+#| "In order to complete the Pairing to your Bluetooth device you have to "
+#| "chooce a PIN and re-enter that on your device."
+msgid ""
+"In order to complete the Pairing to your Bluetooth device you have to choose "
+"a PIN and re-enter that on your device."
+msgstr ""
+"ដើម្បី​បញ្ចប់​ការ​ផ្គូផ្គង​ឧបករណ៍​ប្ល៊ូធូស​របស់​អ្នក អ្នក​ត្រូវ​តែ​ជ្រើស ​PIN ហើយ​បញ្ចូល​ PIN នោះ​ម្ដង​ទៀត​នៅ​លើ​"
+"ឧបករណ៍​របស់​អ្នក ។"
+
+#. i18n: file: agent/passkeydialog.ui:97
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: rc.cpp:161
+msgid "PIN"
+msgstr "PIN"
+
+#. i18n: file: deviceselector/deviceselector.ui:13
+#. i18n: ectx: property (windowTitle), widget (QDialog, deviceSelector)
+#: rc.cpp:170 inputwizard/wizarddialog.cpp:100
+msgid "Select your Device"
+msgstr "ជ្រើស​ឧបករណ៍​របស់​អ្នក"
+
+#. i18n: file: deviceselector/deviceselector.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, extraCheckBox)
+#: rc.cpp:173
+msgid "Unlock Screen when device appears again"
+msgstr "ដោះសោ​អេក្រង់​ នៅពេល​ឧបករណ៍​បង្ហាញ​ម្ដង​ទៀត"
+
+#. i18n: file: deviceselector/deviceselector.ui:53
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: rc.cpp:176
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">If your Device is not in the List:</span></p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">ប្រសិនបើ​ឧបករណ៍​របស់​អ្នក​មិន​នៅ​ក្នុង​បញ្ជី ៖</span></p></body></html>"
+
+#. i18n: file: deviceselector/deviceselector.ui:60
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: rc.cpp:183 inputwizard/wizarddialog.cpp:109
+msgid "* Make sure bluetooth is enabled on the device"
+msgstr "* សូម​ប្រាកដ​ថា​ប៊្លូធូស​ត្រូវ​បានបើក​នៅ​លើ​ឧបករណ៍"
+
+#. i18n: file: deviceselector/deviceselector.ui:67
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: rc.cpp:186 inputwizard/wizarddialog.cpp:110
+msgid "* Make sure the device is in discoverable mode"
+msgstr "* សូម​ប្រាកដ​ថា​ឧបករណ៍​ស្ថិត​ក្នុង​របៀប​រក​មិនឃើញ"
+
+#. i18n: file: deviceselector/deviceselector.ui:74
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: rc.cpp:189 inputwizard/wizarddialog.cpp:111
+msgid "* Search again"
+msgstr "* ស្វែងរក​ម្ដង​ទៀត"
+
+#. i18n: file: deviceselector/deviceselector.ui:94
+#. i18n: ectx: property (text), widget (QPushButton, searchButton)
+#: rc.cpp:192 deviceselector/devicesel.cpp:91 deviceselector/devicesel.cpp:104
+#: inputwizard/wizarddialog.cpp:112 inputwizard/wizarddialog.cpp:229
+#: inputwizard/wizarddialog.cpp:245
+msgid "&Search"
+msgstr "ស្វែងរក"
+
+#. i18n: file: deviceselector/deviceselector.ui:127
+#. i18n: ectx: property (text), widget (QPushButton, sendButton)
+#: rc.cpp:198 trayicon.cpp:174
+msgid "Send"
+msgstr "ផ្ញើ"
+
+#. i18n: file: device-manager/deviceman.ui:13
+#. i18n: ectx: property (windowTitle), widget (QMainWindow, DeviceManager)
+#: rc.cpp:201
+msgid "Bluetooth Device Manager"
+msgstr "កម្មវិធី​គ្រប់គ្រង​ឧបករណ៍​ប្ល៊ូធូស"
+
+#. i18n: file: device-manager/deviceman.ui:40
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: rc.cpp:204
+msgid "Address:"
+msgstr "អាសយដ្ឋាន ៖"
+
+#. i18n: file: device-manager/deviceman.ui:71
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: rc.cpp:207
+msgid "Type:"
+msgstr "ប្រភេទ ៖"
+
+#. i18n: file: device-manager/deviceman.ui:102
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: rc.cpp:210
+msgid "Trust:"
+msgstr "ទុកចិត្ត ៖"
+
+#. i18n: file: device-manager/deviceman.ui:133
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: rc.cpp:213
+msgid "Status:"
+msgstr "ស្ថានភាព ៖"
+
+#. i18n: file: device-manager/deviceman.ui:220
+#. i18n: ectx: property (text), widget (QPushButton, newDevButton)
+#. i18n: file: device-manager/deviceman.ui:290
+#. i18n: ectx: property (text), widget (QStatusBar, statusbar)
+#: rc.cpp:216 rc.cpp:228
+msgid "New..."
+msgstr "ថ្មី..."
+
+#. i18n: file: device-manager/deviceman.ui:227
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#. i18n: file: device-manager/deviceman.ui:295
+#. i18n: ectx: property (text), widget (QStatusBar, statusbar)
+#: rc.cpp:219 rc.cpp:231
+msgid "Remove"
+msgstr "យកចេញ"
+
+#. i18n: file: device-manager/deviceman.ui:247
+#. i18n: ectx: property (text), widget (QPushButton, closeButton)
+#: rc.cpp:222
+msgid "Close"
+msgstr "បិទ"
+
+#. i18n: file: device-manager/deviceman.ui:266
+#. i18n: ectx: property (title), widget (QMenu, menuEdit)
+#: rc.cpp:225
+msgid "Tasks"
+msgstr "ភារកិច្ច"
+
+#. i18n: file: device-manager/deviceman.ui:300
+#. i18n: ectx: property (text), widget (QStatusBar, statusbar)
+#: rc.cpp:234 device-manager/devicemanager.cpp:162
+#: device-manager/devicemanager.cpp:187 device-manager/devicemanager.cpp:248
+msgid "Connect"
+msgstr "តភ្ជាប់"
+
+#. i18n: file: device-manager/deviceman.ui:305
+#. i18n: ectx: property (text), widget (QStatusBar, statusbar)
+#: rc.cpp:237 device-manager/devicemanager.cpp:168
+#: device-manager/devicemanager.cpp:255
+msgid "Remove Trust"
+msgstr "យក​ការ​ទុកចិត្ត​ចេញ"
+
+#. i18n: file: device-manager/deviceman.ui:310
+#. i18n: ectx: property (text), widget (QStatusBar, statusbar)
+#: rc.cpp:240
+msgid "Quit"
+msgstr "ចេញ"
+
+#. i18n: file: device-manager/deviceman.ui:315
+#. i18n: ectx: property (text), widget (QStatusBar, statusbar)
+#: rc.cpp:243
+msgid "Pair"
+msgstr "គូរ"
+
+#: trayicon.cpp:165
+msgid "KBlueLock"
+msgstr "KBlueLock"
+
+#: trayicon.cpp:167
+msgid "Enable"
+msgstr "បើក"
+
+#: trayicon.cpp:171
+msgid "Configure..."
+msgstr "កំណត់​រចនាសម្ព័ន្ធ..."
+
+#: trayicon.cpp:176
+msgid "File"
+msgstr "ឯកសារ"
+
+#: trayicon.cpp:179
+msgid "Clipboard Text"
+msgstr "អត្ថបទ​ក្ដារតម្បៀតខ្ទាស់"
+
+#: trayicon.cpp:181
+msgid "Device Manager"
+msgstr "កម្មវិធី​គ្រប់គ្រង​ឧបករណ៍"
+
+#: trayicon.cpp:186
+msgid "Received files"
+msgstr ""
+
+#: trayicon.cpp:187
+msgid "Bluetooth Adapters"
+msgstr "អាដាប់ទ័រ​ប្ល៊ូធូស"
+
+#: trayicon.cpp:188
+msgid "Obex server"
+msgstr "ម៉ាស៊ីន​បម្រើ Obex"
+
+#: trayicon.cpp:195
+msgid "About"
+msgstr "អំពី"
+
+#: trayicon.cpp:322
+msgid "No Bluetooth Adapter"
+msgstr "គ្មាន​អាដាប់ទ័រ​ប៊្លូធូស​ទេ"
+
+#: trayicon.cpp:425
+#, fuzzy
+#| msgid "Select"
+msgid "Select File"
+msgstr "ជ្រើស"
+
+#: trayicon.cpp:430 trayicon.cpp:455
+msgid "Selecting a device starts the file transfer."
+msgstr "ជ្រើស​​​ឧបករណ៍​ដែល​ចាប់ផ្ដើម​ផ្ទេរ​ឯកសារ ។"
+
+#: trayicon.cpp:516
+msgid "Select"
+msgstr "ជ្រើស"
+
+#: trayicon.cpp:517 trayicon.cpp:572
+msgid ""
+"Selecting a device enables KBlueLock (a balloon message will pop up from the "
+"tray when your target device is found and KBlueLock is ready).\n"
+"If the device disappears, your screen will be locked."
+msgstr ""
+"ជ្រើស​ឧបករណ៍​ដែល​បើក KBlueLock (សារ​ប៉ឺតប៉ោង​នឹង​លេច​ឡើង​ពី​ថាស​ នៅពេល​ឧបករណ៍​គោលដៅ​របស់​អ្នក​រកឃើញ "
+"ហើយ​ KBlueLock រួច​រាល់) ។\n"
+"ប្រសិន​បើ​ឧបករណ៍​មិន​បង្ហាញ អេក្រង់​របស់​អ្នកនឹង​ត្រូវ​បាន​ចាក់សោ ។"
+
+#: trayicon.cpp:611
+msgid "Received files directory:"
+msgstr ""
+
+#: trayicon.cpp:718
+msgid "Receive files over bluetooth ?"
+msgstr ""
+
+#: agent/confirmdialog.cpp:49
+#, fuzzy
+#| msgid "Bluetooth Adapter"
+msgid "Switch Bluetooth Adapter?"
+msgstr "អាដាប់ទ័រ Bluetooth"
+
+#: agent/confirmdialog.cpp:56
+msgid "Confirm passkey?"
+msgstr ""
+
+#: agent/confirmdialog.cpp:57
+msgid "PassKey: "
+msgstr ""
+
+#: deviceselector/devicesel.cpp:93
+#, fuzzy
+#| msgid "&Search"
+msgid "&Stop Searching"
+msgstr "ស្វែងរក"
+
+#: obexserver/obexserver.cpp:109
+msgid "Error creating Bluetooth Server"
+msgstr ""
+
+#: device-manager/devicemanager.cpp:158 device-manager/devicemanager.cpp:243
+#, fuzzy
+#| msgid "Connect"
+msgid "Connected"
+msgstr "តភ្ជាប់"
+
+#: device-manager/devicemanager.cpp:159 device-manager/devicemanager.cpp:244
+#, fuzzy
+#| msgid "Connect"
+msgid "Disconnect"
+msgstr "តភ្ជាប់"
+
+#: device-manager/devicemanager.cpp:161 device-manager/devicemanager.cpp:247
+#, fuzzy
+#| msgid "Connect"
+msgid "Not connected"
+msgstr "តភ្ជាប់"
+
+#: device-manager/devicemanager.cpp:167 device-manager/devicemanager.cpp:254
+msgid "Always trust"
+msgstr ""
+
+#: device-manager/devicemanager.cpp:170 device-manager/devicemanager.cpp:258
+msgid "Not trusted"
+msgstr ""
+
+#: device-manager/devicemanager.cpp:171 device-manager/devicemanager.cpp:259
+#, fuzzy
+#| msgid "Remove Trust"
+msgid "Set Trusted"
+msgstr "យក​ការ​ទុកចិត្ត​ចេញ"
+
+#: device-manager/devicemanager.cpp:245
+#, fuzzy, kde-format
+#| msgid "Connect"
+msgid "Connected to %1"
+msgstr "តភ្ជាប់"
+
+#: device-manager/devicemanager.cpp:249
+#, fuzzy, kde-format
+#| msgid "Connect"
+msgid "Disconnected from %1"
+msgstr "តភ្ជាប់"
+
+#: device-manager/devicemanager.cpp:256
+#, kde-format
+msgid "Permanent Trust added for %1"
+msgstr ""
+
+#: device-manager/devicemanager.cpp:260
+#, kde-format
+msgid "Permanent Trust removed for %1"
+msgstr ""
+
+#: inputwizard/wizarddialog.cpp:55
+#, fuzzy
+#| msgid "Bluetooth Device Manager"
+msgid "Bluetooth Device Wizard"
+msgstr "កម្មវិធី​គ្រប់គ្រង​ឧបករណ៍​ប្ល៊ូធូស"
+
+#: inputwizard/wizarddialog.cpp:82
+#, fuzzy
+#| msgid "Bluetooth Device Manager"
+msgid "Setup Bluetooth Devices"
+msgstr "កម្មវិធី​គ្រប់គ្រង​ឧបករណ៍​ប្ល៊ូធូស"
+
+#: inputwizard/wizarddialog.cpp:84
+msgid "This wizard will help to setup your Bluetooth devices."
+msgstr "អ្នក​ជំនួយ​ការ​នេះ​នឹង​ជួយ​អ្នក​ឲ្យ​រៀបចំ​ឧបករណ៍​ប្ល៊ូធូស​របស់​អ្នក ។"
+
+#: inputwizard/wizarddialog.cpp:102
+msgid "Please select your Bluetooth device."
+msgstr "សូម​ជ្រើស​ឧបករណ៍​ប្ល៊ូធូស​របស់​អ្នក ។"
+
+#: inputwizard/wizarddialog.cpp:108
+msgid "<b>If your Device is not in the List:</b>"
+msgstr "<b>ប្រសិន​ឧបករណ៍​ដែល​មិននៅ​ក្នុង​បញ្ជី ៖</b>"
+
+#: inputwizard/wizarddialog.cpp:140
+msgid "Summary"
+msgstr "សេចក្ដី​សង្ខេប"
+
+#: inputwizard/wizarddialog.cpp:141 inputwizard/wizarddialog.cpp:353
+msgid "Connection will be established to this Bluetooth device"
+msgstr "ការ​តភ្ជាប់នឹង​ត្រូវ​បាន​បង្កើត​ទៅ​ឧបករណ៍​ប្ល៊ូធូស​នេះ"
+
+#: inputwizard/wizarddialog.cpp:170
+msgid "Finished"
+msgstr "បានបញ្ចប់"
+
+#: inputwizard/wizarddialog.cpp:171
+#, fuzzy
+#| msgid "Please select your Bluetooth device."
+msgid "Please wait, until the connection to your Bluetooth Device is done ..."
+msgstr "សូម​ជ្រើស​ឧបករណ៍​ប្ល៊ូធូស​របស់​អ្នក ។"
+
+#: inputwizard/wizarddialog.cpp:235
+#, fuzzy
+#| msgid "&Search"
+msgid "&Stop Search"
+msgstr "ស្វែងរក"
+
+#: inputwizard/wizarddialog.cpp:275
+msgid "Checking your Bluetooth Device for input capabilities..."
+msgstr "កំពុង​ពិនិត្យ​មើល​ឧបករណ៍​ប្ល៊ូធូស​របស់​អ្នក​សម្រាប់​សមត្ថភាព​បញ្ចូល..."
+
+#: inputwizard/wizarddialog.cpp:324
+msgid "Your Device is setup properly and should work now."
+msgstr "ឧបករណ៍​របស់​អ្នក​ត្រូវ​បាន​រៀបចំ​យ៉ាង​ត្រឹមត្រូវ​ ហើយ​គួរ​ដំណើរការ​ឥឡូវ ។"
+
+#: inputwizard/wizarddialog.cpp:354
+#, kde-format
+msgid "<b>Name: </b>%1"
+msgstr "<b>ឈ្មោះ ៖ </b>%1"
+
+#: inputwizard/wizarddialog.cpp:355
+#, fuzzy, kde-format
+#| msgid "Address: "
+msgid "<b>Address: </b>%1"
+msgstr "អាសយដ្ឋាន ៖ "
+
+#: inputwizard/wizarddialog.cpp:356
+#, kde-format
+msgid "<b>Device class: </b>%1"
+msgstr "<b>ថ្នាក់​ឧបករណ៍ ៖ </b>%1"
+
+#: inputwizard/wizarddialog.cpp:364
+msgid "Sorry your Bluetooth Device does not support input Service."
+msgstr "សូម​ទោស ឧបករណ៍​ប្ល៊ូធូស​របស់​អ្នក​មិនគាំទ្រ​សេវា​បញ្ចូល​នេះ ។"
+
+#~ msgid "kbluetooth4-agent"
+#~ msgstr "ភ្នាក់ងារ kbluetooth4"
+
+#, fuzzy
+#~| msgid "KBluetooth4-Agent"
+#~ msgid "KBluetooth-Agent"
+#~ msgstr "ភ្នាក់ងារ KBluetooth4"
+
+#, fuzzy
+#~| msgid "KBluetooth4-Agent - The KDE4 Bluetooth Agent"
+#~ msgid "KBluetooth-Agent - The KDE4 Bluetooth Agent"
+#~ msgstr "ភ្នាក់ងារ KBluetooth4 - ភ្នាក់ងារ​ប្ល៊ូធូស KDE4"
+
+#~ msgid "kbluetooth4"
+#~ msgstr "kbluetooth4"
+
+#~ msgid "KBluetooth4"
+#~ msgstr "KBluetooth4"
+
+#~ msgid "kbluetooth4 device-manager"
+#~ msgstr "កម្មវិធី​គ្រប់គ្រង​ឧបករណ៍ kbluetooth4"
+
+#, fuzzy
+#~| msgid "KBluetooth4 Device-Manager"
+#~ msgid "KBluetooth Device-Manager"
+#~ msgstr "កម្មវិធី​គ្រប់គ្រង​ឧបករណ៍ KBluetooth4"
+
+#, fuzzy
+#~| msgid "KBluetooth4 - The KDE4 Bluetooth Framework"
+#~ msgid "KBluetooth - The KDE4 Bluetooth Framework"
+#~ msgstr "KBluetooth4 - គ្រោងការណ៍​ប្ល៊ូធូស​របស់ KDE4"
+
+#, fuzzy
+#~| msgid "kbluetooth4"
+#~ msgid "kbluetooth-wizard"
+#~ msgstr "kbluetooth4"
+
+#, fuzzy
+#~| msgid "KBluetooth4"
+#~ msgid "KBluetooth4-Wizard"
+#~ msgstr "KBluetooth4"

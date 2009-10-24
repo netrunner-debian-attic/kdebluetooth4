@@ -1,35 +1,36 @@
-/*
- *
- *  KBluetooth4 - KDE Bluetooth Framework
- *
- *  Copyright (C) 2008  Tom Patzig <tpatzig@suse.de>
- *
- *  This file is part of kbluetooth4.
- *
- *  kbluetooth4 is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  kbluetooth4 is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with kbluetooth4; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- *
-*/
+/***************************************************************************
+ *   Copyright (C) 2008  Tom Patzig <tpatzig@suse.de>                      *
+ *   Copyright (C) 2008  Alex Fiestas <alex@eyeos.org>                     *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA            *
+ ***************************************************************************/
 
 #include "obexserversession.h"
+#include "obexserversessionfiletransfer.h"
+#include "obexserver.h"
 
 #include <QVariant>
+
 #include <KDebug>
+#include <KJob>
 
-ObexServerSession::ObexServerSession(QObject* parent, const QString& path) : m_parent(parent)
+ObexServerSession::ObexServerSession(QObject* parent, ObexServer* obexServer, const QString& path) : m_parent(parent)
 {
+	m_obexServer = obexServer;
 
+	m_path = path;
 	QDBusConnection* dbus = new QDBusConnection("dbus");
 	QDBusConnection dbusconn = dbus->connectToBus(QDBusConnection::SessionBus, "dbus");
 
@@ -44,11 +45,9 @@ ObexServerSession::ObexServerSession(QObject* parent, const QString& path) : m_p
 	dbusconn.connect("",sessionPath,sessionIface,"Cancelled",this,SLOT(slotCancelled()));		
 	dbusconn.connect("",sessionPath,sessionIface,"Disconnected",this,SLOT(slotDisconnected()));
 	dbusconn.connect("",sessionPath,sessionIface,"TransferStarted",this,SLOT(slotTransferStarted(const QString&, const QString&, qulonglong)));
-	dbusconn.connect("",sessionPath,sessionIface,"TransferProgress",this,SLOT(slotTransferProgress(qulonglong)));
-	dbusconn.connect("",sessionPath,sessionIface,"TransferCompleted",this,SLOT(slotTransferCompleted()));
 	dbusconn.connect("",sessionPath,sessionIface,"ErrorOccurred",this,SLOT(slotErrorOccurred(const QString&, const QString&)));
-  
 
+	delete dbus;
 }
 
 ObexServerSession::~ObexServerSession() 
@@ -66,6 +65,7 @@ void ObexServerSession::reject() {
 
 void ObexServerSession::disconnect() {
 	kDebug() << "obex server session disconnected";
+	fileTransfer->feedbackReceived();
 	manager->call(QDBus::Block, "Disconnect");
 }
 
@@ -82,8 +82,15 @@ void ObexServerSession::cancel() {
 	manager->call(QDBus::Block, "Cancel");
 }
 
-//SLOTS to emit the signals
+QString ObexServerSession::path() {
+	return m_path;
+}
 
+ObexServer* ObexServerSession::server() {
+	return m_obexServer;
+}
+
+//SLOTS to emit the signals
 void ObexServerSession::slotCancelled()
 {
 	emit cancelled();
@@ -96,17 +103,8 @@ void ObexServerSession::slotDisconnected()
 
 void ObexServerSession::slotTransferStarted(const QString& filename, const QString& local_path, qulonglong total_bytes)
 {
-	emit transferStarted(filename,local_path,total_bytes);
-}
-
-void ObexServerSession::slotTransferProgress(qulonglong bytes_transferred)
-{
-	emit transferProgress(bytes_transferred);
-}
-
-void ObexServerSession::slotTransferCompleted()
-{
-	emit transferCompleted();
+	fileTransfer = new ObexServerSessionFileTransfer(this, manager, filename, local_path, total_bytes);
+	emit transferStarted(fileTransfer);
 }
 
 void ObexServerSession::slotErrorOccurred(const QString& error_name, const QString& error_message)

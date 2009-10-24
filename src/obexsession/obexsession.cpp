@@ -1,42 +1,42 @@
-/*
- *
- *  KBluetooth4 - KDE Bluetooth Framework
- *
- *  Copyright (C) 2008  Tom Patzig <tpatzig@suse.de>
- *
- *  This file is part of kbluetooth4.
- *
- *  kbluetooth4 is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  kbluetooth4 is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with kbluetooth4; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- *
-*/
+/***************************************************************************
+ *   Copyright (C) 2008  Tom Patzig <tpatzig@suse.de>                      *
+ *   Copyright (C) 2008  Alex Fiestas <alex@eyeos.org>                     *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA            *
+ ***************************************************************************/
 
 #include "obexsession.h"
+#include "obexsessionfiletransfer.h"
 
 #include <QVariant>
+
 #include <KDebug>
+#include <KMessageBox>
 
-#include <kmessagebox.h>
-
-ObexSession::ObexSession(QObject* parent, const QString& srcAddr, const QString& addr, const QString& service) : m_parent(parent)
+ObexSession::ObexSession(QObject* parent, const QString& srcAddr, const QString& addr, const QString& service) : error(false), m_parent(parent)
 {
-
 	session = manager = 0;
+	m_targetAddress = addr;
 
 	QDBusConnection* dbus = new QDBusConnection("dbus");
 	QDBusConnection dbusconn = dbus->connectToBus(QDBusConnection::SessionBus, "dbus");
-
+	
+	if(!dbusconn.isConnected()){
+		error = true;
+		return;
+	}
 	obexService = "org.openobex";
 	QString path = "/org/openobex";
 	QString method = "CreateBluetoothSession";
@@ -45,16 +45,20 @@ ObexSession::ObexSession(QObject* parent, const QString& srcAddr, const QString&
 	kDebug() << "Konstruktor: " << path;
 
 	manager = new QDBusInterface(obexService,path,iface,dbusconn);
-
+	
+	if(!manager->isValid()){
+		error = true;
+		return;
+	}
+	
 // 	**synchronous call**
 //	QDBusReply<QDBusObjectPath> reply = manager->call(method,addr,service);
 	QList<QVariant> args;
 	args << addr << srcAddr << service;
 
 	manager->callWithCallback( method, args, this, SLOT(sessionCreated(QDBusObjectPath)), SLOT(sessionCreatedError(QDBusError)) );
-	dbusconn.connect("",path,iface,"SessionConnected",this,SLOT(slotConnected()));	
-
-
+	dbusconn.connect("",path,iface,"SessionConnected",this,SLOT(slotConnected(QDBusObjectPath)));	
+	dbusconn.connect("",path,iface,"SessionConnectError",this,SLOT(slotConnectError(QDBusObjectPath,QString,QString)));	
 }
 
 ObexSession::~ObexSession() 
@@ -66,9 +70,8 @@ ObexSession::~ObexSession()
 		delete manager;
 }
 
-
 void ObexSession::sessionCreated(QDBusObjectPath path)
-{	
+{
 	QDBusConnection* dbus = new QDBusConnection("dbus");
 	QDBusConnection dbusconn = dbus->connectToBus(QDBusConnection::SessionBus, "dbus");
 
@@ -76,7 +79,12 @@ void ObexSession::sessionCreated(QDBusObjectPath path)
 
 	sessionIface = "org.openobex.Session";
 
-	session = new QDBusInterface(obexService,sessionPath,sessionIface,dbusconn);
+	session = new QDBusInterface(obexService, sessionPath, sessionIface, dbusconn);
+	if(!session->isValid()){
+		error = true;
+		emit openObexError();
+		return;
+	}
 	kDebug() << "session interface created for: " << sessionPath ;
 
 // 	connect the DBus Signal to slots
@@ -84,11 +92,10 @@ void ObexSession::sessionCreated(QDBusObjectPath path)
 	dbusconn.connect("",sessionPath,sessionIface,"Cancelled",this,SLOT(slotCancelled()));	
 	dbusconn.connect("",sessionPath,sessionIface,"Disconnected",this,SLOT(slotDisconnected()));	
 	dbusconn.connect("",sessionPath,sessionIface,"Closed",this,SLOT(slotClosed()));	
-	dbusconn.connect("",sessionPath,sessionIface,"TransferStarted",this,SLOT(slotTransferStarted(const QString&, const QString&, qulonglong)));
-	dbusconn.connect("",sessionPath,sessionIface,"TransferProgress",this,SLOT(slotTransferProgress(qulonglong)));
-	dbusconn.connect("",sessionPath,sessionIface,"TransferCompleted",this,SLOT(slotTransferCompleted()));
+	//dbusconn->connect("",sessionPath,sessionIface,"TransferStarted",this,SLOT(slotTransferStarted(const QString&, const QString&, qulonglong)));
+	//dbusconn->connect("",sessionPath,sessionIface,"TransferProgress",this,SLOT(slotTransferProgress(qulonglong)));
+	//dbusconn->connect("",sessionPath,sessionIface,"TransferCompleted",this,SLOT(slotTransferCompleted()));
 	dbusconn.connect("",sessionPath,sessionIface,"ErrorOccurred",this,SLOT(slotErrorOccurred(const QString&, const QString&)));
-
 }
 
 void ObexSession::sessionCreatedError(QDBusError err)
@@ -96,7 +103,6 @@ void ObexSession::sessionCreatedError(QDBusError err)
 	kDebug() << "Error creating Bluetooth Session: " << err.message();
 	KMessageBox::error(0 , err.message(), "Error creating Bluetooth Session");
 }
-
 
 void ObexSession::connect()
 {
@@ -181,9 +187,15 @@ QMap<QString,QVariant> ObexSession::getCapability()
 
 }
 
-void ObexSession::sendFile(const QString& local_path)
+void ObexSession::sendFile(const QString& local_path, bool yes)
 {
+	Q_UNUSED(yes);
 	session->call("SendFile",local_path);
+}
+
+KJob* ObexSession::sendFile(const QString& localPath) {
+	KJob* fileTransfer = new ObexSessionFileTransfer(this, session, localPath);
+	return fileTransfer;
 }
 
 void ObexSession::deleteRemoteFile(const QString& remote_filename)
@@ -207,8 +219,6 @@ bool ObexSession::isBusy()
 		return reply.value();
 	else
 		return false;
-
-
 }
 
 void ObexSession::cancel()
@@ -216,16 +226,26 @@ void ObexSession::cancel()
 	session->call("Cancel");
 }
 
-//SLOTS to emit the signals
+QString ObexSession::targetAddress() {
+	return m_targetAddress;
+}
 
+//SLOTS to emit the signals
 void ObexSession::slotCancelled()
 {
 	emit cancelled();
 }
 
-void ObexSession::slotConnected()
+void ObexSession::slotConnected(QDBusObjectPath path)
 {
+	kDebug() << "Session connected " <<  path.path();
 	emit connected();
+}
+
+void ObexSession::slotConnectError(QDBusObjectPath path, QString err_name, QString err_msg)
+{
+	Q_UNUSED(path);
+	kDebug() << "Session Connect Error " << err_name << " " << err_msg;
 }
 
 void ObexSession::slotDisconnected()

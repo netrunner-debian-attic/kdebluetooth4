@@ -1,0 +1,26 @@
+[Desktop Entry]
+Name=kbluetooth
+Name[da]=kbluetooth
+Name[pt]=kbluetooth
+Name[ro]=kbluetooth
+Name[ru]=kbluetooth
+Name[sv]=Kbluetooth
+Name[tr]=kbluetooth
+Name[uk]=kbluetooth
+Name[x-test]=xxkbluetoothxx
+Exec=kbluetooth
+Icon=kbluetooth
+Type=Application
+Terminal=false
+Categories=Qt;KDE;Network;FileTransfer;
+GenericName=KDE Bluetooth
+GenericName[da]=KDE Bluetooth
+GenericName[pt]=Bluetooth do KDE
+GenericName[ro]=KDE Bluetooth
+GenericName[ru]=KDE Bluetooth
+GenericName[sv]=KDE Blåtand
+GenericName[tr]=KDE Bluetooth
+GenericName[uk]=Bluetooth для KDE
+GenericName[x-test]=xxKDE Bluetoothxx
+X-DBUS-StartupType=Unique
+X-KDE-StartupNotify=false

@@ -57,7 +57,7 @@
          <item>
           <widget class="QLabel" name="nameLabel" >
            <property name="text" >
-            <string>TextLabel</string>
+            <string comment="KDE::DoNotExtract">TextLabel</string>
            </property>
           </widget>
          </item>
@@ -81,7 +81,7 @@
          <item>
           <widget class="QLabel" name="addressLabel" >
            <property name="text" >
-            <string>TextLabel</string>
+            <string comment="KDE::DoNotExtract">TextLabel</string>
            </property>
           </widget>
          </item>
@@ -105,7 +105,7 @@
          <item>
           <widget class="QLabel" name="serviceLabel" >
            <property name="text" >
-            <string>TextLabel</string>
+            <string comment="KDE::DoNotExtract">TextLabel</string>
            </property>
           </widget>
          </item>
@@ -116,7 +116,7 @@
      <item>
       <widget class="QLabel" name="iconLabel" >
        <property name="text" >
-        <string>TextLabel</string>
+        <string comment="KDE::DoNotExtract">TextLabel</string>
        </property>
        <property name="alignment" >
         <set>Qt::AlignCenter</set>
@@ -130,7 +130,7 @@
      <item>
       <widget class="QPushButton" name="allwTrustButton" >
        <property name="text" >
-        <string>Allways Trust</string>
+        <string>Always Trust</string>
        </property>
       </widget>
      </item>

@@ -1,146 +1,132 @@
-/*
- *
- *  KBluetooth4 - KDE Bluetooth Framework
- *
- *  Copyright (C) 2008  Tom Patzig <tpatzig@suse.de>
- *
- *  This file is part of kbluetooth4.
- *
- *  kbluetooth4 is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  kbluetooth4 is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with kbluetooth4; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- *
-*/
+/***************************************************************************
+ *   Copyright (C) 2008  Tom Patzig <tpatzig@suse.de>                      *
+ *   Copyright (C) 2008  Alex Fiestas <alex@eyeos.org>                     *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA            *
+ ***************************************************************************/
 
 
 #include "trayicon.h"
+#include "kdeversion.h"
+#include "ui_receiveDialogWidget.h"
+#include "obexserver/obexserversessionfiletransfer.h"
+#include "config-nepomuk.h"
 
-KBlueTray::KBlueTray(const QString& path, QObject* parent) : QObject(parent), agentPath(path)
+#include <QDesktopServices>
+#include <QClipboard>
+
+#if KDE_IS_VERSION(4,3,65)
+	#include <KNotificationItem>
+#else
+	#include <knotificationitem-1/knotificationitem.h>
+#endif
+
+#ifdef HAVE_NEPOMUK
+	#include <Nepomuk/ResourceManager>
+	#include <Nepomuk/Resource>
+	#include <Nepomuk/Tag>
+	#include <Soprano/Vocabulary/RDFS>
+	#include <Soprano/Vocabulary/NAO>
+#endif
+
+#include <kstatusbarjobtracker.h>
+#include <KIO/JobUiDelegate>
+#include <KIconLoader>
+#include <KIconEffect>
+#include <KFileDialog>
+#include <KProcess>
+#include <KTemporaryFile>
+#include <KDirSelectDialog>
+#include <KDialog>
+#include <KUrlRequester>
+#include <KDebug>
+#include <KMenu>
+#include <KApplication>
+#include <KStandardAction>
+#include <kwallet.h>
+
+using KWallet::Wallet;
+KBlueTray::KBlueTray(const QString& path, QObject* parent) : KNotificationItem(parent), agentPath(path),m_aboutDialog(0)
 {
-
-	 modes << "Off" << "Discoverable" << "Connectable" ;
-	 adapter = 0;
-	 server = 0;
-	 serversession = 0;
-         agent = 0;
-	 
-	 setParent(kapp);
-
-	 tray = new QSystemTrayIcon(this);
-	 tray->setIcon(KIcon("kbluetooth4"));
-
-	 mainmenu = new QMenu();
-
-         QDBusConnection::systemBus().registerObject(agentPath, kapp);
-
-//	 kbluelockMenu = mainmenu->addMenu(KIcon("system-lock-screen"),i18n("KBlueLock"));
-
-/*       Currently no DeviceDisappeared Signal is thrown by Bluez
-
-         kbluelockMenu = mainmenu->addMenu(KIcon("preferences-desktop-user-password"),i18n("KBlueLock"));
-	 
-
-	 lockEnableAction = kbluelockMenu->addAction(KIcon("system-lock-screen"),i18n("Enable"));
-	 lockEnableAction->setCheckable(true);
-	 lockEnableAction->setChecked(false);
-	 connect(lockEnableAction, SIGNAL(triggered(bool)), this, SLOT(enableLock()));
-
-	 lockConfigureAction = kbluelockMenu->addAction(KIcon("configure"), i18n("Configure..."));
-	 connect(lockConfigureAction,SIGNAL(triggered(bool)), this, SLOT(slotConfigureKBlueLock()));
-	 lockConfigureAction->setDisabled(true);
-*/
-
-	 sendToAction = mainmenu->addAction(KIcon("text-directory"), i18n("Send File"));
-	 connect(sendToAction, SIGNAL(triggered(bool)), this, SLOT(sendFile()));
-         sendToAction->setDisabled(false);
-
-	 wizardAction = mainmenu->addAction(KIcon("kbluetooth4"), i18n("Device Manager"));
-	 connect(wizardAction, SIGNAL(triggered(bool)), this, SLOT(showManager()));
-         wizardAction->setDisabled(false);
-	
-	 settingsMenu = mainmenu->addMenu(KIcon("preferences-system"), i18n("Settings"));
-	
-	 adapterAction = settingsMenu->addAction(KIcon("configure"), i18n("Bluetooth Adapters"));
-	 connect(adapterAction, SIGNAL(triggered(bool)), this, SLOT(showAdapterInterface()));
-	 
-	 serverAction = settingsMenu->addAction(KIcon("network-server"), i18n("Obex server"));
-	 serverAction->setCheckable(true);
-	 serverAction->setChecked(true);
-	 connect(serverAction, SIGNAL(triggered(bool)), this, SLOT(enableServer()));
-
-	 aboutAction = mainmenu->addAction(KIcon("folder-remote"),i18n("About"));
-	 connect(aboutAction, SIGNAL(triggered(bool)), this, SLOT(showAboutInfo()));
-
-	 quitAction = mainmenu->addAction(KIcon("application-exit"),i18n("Quit"));
-	 connect(quitAction, SIGNAL(triggered(bool)), this, SLOT(slotQuitApp(bool)));
-	 
-	 tray->setContextMenu(mainmenu);
-
-	 Solid::Control::BluetoothManager &man = Solid::Control::BluetoothManager::self();
-         dbus = new QDBusConnection("dbus");
-
-	 connect(&man,SIGNAL(interfaceAdded(const QString&)),this,SLOT(adapterAdded(const QString&)));
-	 connect(&man,SIGNAL(interfaceRemoved(const QString&)),this,SLOT(adapterRemoved(const QString&)));
-	 connect(&man,SIGNAL(defaultInterfaceChanged(const QString&)),this,SLOT(defaultAdapterChanged(const QString&)));
-
-	 config = new KConfig("kbluetoothrc");
-	 confGroup = new KConfigGroup(config,"General");
-	 
-	 QDir dir(QDir::homePath());
-	 dir.mkdir(".kbluetooth4");
-
-/*
-	 if (confGroup->exists()) {
-		avahiClient->receiver->setTargetPath(confGroup->readEntry("Path",avahiClient->receiver->getTargetPath()));
-		avahiClient->setUserName(confGroup->readEntry("Nick",avahiClient->getUserName()));
-	 }
-*/
-
-	//tray->setVisible(true);
+	adapter = 0;
+	server = 0;
+	serversession = 0;
+	agent = 0;
 	adapterConfig = 0;
 	session = 0;
 	progress = 0;
 	devSelector = 0;
 	lockSelector = 0;
+	m_kBlueLock = 0;
+	m_wallet = 0;
+	modes << "Off" << "Discoverable" << "Connectable" ;
+	
+	setParent(kapp);
+	setIconByName("kbluetooth");
+	setToolTip("kbluetooth", "KBluetooth", "KDE bluetooth framework");
+	setCategory(KNotificationItem::Hardware);
+
+	//If the object already exists or can't be created, at least kdebug it
+	if(!QDBusConnection::systemBus().registerObject(agentPath, kapp)){
+		kDebug() << "The dbus object can't be registered";
+	}
+
+	initIcons();
+	initConfig();
+	initMenu();
+
+	Solid::Control::BluetoothManager &man = Solid::Control::BluetoothManager::self();
+
+	#warning kdevelop says that this dbus is never used
+	dbus = new QDBusConnection("dbus");
+
+	connect(&man,SIGNAL(interfaceAdded(const QString&)),this,SLOT(adapterAdded(const QString&)));
+	connect(&man,SIGNAL(interfaceRemoved(const QString&)),this,SLOT(adapterRemoved(const QString&)));
+	connect(&man,SIGNAL(defaultInterfaceChanged(const QString&)),this,SLOT(defaultAdapterChanged(const QString&)));
+
 	kblueLockEnabled = false;
 	
 	if ( man.bluetoothInterfaces().size() > 0 ) {
-                defaultAdapterUBI = man.defaultInterface();
+		defaultAdapterUBI = man.defaultInterface();
 		onlineMode();
+		if ( config->group("KBlueLock").readEntry("LockEnabled",false) && ! config->group("KBlueLock").readEntry("Device","").isEmpty() ) {
+			lockEnableAction->setChecked(true);
+			m_kBlueLock = new KBlueLock(adapter);
+			lockDevice = m_kBlueLock->lockDevice();
+			connect(m_kBlueLock, SIGNAL(lockDisabled()), this, SLOT(lockDisabled()));
+			connect(m_kBlueLock, SIGNAL(lockReady()), this, SLOT(lockReady()));
+			m_kBlueLock->enable();
+			lockEnabled();
+		}
 	} else {
 		offlineMode();
 	}
-        
-        
-
 }
 
 KBlueTray::~KBlueTray()
 {
-
 	if (adapter) {
-                adapter->unregisterAgent(agentPath);
+		adapter->unregisterAgent(agentPath);
 		adapter->stopDiscovery();
 		delete adapter;
 	}
+	delete agent;
 
-	if (session)
-		delete session;
-	if (progress)
-		delete progress;
-	if (devSelector)
+	delete session;
+	delete progress;
 //		delete devSelector;
-	if (lockSelector)
 //		delete lockSelector;
 
 	if(server) {
@@ -155,12 +141,90 @@ KBlueTray::~KBlueTray()
 		delete serversession;
 	}
 	
-	delete mainmenu;
 	delete confGroup;
 	delete config;
-	delete tray;
 	
+	delete m_kBlueLock;
+	
+	delete m_aboutDialog;
+
 	qDebug() << "bye bye";
+}
+
+void KBlueTray::initIcons() {
+	KIconLoader loader;
+	QString iconPath = KIconLoader::global()->iconPath( "kbluetooth", KIconLoader::Panel );
+	m_IconEnabled = QIcon( iconPath );
+	QImage iconDisabled = m_IconEnabled.pixmap( loader.currentSize( KIconLoader::Panel ) ).toImage();
+	KIconEffect::toGray( iconDisabled, 1.0 );
+	m_IconDisabled = QIcon( QPixmap::fromImage( iconDisabled ) );
+}
+
+void KBlueTray::initMenu() {
+	kbluelockMenu = contextMenu()->addMenu(KIcon("preferences-desktop-user-password"), i18n("KBlueLock"));
+
+	lockEnableAction = kbluelockMenu->addAction(KIcon("system-lock-screen"), i18n("Enable"), this, SLOT(enableLock()));
+	lockEnableAction->setCheckable(true);
+	lockEnableAction->setChecked(false);
+
+	lockConfigureAction = kbluelockMenu->addAction(KIcon("configure"), i18n("Configure..."), this, SLOT(slotConfigureKBlueLock()));
+	lockConfigureAction->setDisabled(true);
+
+	m_sendMenu = contextMenu()->addMenu(KIcon("text-directory"), i18n("Send"));
+	
+	sendToAction = m_sendMenu->addAction(KIcon("text-directory"), i18n("File"), this, SLOT(sendFile()));
+	sendToAction->setDisabled(false);
+	
+	m_sendClipboardText = m_sendMenu->addAction(KIcon("edit-paste"), i18n("Clipboard Text"), this, SLOT(sendClipboardText()));
+
+	wizardAction = contextMenu()->addAction(KIcon("kbluetooth"), i18n("Device Manager"), this, SLOT(showManager()));
+	wizardAction->setDisabled(false);
+
+	settingsMenu = contextMenu()->addMenu(KIcon("preferences-system"), i18n("Settings"));
+
+	receivedAction = settingsMenu->addAction(KIcon("folder-documents"), i18n("Received files"), this, SLOT(receivedConfig()));
+	adapterAction = settingsMenu->addAction(KIcon("configure"), i18n("Bluetooth Adapters"), this, SLOT(showAdapterInterface()));
+	serverAction = settingsMenu->addAction(KIcon("network-server"), i18n("Obex server"), this, SLOT(enableServer()));
+	serverAction->setCheckable(true);
+	KConfigGroup obexServerConfig(config, "ObexServer");
+	if(obexServerConfig.readEntry("Autostart") == "true") {
+		serverAction->setChecked(true);
+	}
+
+	aboutAction = contextMenu()->addAction(KIcon("folder-remote"), i18n("About"), this, SLOT(showAboutInfo()));
+}
+
+void KBlueTray::initConfig() {
+	config = new KConfig("kbluetoothrc");
+	confGroup = new KConfigGroup(config, "General");
+	KConfigGroup obexServerConfig(config, "ObexServer");
+	if(!obexServerConfig.hasKey("savePath")) {
+		QString saveUrl;
+		KDirSelectDialog dirs;
+		if(dirs.exec() && dirs.url().isValid()) {
+			saveUrl = dirs.url().path();
+		}else{
+			saveUrl = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+		}
+		obexServerConfig.writeEntry("savePath",saveUrl);
+		obexServerConfig.sync();
+	}
+	if(!obexServerConfig.hasKey("Autostart")) {
+		obexServerConfig.writeEntry("Autostart", "true");
+		obexServerConfig.sync();
+	}
+	if(!config->group("KBlueLock").hasKey("Device")) {
+		config->group("KBlueLock").writeEntry("Device", "");
+		config->group("KBlueLock").sync();
+	}
+	if(!config->group("KBlueLock").hasKey("LockEnabled")) {
+		config->group("KBlueLock").writeEntry("LockEnabled", false);
+		config->group("KBlueLock").sync();
+	}
+	if(!config->group("KBlueLock").hasKey("UnlockEnabled")) {
+		config->group("KBlueLock").writeEntry("UnlockEnabled", true);
+		config->group("KBlueLock").sync();
+	}
 }
 
 void KBlueTray::onlineMode()
@@ -170,41 +234,49 @@ void KBlueTray::onlineMode()
 	kDebug() << "adapter size " << Solid::Control::BluetoothManager::self().bluetoothInterfaces().size();
 
 	online = true;
-	tray->setVisible(true);
+	setStatus(KNotificationItem::Active);
+	setIconByPixmap( m_IconEnabled );
 	
 	adapter = new Solid::Control::BluetoothInterface(man.defaultInterface());
-
-
 	connect(adapter,SIGNAL(propertyChanged(const QString&, const QVariant&)),this,SLOT(slotPropertyChanged(const QString&, const QVariant&)));
 
 	kDebug() << "Adapter found " << adapter->name();
 
-        adapter->registerAgent(agentPath,"DisplayYesNo");
-        agent = new Agent(kapp);
-        agent->setExitOnRelease(false);
-	
+	adapter->registerAgent(agentPath,"DisplayYesNo");
+	if (!agent)
+		agent = new Agent(kapp,adapter);
+		agent->setBluetoothInterface(adapter);
+		agent->setExitOnRelease(false);
+
 	updateTooltip();
 	
 	sendToAction->setEnabled(true);
 	wizardAction->setEnabled(true);
 	adapterAction->setEnabled(true);
-//	kbluelockMenu->setEnabled(true);
-        settingsMenu->setEnabled(true);
-	serverAction->setChecked(true);
+	kbluelockMenu->setEnabled(true);
+	settingsMenu->setEnabled(true);
 
-        if (!server) {
-            server = new ObexServer(this, "00:00:00:00:00:00", "opp", true);
-            connect(server, SIGNAL(serverReady()), this, SLOT(slotServerReady()));
-            connect(server, SIGNAL(started()), this, SLOT(slotServerStarted()));
-            connect(server, SIGNAL(stopped()), this, SLOT(slotServerStopped()));
-            connect(server, SIGNAL(closed()), this, SLOT(slotServerClosed()));
-            connect(server, SIGNAL(sessionCreated(const QString&)), this, SLOT(slotServerSessionCreated(const QString&)));
-            connect(server, SIGNAL(sessionRemoved(const QString&)), this, SLOT(slotServerSessionRemoved(const QString&)));
-            connect(server, SIGNAL(errorOccured(const QString&, const QString&)), this, SLOT(slotServerErrorOccured(const QString&, const QString&)));
-        } else
-            enableServer();
-
-
+	if (!server) {
+		server = new ObexServer(this, adapter->address(), "opp", false);
+		//TODO: Make this error beatiful
+		if(server->error){
+			delete server;
+			server = 0;
+			serverAction->setEnabled(false);
+			return;
+		}
+		connect(server, SIGNAL(openObexError()), this, SLOT(openObexError()));
+		connect(server, SIGNAL(serverReady()), this, SLOT(slotServerReady()));
+		connect(server, SIGNAL(started()), this, SLOT(slotServerStarted()));
+		connect(server, SIGNAL(stopped()), this, SLOT(slotServerStopped()));
+		connect(server, SIGNAL(closed()), this, SLOT(slotServerClosed()));
+		connect(server, SIGNAL(sessionCreated(const QString&)), this, SLOT(slotServerSessionCreated(const QString&)));
+		connect(server, SIGNAL(sessionRemoved(const QString&)), this, SLOT(slotServerSessionRemoved(const QString&)));
+		connect(server, SIGNAL(errorOccured(const QString&, const QString&)), this, SLOT(slotServerErrorOccured(const QString&, const QString&)));
+	} else {
+		KConfigGroup obexServerConfig(config, "ObexServer");
+		server->start(config->group("ObexServer").readEntry("savePath"), true, false);
+	}
 }
 
 void KBlueTray::offlineMode()
@@ -216,29 +288,24 @@ void KBlueTray::offlineMode()
 	sendToAction->setEnabled(false);
 	wizardAction->setEnabled(false);
 	adapterAction->setEnabled(false);
-//	kbluelockMenu->setEnabled(false);
+	kbluelockMenu->setEnabled(false);
 	settingsMenu->setEnabled(false);
 	
-	//tray->setToolTip("No Bluetooth Adapter");
-	tray->setVisible(false);
+	setStatus(KNotificationItem::Passive);
+	setIconByPixmap( m_IconDisabled );
 		
 	if (adapter) {
-                kDebug() << "Unregistering Agent";
-                adapter->unregisterAgent(agentPath);
+		kDebug() << "Unregistering Agent";
+		adapter->unregisterAgent(agentPath);
 		disconnect(adapter,0,0,0);
 		delete adapter;
 		adapter = 0;
 	}
-
-        if (agent) {
-            delete agent;
-            agent = 0;
-        }
 	
 	if(server) {
 		server->stop();
 	}
-	
+
 	if(serversession) {
 		serversession->cancel();
 		serversession->disconnect();
@@ -246,18 +313,17 @@ void KBlueTray::offlineMode()
 		serversession = 0;
 	}
 
-
 }
 
 void KBlueTray::updateTooltip() {
-	
+	kDebug() << "Updating Tooltip";	
 	if(!online) {
 		toolTipInfo = i18n("No Bluetooth Adapter");
 		return;
 	}
 
-        if(!adapter || !server ) 
-            return;
+	if(!adapter || !server ) 
+		return;
 	
 	
 	toolTipInfo = 	"<b>Name:</b> " + adapter->name() + "<br />" \
@@ -276,62 +342,62 @@ void KBlueTray::updateTooltip() {
 		toolTipInfo += "Disabled";
 	}
 	
-	tray->setToolTip(toolTipInfo);
+	//tray->setToolTip(toolTipInfo);
 }
 
 void KBlueTray::adapterAdded(const QString& ubi)
 {
 	 kDebug() << "adapterAdded: " << ubi;
-
 }
 
 void KBlueTray::adapterRemoved(const QString& ubi)
 {
-	 kDebug() << "adapterRemoved: " << ubi;
-	 Solid::Control::BluetoothManager &man = Solid::Control::BluetoothManager::self();
-	 
-	 if (man.bluetoothInterfaces().size() == 0) {
+	kDebug() << "adapterRemoved: " << ubi;
+	Solid::Control::BluetoothManager &man = Solid::Control::BluetoothManager::self();
+
+	if (man.bluetoothInterfaces().size() == 0) {
 		offlineMode();
 		kDebug() << "default Adapter removed";
-	 }
+	}
 	updateTooltip();
 }
 
 void KBlueTray::defaultAdapterChanged(const QString& ubi)
 {
 	kDebug() << "default Adapter changed " << ubi;
-        if (!online) {
-	    kDebug() << "new default adapter UBI: " << ubi;
-    	    defaultAdapterUBI = ubi;
-            onlineMode();
-        }
+	if (!online) {
+		kDebug() << "new default adapter UBI: " << ubi;
+		defaultAdapterUBI = ubi;
+		onlineMode();
+	}
 }
 
 void KBlueTray::slotQuitApp(bool /*set*/)
 {
-        kapp->quit();
+	kapp->quit();
 }
 
 void KBlueTray::showAboutInfo()
 {
-        KAboutData aboutData("kbluetooth4", 0, ki18n("KBluetooth4"), "0.3",
-                           ki18n("KDE4 Bluetooth Framework"), KAboutData::License_GPL_V2);
-        aboutData.addAuthor(ki18n("Tom Patzig"), KLocalizedString(), "tpatzig@suse.de", "http://www.kde.org/");
-	aboutData.addCredit(ki18n("Arjan Topolovec"), ki18n(""), "arjan.top@gmail.com", "");
-        aboutData.setProgramLogo(KIcon("kbluetooth4"));
-
-        KAboutApplicationDialog about(&aboutData, mainmenu);
-//        about.setIcon( KIcon( "kbluetooth4" ) );
-        about.exec();
+	if(!m_aboutDialog) {
+		m_aboutDialog = new KAboutApplicationDialog(KGlobal::mainComponent().aboutData());
+		m_aboutDialog->exec();
+	}
+	
+	if(m_aboutDialog->isVisible()){
+		m_aboutDialog->raise();
+	}else{
+		m_aboutDialog->show();
+	}
 }
 
 void KBlueTray::showAdapterInterface()
 {
-	if (!adapterConfig)
+	if (!adapterConfig) {
 		adapterConfig = new AdapterConfig(this);
-
+		connect(adapterConfig,SIGNAL(adapterConfigClosed()),this,SLOT(updateTooltip()));
+	}
 	adapterConfig->initialize();
-
 }
 
 void KBlueTray::showWizard()
@@ -345,7 +411,7 @@ void KBlueTray::showManager()
 //	DeviceMan manager;
 	kDebug() << "Starting Device Manager";
 	KProcess process;
-	process.setProgram("kbluetooth4-devicemanager");
+	process.setProgram("kbluetooth-devicemanager");
 	process.startDetached();
 	
 //	manager.exec();
@@ -355,94 +421,85 @@ void KBlueTray::showManager()
 
 void KBlueTray::sendFile()
 {
-// bluez4//    
-	QString fileName = KFileDialog::getOpenFileName(KUrl("./"),"*",mainmenu, tr("Select File"));
-        if (!fileName.isEmpty()) {
-		fileToSend = fileName;
+	QStringList filesNames = KFileDialog::getOpenFileNames(KUrl("./"), "*", 0, i18n("Select File"));
+	if (!filesNames.isEmpty()) {
+		filesToSend = filesNames;
 		devSelector = new DeviceSel(this,QString("computer,phone").split(','));
-	 	devSelector->hideExtraCheckBox();
-		devSelector->setInfoLabel(i18n("Selecting a device starts the Filetransfer."));
+		devSelector->hideExtraCheckBox();
+		devSelector->setInfoLabel(i18n("Selecting a device starts the file transfer."));
 		connect(devSelector,SIGNAL(deviceSelected(const QString&)),this,SLOT(slotSendFile(const QString&)));
-
-        }
-
-
+	}
 }
 
 void KBlueTray::slotSendFile(const QString& mac)
 {
-	session = new ObexSession(this,adapter->address(),mac,"ftp");
+	kDebug() << filesToSend;
+	fileToSend = filesToSend.first();
+	filesToSend.removeFirst();
+	sendingToMac = mac;
+	session = new ObexSession(this,adapter->address(),mac,"opp");
+	//TODO: handle this beatiful
+	if(session->error == true){
+		return;
+	}
+	kDebug() << filesToSend;
+	connect(session,SIGNAL(openObexError()),this,SLOT(sendOpenObexError()));
 	connect(session,SIGNAL(connected()),this,SLOT(obexSessionReady()));
+}
 
+void KBlueTray::sendClipboardText()
+{
+	devSelector = new DeviceSel(this, QString("computer,phone").split(','));
+	devSelector->hideExtraCheckBox();
+	devSelector->setInfoLabel(i18n("Selecting a device starts the file transfer."));
+	connect(devSelector, SIGNAL(deviceSelected(QString)), this, SLOT(slotSendClipboardText(QString)));
+}
+
+void KBlueTray::slotSendClipboardText(const QString& address)
+{
+	KTemporaryFile tempFile;
+	tempFile.setAutoRemove(false);
+	QTextStream stream(&tempFile);
+	if(tempFile.open()) {
+		stream << QApplication::clipboard()->text();
+		kDebug() << "Clipboard file: " << tempFile.fileName();
+		fileToSend = tempFile.fileName();
+		tempFile.close();
+	}
+	slotSendFile(address);
 }
 
 void KBlueTray::obexSessionReady()
 {
-	kDebug() << "is connected: " << session->isConnected();
-
-	session->sendFile(fileToSend);
-	
-	connect(session,SIGNAL(transferStarted(const QString&,const QString&,qulonglong)),this,SLOT(slotFileSendStarted(const QString,const QString&,qulonglong)));
-	connect(session,SIGNAL(transferProgress(qulonglong)),this,SLOT(slotTransferProgress(qulonglong)));
-	connect(session,SIGNAL(transferCompleted()),this,SLOT(slotFileSendFinished()));
-	connect(session, SIGNAL(errorOccurred(const QString&, const QString&)), this, SLOT(slotServerErrorOccured(const QString&, const QString&)));
-
+	if(session->error == false){
+		KJob* fileTransfer = session->sendFile(fileToSend);
+		connect(fileTransfer, SIGNAL( result(KJob*) ), this, SLOT( slotFileTransferCompleted(KJob*) ));
+		KIO::getJobTracker()->registerJob(fileTransfer);
+		fileTransfer->start();
+	}
 }
 
-void KBlueTray::slotFileSendStarted(const QString& filename ,const QString& path ,qulonglong size)
-{
-	totalFileSize = size;
-
-	kDebug() << "file send started: " << path << filename;
-	kDebug() << "size: " << size;
-
-	progress = new QProgressDialog(i18n("Sending ") + filename,i18n("Cancel"),0,100);
-	progress->setAutoClose(true);
-	progress->setWindowIcon(KIcon("kbluetooth4"));
-	progress->show();
-	connect(progress,SIGNAL(canceled()),this,SLOT(slotFileSendCanceled()));
-	
+void KBlueTray::slotFileTransferCompleted(KJob* ) {
+	kDebug() << filesToSend;
+	if(!filesToSend.isEmpty())
+	{
+		fileToSend = filesToSend.first();
+		filesToSend.removeFirst();
+		obexSessionReady();
+	}else{
+		kDebug() << "Calling disconnect";
+		connect(session,SIGNAL(disconnected()),this,SLOT(fileTransferFinal()));
+		session->disconnect();
+	}
 }
 
-void KBlueTray::slotTransferProgress(qulonglong val)
+void KBlueTray::fileTransferFinal()
 {
-	kDebug() << "Transfered: " << val;
-
-		
-	qulonglong prog = ( ( val * 100 ) / totalFileSize) ;
-
-	kDebug() << "Progress: " << prog;
-
-	if(progress)
-		  progress->setValue(prog);
-
-}
-
-void KBlueTray::slotFileSendFinished()
-{
-	kDebug() << "Transfer completed";
-
-	session->disconnect();
-	session->close();
-
+	kDebug() << "Deleting session";
 	delete session;
 	session = 0;
-
-        if (progress) {
-            delete progress;
-            progress = 0;
-        }
-}
-
-void KBlueTray::slotFileSendCanceled()
-{
-	session->cancel();
-	session->disconnect();
-	session->close();
-
-	delete session;
 	delete devSelector;
-
+	devSelector = 0;
 }
 
 // ######################################### KBlueLock #####################################################
@@ -450,200 +507,139 @@ void KBlueTray::slotFileSendCanceled()
 void KBlueTray::enableLock()
 {
 	if (lockEnableAction->isChecked() ) {
+		m_kBlueLock = new KBlueLock(adapter);
+		lockDevice = m_kBlueLock->lockDevice();
 		if (lockDevice.isEmpty()) {
-                        kDebug() << "Configuring new KBlueLock Device";
-	 	 	kblueUnlockEnabled = true;
+			kDebug() << "Configuring new KBlueLock Device";
 			lockSelector = new DeviceSel(this,QString("computer,phone").split(','));
 			lockSelector->setOkButtonText(i18n("Select"));
-			lockSelector->setInfoLabel(i18n("Selecting a device enables KBlueLock (a balloon message in the tray icon pops up when your target device is found and KBlueLock is ready).\nIf the device disappears your screen gets locked."));
+			lockSelector->setInfoLabel(i18n("Selecting a device enables KBlueLock (a balloon message will pop up from the tray when your target device is found and KBlueLock is ready).\nIf the device disappears, your screen will be locked."));
 
-			connect(lockSelector,SIGNAL(deviceSelected(const QString&)),this,SLOT(enableBlueLock(const QString&)));
+			connect(lockSelector, SIGNAL(deviceSelected(QString)), m_kBlueLock, SLOT(enable(QString)));
 			connect(lockSelector,SIGNAL(selectorCancelled()),this,SLOT(slotBlueSelectorCancelled()));
-			connect(lockSelector,SIGNAL(unlockChanged(bool)),this,SLOT(slotUnlockScreenChanged(bool)));
-		} else 
-			enableBlueLock(lockDevice);
-
+			connect(lockSelector, SIGNAL(unlockChanged(bool)), m_kBlueLock, SLOT(unlockEnable(bool)));
+			
+			connect(m_kBlueLock, SIGNAL(lockEnabled()), this, SLOT(lockEnabled()));
+			connect(m_kBlueLock, SIGNAL(lockDisabled()), this, SLOT(lockDisabled()));
+			connect(m_kBlueLock, SIGNAL(lockReady()), this, SLOT(lockReady()));
+		} else {
+			connect(m_kBlueLock, SIGNAL(lockDisabled()), this, SLOT(lockDisabled()));
+			connect(m_kBlueLock, SIGNAL(lockReady()), this, SLOT(lockReady()));
+			m_kBlueLock->enable();
+			lockEnabled();
+		}
 	} else {
-		disableBlueLock();
+		m_kBlueLock->disable();
 	}
 	updateTooltip();
 }
 
-
-void KBlueTray::enableBlueLock(const QString&  mac)
+void KBlueTray::lockEnabled()
 {
-	disconnect(lockSelector,0,0,0);
-	disconnect(adapter,SIGNAL(deviceDisappeared(const QString)),0,0);
-
-	lockDevice = mac;
-	if (!lockDevice.isEmpty()) {
-
-            lockConfigureAction->setEnabled(true);
-
-            kDebug() << "KBlueLock enabled";
-            kDebug() << "lockdevice: " << lockDevice;
-
-            adapter->startDiscovery();
-            kDebug() << "Periodic Discovery Started";
-            connect(adapter,SIGNAL(deviceFound( const QString&, const QMap< QString,QVariant > & )),this,SLOT(slotTargetDeviceFound(const QString&, const QMap< QString,QVariant > & )));
-            tray->showMessage("KBluetooth","kbluelock is looking for the target device...",
-                    QSystemTrayIcon::Information,30000);
-
-            connect(adapter,SIGNAL(deviceDisappeared(const QString&)),this,SLOT(slotValidateLockDev(const QString&)));
-
-            kblueLockEnabled = false;
-
-		
-	} else {
-		lockEnableAction->setChecked(false);
-	}
+	QString iconPath = KIconLoader::global()->iconPath( "document-encrypt", KIconLoader::Panel );
+	setOverlayIconByPixmap( QIcon(iconPath).pixmap(14, 14) );
+	setIconByPixmap(m_IconEnabled);
+	showMessage("KBluetooth", "kbluelock is looking for the target device...", "kbluetooth");
+	lockConfigureAction->setEnabled(true);
 }
 
-void KBlueTray::disableBlueLock()
+void KBlueTray::lockDisabled()
 {
-
-	kDebug() << "KBlueLock disabled";
-	kDebug() << "lockdevice: " << lockDevice;
-	
-	updateTooltip();
-	kblueLockEnabled = false;
-	
-	lockConfigureAction->setEnabled(false);
-
-        adapter->stopDiscovery();
-        kDebug() << "Periodic Discovery Stopped";
-
-	disconnect(adapter,SIGNAL(deviceDisappeared(const QString&)),this,SLOT(slotValidateLockDev(const QString&)));
-	disconnect(adapter,SIGNAL(deviceFound( const QString&, const QMap< QString,QVariant > & )),this,SLOT(slotTargetDeviceFound(const QString&, const QMap< QString,QVariant > & )));
-
+  	lockConfigureAction->setEnabled(false);
+	kDebug() << "Lock disabled";
+	setOverlayIconByPixmap(QIcon());
+	setIconByPixmap(m_IconEnabled);
+	delete m_kBlueLock;
+	m_kBlueLock = 0;
 }
 
-void KBlueTray::slotValidateLockDev(const QString& addr)
+void KBlueTray::lockReady()
 {
-	if (addr == lockDevice) {
-		
-		kDebug() << "KBlueLock armed -- Lock Device disappeared";
-		QDBusConnection dbusconn = dbus->connectToBus(QDBusConnection::SessionBus, "dbus");
-		QString service = "org.freedesktop.ScreenSaver";
-	        QString path = "/ScreenSaver";
-        	QString method = "Lock";
-        	QString iface = "org.freedesktop.ScreenSaver";
-
-        	QDBusInterface* interface = new QDBusInterface(service,path,iface,dbusconn);
-        	interface->call(method);
-
-	 	 	 // log the Away times ;)
-		QFile file(QDir::homePath() + "/kbluelock.log");
-	 	if (!file.open(QIODevice::Append | QIODevice::Text))
-         		kDebug() << "cant open logfile";
-	 	else {
-			QTextStream out(&file);
-	 	 	awaytime = QDateTime::currentDateTime();
-			out << "Away from Computer: " << awaytime.toString() << "\n";
-			file.flush();	 	 	
-			file.close();
-	 	}
-		
-
-	        connect(adapter,SIGNAL(deviceFound( const QString&, const QMap< QString,QVariant > & )),this,SLOT(slotTargetDeviceBack(const QString&, const QMap< QString,QVariant > & )));
-
-	}
+	showMessage("KBluetooth", "kbluelock is enabled now", "kbluetooth");
 }
-
 
 void KBlueTray::slotConfigureKBlueLock()
 {
-                adapter->stopDiscovery();
-                kDebug() << "Periodic Discovery Stopped";
-			
-		kblueLockEnabled = false;
+		m_kBlueLock->disable();
+		kDebug() << "Periodic Discovery Stopped";
+		
+		m_kBlueLock = new KBlueLock(adapter);
+		m_kBlueLock->unlockEnable(true);
 
 		lockSelector = new DeviceSel(this,QString("computer,phone").split(','));
 		lockSelector->setOkButtonText("Select");
-		lockSelector->setInfoLabel(i18n("Selecting a device enables KBlueLock (a balloon message in the tray icon pops up when your target device is found and KBlueLock is ready).\nIf the device disappears your screen gets locked."));
-		connect(lockSelector,SIGNAL(deviceSelected(const QString&)),this,SLOT(enableBlueLock(const QString&)));
+		lockSelector->setInfoLabel(i18n("Selecting a device enables KBlueLock (a balloon message will pop up from the tray when your target device is found and KBlueLock is ready).\nIf the device disappears, your screen will be locked."));
+		
+		connect(lockSelector, SIGNAL(deviceSelected(QString)), m_kBlueLock, SLOT(enable(QString)));
 		connect(lockSelector,SIGNAL(selectorCancelled()),this,SLOT(slotBlueSelectorCancelled()));
-		connect(lockSelector,SIGNAL(unlockChanged(bool)),this,SLOT(slotUnlockScreenChanged(bool)));
+		connect(lockSelector, SIGNAL(unlockChanged(bool)), m_kBlueLock, SLOT(unlockEnable(bool)));
+		
+		connect(m_kBlueLock, SIGNAL(lockEnabled()), this, SLOT(lockEnabled()));
+		connect(m_kBlueLock, SIGNAL(lockDisabled()), this, SLOT(lockDisabled()));
+		connect(m_kBlueLock, SIGNAL(lockReady()), this, SLOT(lockReady()));
 }
-
 
 void KBlueTray::slotBlueSelectorCancelled()
 {
-
-	disconnect(adapter,SIGNAL(deviceDisappeared(const QString&)),this,SLOT(slotValidateLockDev(const QString&)));
-	disconnect(adapter,SIGNAL(deviceFound( const QString&, const QMap< QString,QVariant > & )),this,SLOT(slotTargetDeviceFound(const QString&, const QMap< QString,QVariant > & )));
+	disconnect(lockSelector, SIGNAL(deviceSelected(QString)), m_kBlueLock, SLOT(enable(QString)));
+	disconnect(lockSelector,SIGNAL(selectorCancelled()),this,SLOT(slotBlueSelectorCancelled()));
+	disconnect(lockSelector, SIGNAL(unlockChanged(bool)), m_kBlueLock, SLOT(unlockEnable(bool)));
 	disconnect(lockSelector,0,0,0);
 	kblueLockEnabled = false;
-	enableBlueLock(lockDevice);
-
-}
-void KBlueTray::slotTargetDeviceFound(const QString& addr, const QMap< QString,QVariant > & props )
-{
-	if ((!kblueLockEnabled) && (addr == lockDevice)) {
-		kDebug() << "Target device found - Kbluelock ready";
-                lockDeviceName = props["Name"].toString();
-		tray->showMessage("KBluetooth","kbluelock is enabled now");
-		kblueLockEnabled = true;
-	        disconnect(adapter,SIGNAL(deviceFound( const QString&, const QMap< QString,QVariant > & )),this,SLOT(slotTargetDeviceFound(const QString&, const QMap< QString,QVariant > & )));
-		updateTooltip();
-	}
-
-}
-
-void KBlueTray::slotTargetDeviceBack(const QString& addr, const QMap< QString,QVariant > & /* props */ )
-{
-	if ( (kblueLockEnabled && kblueUnlockEnabled ) && (addr == lockDevice)) {
-		kDebug() << "Target device is back. Disabling Screensaver.";
-
-		QDBusConnection dbusconn = dbus->connectToBus(QDBusConnection::SessionBus, "dbus");
-		QString service = "org.freedesktop.ScreenSaver";
-	        QString path = "/ScreenSaver";
-       		QString method = "SetActive";
-       		QString iface = "org.freedesktop.ScreenSaver";
-
-       		QDBusInterface* interface = new QDBusInterface(service,path,iface,dbusconn);
-       		interface->call(method,false);
-
-			 // log the Away times ;)
-		QFile file(QDir::homePath() + "/.kbluetooth4/kbluelock.log");
-		if (!file.open(QIODevice::Append | QIODevice::Text))
-         	 	 kDebug() << "cant open logfile";
-	 	else {
-			QTextStream out(&file);
-
-			out << "Back on Computer: " << QDateTime::currentDateTime ().toString() << "\n";
-	 	 	out << "---------------------------------------------\n";
-	 	    	out << ">>> Pause: " << awaytime.secsTo(QDateTime::currentDateTime())/60 << " min ";
-	 	    	out << awaytime.secsTo(QDateTime::currentDateTime())%60 << " sec\n\n";
-			file.flush();	 	 	
-			file.close();
-	 	}
-	
-	        disconnect(adapter,SIGNAL(deviceFound( const QString&, const QMap< QString,QVariant > & )),this,SLOT(slotTargetDeviceBack(const QString&, const QMap< QString,QVariant > & )));
-	}
+	//enableBlueLock(lockDevice);
 }
 
 //################# external SIGNALS ####################################
 
-void KBlueTray::slotUnlockScreenChanged(bool val)
-{
-    kDebug() << "slotUnlockScreenChanged " << val;
-    kblueUnlockEnabled = val;
-}
-
 void KBlueTray::slotPropertyChanged(const QString& prop, const QVariant& value)
 {
-    kDebug() << "Property Changed: " << prop << value;
-    if (prop == "Name")
-        updateTooltip();
+	kDebug() << "Property Changed: " << prop << value;
+	if (prop == "Name")
+		updateTooltip();
 }
 
 
 //################### RECEIVE FILES #############################################
 
+void KBlueTray::receivedConfig()
+{
+	KDialog *dialog = new KDialog();
+	KUrlRequester *urlR = new KUrlRequester(config->group("ObexServer").readEntry("savePath"),dialog);
+	urlR->setMode(KFile::Directory);
+	dialog->setMainWidget(urlR);
+	dialog->setCaption(i18n("Received files directory:"));
+	dialog->setButtons(KDialog::Ok | KDialog::Cancel);
+	dialog->setMinimumWidth(430);
+	int response = dialog->exec();
+	QString saveUrl = urlR->url().path();
+
+	if(response == QDialog::Accepted && !saveUrl.isEmpty())
+	{
+		config->group("ObexServer").writeEntry("savePath",saveUrl);
+		config->group("ObexServer").sync();
+	}
+	delete dialog;
+	
+}
+
+void KBlueTray::openObexError() {
+	delete server;
+	server = 0;
+	serverAction->setEnabled(false);
+	return;
+}
+
+void KBlueTray::sendOpenObexError(){
+	
+}
+
 void KBlueTray::slotServerReady() {
-	if(!server->isStarted())
-		server->start(QDir::homePath()+"/.kbluetooth4", true, false);
+	if(config->group("ObexServer").readEntry("Autostart") == "true") {
+		if(!server->isStarted()) {
+			server->start(config->group("ObexServer").readEntry("savePath"), true, false);
+		}
+	}
+	updateTooltip();
 }
 
 void KBlueTray::slotServerErrorOccured(const QString& error_name, const QString& error_message) {
@@ -653,19 +649,23 @@ void KBlueTray::slotServerErrorOccured(const QString& error_name, const QString&
 
 void KBlueTray::enableServer() {
 	if(serverAction->isChecked()) {
-		slotServerReady();
+		config->group("ObexServer").writeEntry("Autostart", "true");
+		if(server)
+			slotServerReady();
 	} else {
-		server->stop();
+		config->group("ObexServer").writeEntry("Autostart", "false");
+		if(server)
+			server->stop();
 	}
 }
 
 void KBlueTray::slotServerStarted() {
 	if(!server->isStarted()) {
-	      kDebug() << "obex server not started";
-	      server->close();
+		kDebug() << "obex server not started";
+		server->close();
 	} else {
-	      kDebug() << "obex server started";
-	      serverAction->setChecked(true);
+		kDebug() << "obex server started";
+		serverAction->setChecked(true);
 	}
 	updateTooltip();
 }
@@ -685,26 +685,14 @@ void KBlueTray::slotServerClosed() {
 }
 
 void KBlueTray::slotServerSessionCreated(const QString& path) {
-	serversession = new ObexServerSession(this, path);
+	kDebug() << path;
+	serversession = new ObexServerSession(this, server, path);
 	connect(serversession, SIGNAL(disconnected()), this, SLOT(slotServerTransferDisconnected()));
-	
-//	KDirSelectDialog dlg(KUrl("."), false, mainmenu);
-//	dlg.exec();
-	
-//	kDebug() << dlg.url().url();
-	
-	connect(serversession, SIGNAL(transferStarted(const QString&, const QString&, qulonglong)), this, SLOT(slotServerSessionTransferStarted(const QString&, const QString&, qulonglong)));
-	connect(serversession, SIGNAL(transferProgress(qulonglong)), this, SLOT(slotTransferProgress(qulonglong)));
-	connect(serversession, SIGNAL(transferCompleted()), this, SLOT(slotServerSessionTransferCompleted()));
+	connect(serversession, SIGNAL(transferStarted(KJob*)), this, SLOT(slotServerSessionTransferStarted(KJob*)));
 	connect(serversession, SIGNAL(errorOccurred(const QString&, const QString&)), this, SLOT(slotServerErrorOccured(const QString&, const QString&)));
 }
 
 void KBlueTray::slotServerSessionRemoved(const QString& /*path*/) {
-	if(progress) {
-		 disconnect(progress, 0,0,0);
-		 delete progress;
-		 progress = 0;
-	}
 	if(serversession) {
 		serversession->disconnect();
 		delete serversession;
@@ -712,29 +700,122 @@ void KBlueTray::slotServerSessionRemoved(const QString& /*path*/) {
 	}
 }
 
-void KBlueTray::slotServerSessionTransferStarted(const QString& filename, const QString& local_path, qulonglong total_bytes) {
-	
+//TODO: Be able to choose the destination path
+void KBlueTray::slotServerSessionTransferStarted(KJob* job) {
+	ObexServerSessionFileTransfer* fileTransfer = static_cast<ObexServerSessionFileTransfer*>(job);
+	kDebug() << "Going to check: " << fileTransfer->remoteAddr();
+	if(isReceiveTrusted(fileTransfer->remoteAddr()) == false){
+		kDebug() << "the device is not trusted, showing dialog";
+		KUrl tmpUrl(fileTransfer->localPath());
+		Ui::receiveFileWidget *receiveWidget = new Ui::receiveFileWidget;
+		QWidget *mainWidget = new QWidget();
+		receiveWidget->setupUi(mainWidget);
+		receiveWidget->saveToUrl->setText(tmpUrl.directory());
 
-	int receiveFiles = KMessageBox::questionYesNo(mainmenu, "Receive files over bluetooth?", "Incoming files over Bluetooth");
-        kDebug() << "Receive Files? " << receiveFiles;
-	if(receiveFiles == 4) {
-		serversession->reject();
-		serversession->disconnect();
-		return;
+		KDialog *dialog = new KDialog();
+		dialog->setMainWidget(mainWidget);
+		dialog->setCaption(i18n("Receive files over bluetooth ?"));
+		dialog->setButtons(KDialog::Ok | KDialog::Cancel);
+		dialog->setFixedSize(380,105);
+		int response = dialog->exec();
+
+		if(response == QDialog::Rejected){
+			QFile file(fileTransfer->localPath());
+			if(!file.remove()) {
+				kDebug() << "Error deleting file: " << fileTransfer->localPath();
+			}
+			fileTransfer->reject();
+			serversession->cancel();
+			serversession->disconnect();
+			return;
+		}
+		if(receiveWidget->saveCheck->isChecked()){
+			addReceiveTrustedDevice(fileTransfer->remoteName(),fileTransfer->remoteAddr());
+		}
+		QString saveUrl = receiveWidget->saveToUrl->text();
+		if(saveUrl.isEmpty()){
+			saveUrl.append(config->group("ObexServer").readEntry("savePath"));
+		}
+		saveUrl.append("/");
+		saveUrl.append(tmpUrl.fileName());
+		kDebug() << saveUrl;
+		fileTransfer->setLocalPath(saveUrl);
 	}
-        serversession->accept();
+	kDebug() << "transfer started";
+#ifdef HAVE_NEPOMUK
+	connect(fileTransfer, SIGNAL( result(KJob*) ), this, SLOT( slotFileReceiveComplete(KJob*) ));
+#endif
+	KIO::getJobTracker()->registerJob(fileTransfer);
+	fileTransfer->start();
+// 	kDebug() << "Remote addr: " << fileTransfer->remoteAddr();
+	/*KNotification* notification = new KNotification("receiveFiles", 0, KNotification::Persistent);
+	notification->setText("Recieve files over bluetooth?");
+	notification->setPixmap( KIcon("kbluetooth4").pixmap(20, 20) );
+	notification->setActions(QStringList() << "Yes" << "no");
+	connect(notification, SIGNAL( activated(unsigned int) ), this, SLOT( slotAcceptFileRecieve(unsigned int) ));
+	notification->sendEvent();*/
+}
 
-	kDebug() << local_path;
-	kDebug() << total_bytes;
-	
-	totalFileSize = total_bytes;
-	
-	progress = new QProgressDialog(i18n("Receiving ") + filename, i18n("Cancel"), 0, 100);
-	progress->setAutoClose(true);
-	progress->setWindowIcon(KIcon("kbluetooth4"));
-	progress->window()->setWindowTitle(i18n("Receiving ") + filename);
-	progress->show();
-	connect(progress, SIGNAL(canceled()), this, SLOT(slotFileReceiveCancelled()));
+bool KBlueTray::initReceiveTrusting()
+{
+	//Already initialized
+	if(m_wallet){
+		kDebug() << "Wallet alreday initialized";
+		return true;
+	}
+	m_wallet = Wallet::openWallet(Wallet::NetworkWallet(),0);
+	if(m_wallet == NULL){
+		return false;
+	}
+	m_wallet->hasFolder("kbluetooth4");
+	if(!m_wallet->hasFolder("kbluetooth4")){
+		if(!m_wallet->createFolder("kbluetooth4")){
+			//TODO: Error reporting here
+			return false;
+		}
+	}
+	m_wallet->setFolder("kbluetooth4");
+	return true;
+}
+//TODO: shall we use the bluez trusting list? or that is for other matters?
+void KBlueTray::addReceiveTrustedDevice(const QString& remoteName, const QString& remoteAddr) {
+	if(initReceiveTrusting()) {
+		m_wallet->writeEntry(remoteAddr,remoteName.toAscii());
+		m_wallet->sync();
+	}
+}
+
+bool KBlueTray::isReceiveTrusted(const QString& remoteAddr) {
+	kDebug() << "Checking trust: " << remoteAddr;
+	if(initReceiveTrusting()) {
+		if(m_wallet->hasEntry(remoteAddr)) {
+			kDebug() << "\t\ttrue";
+			return true;
+		}
+	}
+	return false;
+}
+
+void KBlueTray::slotAcceptFileRecieve(unsigned int id) {
+	if(id == 1) {
+		//accept
+	} else {
+		//deny
+	}
+}
+
+void KBlueTray::slotFileReceiveComplete(KJob* job) {
+#ifdef HAVE_NEPOMUK
+	ObexServerSessionFileTransfer* fileTransfer = static_cast<ObexServerSessionFileTransfer*>(job);
+	if(Nepomuk::ResourceManager::instance()->init() == 0) {
+		kDebug() << fileTransfer->localPath();
+		Nepomuk::Resource file(QUrl(fileTransfer->localPath()));
+		Nepomuk::Tag tag("bluetooth");
+		tag.addSymbol("preferences-system-bluetooth");
+		tag.setDescription("File received over bluetooth");
+		file.addTag(tag);
+	}
+#endif
 }
 
 void KBlueTray::slotFileReceiveCancelled() {
@@ -742,21 +823,6 @@ void KBlueTray::slotFileReceiveCancelled() {
 	serversession->disconnect();
 }
 
-void KBlueTray::slotServerSessionTransferCompleted() {
-	/*KDirSelectDialog dlg(KUrl("."), false, 0);
-	dlg.exec();
-	
-	kDebug() << dlg.url().url();*/
-	
-	delete progress;
-	progress = 0;
-	
-}
-
 void KBlueTray::slotServerTransferDisconnected() {
-	if(progress) {
-		 delete progress;
-		 progress = 0;
-	}
-}
 
+}
