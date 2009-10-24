@@ -7,7 +7,7 @@ Uploaders: Michael Meskes <meskes@debian.org>, Achim Bohnet <ach@mpe.mpg.de>,
 Build-Depends: debhelper (>= 7.3), quilt, cmake, pkg-kde-tools (>= 0.4.10),
  kdelibs5-dev (>= 4:4.2.96), kdebase-workspace-dev (>= 4:4.2.96),
  libknotificationitem-1-dev
-Standards-Version: 3.8.2
+Standards-Version: 3.8.3
 Homepage: http://sourceforge.net/projects/kde-bluetooth/
 Vcs-Git: git://git.debian.org/pkg-kde/kde-extras/kdebluetooth4.git
 Vcs-Browser: http://git.debian.org/?p=pkg-kde/kde-extras/kdebluetooth4.git
