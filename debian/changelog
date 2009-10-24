@@ -1,4 +1,4 @@
-kdebluetooth (1:0.4~rc1-1) UNRELEASED; urgency=low
+kdebluetooth (1:0.4~rc1-1) experimental; urgency=low
 
   * Imported Upstream version 0.4~rc1
   * Don't use dcop in kblueplugd, taken from Ubuntu package.
