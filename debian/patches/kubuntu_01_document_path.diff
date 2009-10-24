@@ -1,0 +1,26 @@
+diff -Nur -x '*.orig' -x '*~' kdebluetooth-0.4~beta1b/src/trayicon.cpp kdebluetooth-0.4~beta1b.new/src/trayicon.cpp
+--- kdebluetooth-0.4~beta1b/src/trayicon.cpp	2009-09-18 03:14:27.000000000 +0200
++++ kdebluetooth-0.4~beta1b.new/src/trayicon.cpp	2009-09-29 09:37:27.177320178 +0200
+@@ -55,6 +55,7 @@
+ #include <KMenu>
+ #include <KApplication>
+ #include <kwallet.h>
++#include <kglobalsettings.h>
+ 
+ using KWallet::Wallet;
+ KBlueTray::KBlueTray(const QString& path, QObject* parent) : KNotificationItem(parent), agentPath(path)
+@@ -199,13 +200,7 @@
+ 	confGroup = new KConfigGroup(config, "General");
+ 	KConfigGroup obexServerConfig(config, "ObexServer");
+ 	if(!obexServerConfig.hasKey("savePath")) {
+-		QString saveUrl;
+-		KDirSelectDialog dirs;
+-		if(dirs.exec() && dirs.url().isValid()) {
+-			saveUrl = dirs.url().path();
+-		}else{
+-			saveUrl = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+-		}
++		QString saveUrl=KGlobalSettings::documentPath();
+ 		obexServerConfig.writeEntry("savePath",saveUrl);
+ 		obexServerConfig.sync();
+ 	}
