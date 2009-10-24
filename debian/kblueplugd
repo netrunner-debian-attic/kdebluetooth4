@@ -47,7 +47,7 @@ def slotAdapterRemoved(device):
                 for p in quitprogs:
                         print "exiting:", p, " ..."
                         try:
-                                distutils.spawn.spawn(['dcop', p, 'MainApplication-Interface', 'quit'])
+				distutils.spawn.spawn(['killall', p])
                         except:
                                 pass
 
