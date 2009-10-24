@@ -1,5 +1,22 @@
+kdebluetooth (1:0.4~rc1-1) UNRELEASED; urgency=low
+
+  * Imported Upstream version 0.4~rc1
+  * Don't use dcop in kblueplugd, taken from Ubuntu package.
+  * Replaced old save-directory patch with new one. Taken from Ubuntu as
+    well.
+  * Added build dependency on libknotificationitem-dev.
+  * Bumped Standards-Version, no changes needed.
+
+ -- Michael Meskes <meskes@debian.org>  Sat, 24 Oct 2009 19:28:10 +0200
+
 kdebluetooth (1:0.3-1) experimental; urgency=low
 
+  [ Fathi Boudra ]
+  * Keep kdebluetooth naming
+  * Fix typo
+  * Drop CDBS build dependency
+
+  [ Michael Meskes ]
   * Initial release of kde4 version, closes: #504109
   * Merged from Ubuntu:
     - kubuntu_01_save_to_home.diff patch.
