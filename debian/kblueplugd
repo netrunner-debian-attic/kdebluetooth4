@@ -15,8 +15,8 @@ import dbus
 import dbus.mainloop.qt
 import distutils.spawn
 
-kbtcmd    = [ 'kbluetooth4' ]
-quitprogs = [ 'kbluetooth4' ]
+kbtcmd    = [ 'kbluetooth' ]
+quitprogs = [ 'kbluetooth' ]
 
 
 app = Qt.QCoreApplication(sys.argv)
