@@ -1,5 +1,8 @@
 kdebluetooth (1:0.4.1-1) UNRELEASED; urgency=low
 
+  * New upstream release
+
+  [ Didier Raboud ]
   * Imported upstream version 0.4.1
   * Change Homepage from SourceForge to KDE-Apps.org
   * Merging from Ubuntu:
@@ -8,6 +11,15 @@ kdebluetooth (1:0.4.1-1) UNRELEASED; urgency=low
   * Patches:
     - Refresh kubuntu_01_document_path.diff
   * Bump Standards-Version, no changes needed.
+
+  [ Fathi Boudra ]
+  * Switch to dpkg-source 3.0 (quilt) format
+  * Update debian/control:
+    - Bump build dependencies versions (debhelper and pkg-kde-tools)
+    - Remove quilt build dependency
+  * Update debian/rules:
+    - Enable parallel build (pass --parallel option to dh)
+    - Use kde sequence addon (pass --with kde option to dh)
 
  -- Didier Raboud <didier@raboud.com>  Wed, 10 Feb 2010 09:55:11 +0100
 

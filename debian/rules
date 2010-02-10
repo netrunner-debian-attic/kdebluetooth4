@@ -1,9 +1,7 @@
 #!/usr/bin/make -f
 
-include /usr/share/pkg-kde-tools/makefiles/1/debhelper/kde.mk
-
 %:
-	dh --with quilt $@
+	dh --parallel --with kde $@
 
 override_dh_install:
 	install -D -p -m0755 debian/kblueplugd \

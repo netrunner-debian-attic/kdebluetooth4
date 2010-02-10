@@ -1,7 +1,5 @@
-Index: kdebluetooth-0.4/src/trayicon.cpp
-===================================================================
---- kdebluetooth-0.4.orig/src/trayicon.cpp	2010-02-01 15:37:39.000000000 -0500
-+++ kdebluetooth-0.4/src/trayicon.cpp	2010-02-01 18:06:38.057388962 -0500
+--- a/src/trayicon.cpp
++++ b/src/trayicon.cpp
 @@ -57,6 +57,7 @@
  #include <KApplication>
  #include <KStandardAction>
@@ -10,7 +8,7 @@ Index: kdebluetooth-0.4/src/trayicon.cpp
  
  using KWallet::Wallet;
  KBlueTray::KBlueTray(const QString& path, QObject* parent) : KNotificationItem(parent), agentPath(path),m_aboutDialog(0)
-@@ -199,13 +200,7 @@
+@@ -199,13 +200,7 @@ void KBlueTray::initConfig() {
  	confGroup = new KConfigGroup(config, "General");
  	KConfigGroup obexServerConfig(config, "ObexServer");
  	if(!obexServerConfig.hasKey("savePath")) {
