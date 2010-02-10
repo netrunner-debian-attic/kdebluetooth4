@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 """
 Copyright (C) 2007 Achim Bohnet <allee@kubuntu.org>
 
@@ -22,7 +22,12 @@ quitprogs = [ 'kbluetooth' ]
 app = Qt.QCoreApplication(sys.argv)
 	
 dbus.mainloop.qt.DBusQtMainLoop(set_as_default=True)
-bus = dbus.SystemBus()
+
+try:
+        bus = dbus.SystemBus()
+except:
+        print "Unable to connect to the DBus system bus."
+        sys.exit(1)
 
 try:
         manager = dbus.Interface(bus.get_object('org.bluez', '/'), 'org.bluez.Manager')
