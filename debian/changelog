@@ -1,3 +1,9 @@
+kdebluetooth (1:0.4.1-1) UNRELEASED; urgency=low
+
+  * Imported upstream version 0.4.1
+
+ -- Didier Raboud <didier@raboud.com>  Wed, 10 Feb 2010 09:55:11 +0100
+
 kdebluetooth (1:0.4~rc1-1) experimental; urgency=low
 
   * Imported Upstream version 0.4~rc1
