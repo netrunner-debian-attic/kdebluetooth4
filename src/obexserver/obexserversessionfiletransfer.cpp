@@ -31,6 +31,7 @@
 
 
 ObexServerSessionFileTransfer::ObexServerSessionFileTransfer(ObexServerSession* serverSession, QDBusInterface* session, const QString& filename, const QString& path, qulonglong size) {
+	setAutoDelete(false);
 	m_serverSession = serverSession;
 	m_dbusSession = session;
 	m_fileName = filename;
@@ -57,7 +58,7 @@ ObexServerSessionFileTransfer::~ObexServerSessionFileTransfer() {
 }
 
 void ObexServerSessionFileTransfer::start() {
-	QTimer::singleShot(0, this, SLOT(receiveFiles()));
+	QTimer::singleShot(1200, this, SLOT(receiveFiles()));
 }
 
 void ObexServerSessionFileTransfer::reject() {
@@ -90,11 +91,15 @@ void ObexServerSessionFileTransfer::slotTransferProgress(qulonglong transferred)
 void ObexServerSessionFileTransfer::slotTransferCompleted() {
 	kDebug() << "Transfer completed";
 	setProcessedAmount(Bytes, m_totalFileSize);
+	emitResult();
 }
 
-void ObexServerSessionFileTransfer::slotErrorOccured(const QString& , const QString& ) {
+void ObexServerSessionFileTransfer::slotErrorOccured(const QString& reason1, const QString& reason2) {
 	kDebug() << "Transfer disconnected";
-// 	emitResult();
+	kDebug() << reason1;
+	kDebug() << reason2;
+	#warning Add setErrorText after 0.4 release.
+	emitResult();
 }
 
 void ObexServerSessionFileTransfer::feedbackReceived()
@@ -103,8 +108,9 @@ void ObexServerSessionFileTransfer::feedbackReceived()
 }
 
 bool ObexServerSessionFileTransfer::doKill() {
+	kDebug() << "doKill called";
+	m_serverSession->disconnect();
 	m_dbusSession->call("Cancel");
-	m_dbusSession->call("Disconnect");
 	return true;
 }
 

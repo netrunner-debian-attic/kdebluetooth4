@@ -65,7 +65,7 @@ public slots:
 private slots:
 	void setNormalLogo();
 	void setFlashingLogo();
-
+	void configuredDevices();
 signals:
 	void deviceSelected(const QString& mac);
 	void selectorCancelled();

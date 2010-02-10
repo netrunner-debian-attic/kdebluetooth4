@@ -20,6 +20,7 @@ find_package(KDE4Workspace REQUIRED)
 #In kde 4.3 libKNotification was experimental
 if(${KDE_VERSION} VERSION_LESS 4.3.9)
 	find_package(LibKNotificationItem-1 REQUIRED)
+	set (KBLUETOOTH_LIBKNOTIFICATION ${KNOTIFICATIONITEM_LIBRARIES})
 endif(${KDE_VERSION} VERSION_LESS 4.3.9)
 
 macro_optional_find_package(Nepomuk)

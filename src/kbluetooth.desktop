@@ -1,7 +1,11 @@
 [Desktop Entry]
 Name=kbluetooth
 Name[da]=kbluetooth
+Name[en_GB]=kbluetooth
+Name[es]=kbluetooth
+Name[pa]=ਕੇਬਲਿਊਟੁੱਥ
 Name[pt]=kbluetooth
+Name[pt_BR]=kbluetooth
 Name[ro]=kbluetooth
 Name[ru]=kbluetooth
 Name[sv]=Kbluetooth
@@ -15,7 +19,12 @@ Terminal=false
 Categories=Qt;KDE;Network;FileTransfer;
 GenericName=KDE Bluetooth
 GenericName[da]=KDE Bluetooth
+GenericName[de]=KDE Bluetooth
+GenericName[en_GB]=KDE Bluetooth
+GenericName[es]=Bluetooth para KDE
+GenericName[pa]=KDE ਬਲਿਊਟੁੱਥ
 GenericName[pt]=Bluetooth do KDE
+GenericName[pt_BR]=Bluetooth do KDE
 GenericName[ro]=KDE Bluetooth
 GenericName[ru]=KDE Bluetooth
 GenericName[sv]=KDE Blåtand

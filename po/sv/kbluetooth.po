@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbluetooth4\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-09-30 07:22+0200\n"
-"PO-Revision-Date: 2009-09-27 17:10+0200\n"
+"POT-Creation-Date: 2009-12-08 06:55+0100\n"
+"PO-Revision-Date: 2009-11-16 22:09+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@comhem.se>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -85,7 +85,7 @@ msgstr "MAC-adress: "
 
 #. i18n: file: adapterWidget.ui:79
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: rc.cpp:22 rc.cpp:70 trayicon.cpp:184
+#: rc.cpp:22 rc.cpp:70 trayicon.cpp:180
 msgid "Settings"
 msgstr "Inställningar"
 
@@ -298,159 +298,162 @@ msgstr "* Sök igen"
 
 #. i18n: file: deviceselector/deviceselector.ui:94
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: rc.cpp:192 deviceselector/devicesel.cpp:91 deviceselector/devicesel.cpp:104
-#: inputwizard/wizarddialog.cpp:112 inputwizard/wizarddialog.cpp:229
-#: inputwizard/wizarddialog.cpp:245
+#: rc.cpp:192 deviceselector/devicesel.cpp:105
+#: deviceselector/devicesel.cpp:118 inputwizard/wizarddialog.cpp:112
+#: inputwizard/wizarddialog.cpp:229 inputwizard/wizarddialog.cpp:245
 msgid "&Search"
 msgstr "&Sök"
 
 #. i18n: file: deviceselector/deviceselector.ui:127
 #. i18n: ectx: property (text), widget (QPushButton, sendButton)
-#: rc.cpp:198 trayicon.cpp:174
+#: rc.cpp:198 trayicon.cpp:170
 msgid "Send"
 msgstr "Skicka"
 
-#. i18n: file: device-manager/deviceman.ui:13
+#. i18n: file: device-manager/deviceman.ui:14
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, DeviceManager)
 #: rc.cpp:201
 msgid "Bluetooth Device Manager"
 msgstr "Blåtand enhetshanterare"
 
-#. i18n: file: device-manager/deviceman.ui:40
+#. i18n: file: device-manager/deviceman.ui:33
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.cpp:204
 msgid "Address:"
 msgstr "Adress:"
 
-#. i18n: file: device-manager/deviceman.ui:71
+#. i18n: file: device-manager/deviceman.ui:64
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: rc.cpp:207
 msgid "Type:"
 msgstr "Typ:"
 
-#. i18n: file: device-manager/deviceman.ui:102
+#. i18n: file: device-manager/deviceman.ui:95
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: rc.cpp:210
 msgid "Trust:"
 msgstr "Pålitlighet:"
 
-#. i18n: file: device-manager/deviceman.ui:133
+#. i18n: file: device-manager/deviceman.ui:126
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: rc.cpp:213
 msgid "Status:"
 msgstr "Status:"
 
-#. i18n: file: device-manager/deviceman.ui:220
+#. i18n: file: device-manager/deviceman.ui:213
 #. i18n: ectx: property (text), widget (QPushButton, newDevButton)
-#. i18n: file: device-manager/deviceman.ui:290
+#. i18n: file: device-manager/deviceman.ui:265
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
-#: rc.cpp:216 rc.cpp:228
+#: rc.cpp:216 rc.cpp:231
 msgid "New..."
 msgstr "Ny..."
 
-#. i18n: file: device-manager/deviceman.ui:227
+#. i18n: file: device-manager/deviceman.ui:220
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#. i18n: file: device-manager/deviceman.ui:295
+#. i18n: file: device-manager/deviceman.ui:270
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
-#: rc.cpp:219 rc.cpp:231
+#: rc.cpp:219 rc.cpp:234
 msgid "Remove"
 msgstr "Ta bort"
 
-#. i18n: file: device-manager/deviceman.ui:247
-#. i18n: ectx: property (text), widget (QPushButton, closeButton)
-#: rc.cpp:222
-msgid "Close"
-msgstr "Stäng"
-
-#. i18n: file: device-manager/deviceman.ui:266
-#. i18n: ectx: property (title), widget (QMenu, menuEdit)
-#: rc.cpp:225
-msgid "Tasks"
-msgstr "Aktiviteter"
-
-#. i18n: file: device-manager/deviceman.ui:300
+#. i18n: file: device-manager/deviceman.ui:227
+#. i18n: ectx: property (text), widget (QPushButton, connectButton)
+#. i18n: file: device-manager/deviceman.ui:275
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
-#: rc.cpp:234 device-manager/devicemanager.cpp:162
-#: device-manager/devicemanager.cpp:187 device-manager/devicemanager.cpp:248
+#: rc.cpp:222 rc.cpp:237 device-manager/devicemanager.cpp:157
+#: device-manager/devicemanager.cpp:182 device-manager/devicemanager.cpp:251
 msgid "Connect"
 msgstr "Anslut"
 
-#. i18n: file: device-manager/deviceman.ui:305
+#. i18n: file: device-manager/deviceman.ui:234
+#. i18n: ectx: property (text), widget (QPushButton, setTrustButton)
+#: rc.cpp:225 device-manager/devicemanager.cpp:166
+#: device-manager/devicemanager.cpp:262
+msgid "Set Trusted"
+msgstr "Anse som pålitlig"
+
+#. i18n: file: device-manager/deviceman.ui:254
+#. i18n: ectx: property (text), widget (QPushButton, closeButton)
+#: rc.cpp:228
+msgid "Close"
+msgstr "Stäng"
+
+#. i18n: file: device-manager/deviceman.ui:280
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
-#: rc.cpp:237 device-manager/devicemanager.cpp:168
-#: device-manager/devicemanager.cpp:255
+#: rc.cpp:240 device-manager/devicemanager.cpp:163
+#: device-manager/devicemanager.cpp:258
 msgid "Remove Trust"
 msgstr "Avlägsna pålitlighet"
 
-#. i18n: file: device-manager/deviceman.ui:310
+#. i18n: file: device-manager/deviceman.ui:285
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
-#: rc.cpp:240
+#: rc.cpp:243
 msgid "Quit"
 msgstr "Avsluta"
 
-#. i18n: file: device-manager/deviceman.ui:315
+#. i18n: file: device-manager/deviceman.ui:290
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
-#: rc.cpp:243
+#: rc.cpp:246
 msgid "Pair"
 msgstr "Par"
 
-#: trayicon.cpp:165
+#: trayicon.cpp:161
 msgid "KBlueLock"
 msgstr "Kbluelock"
 
-#: trayicon.cpp:167
+#: trayicon.cpp:163
 msgid "Enable"
 msgstr "Aktivera"
 
-#: trayicon.cpp:171
+#: trayicon.cpp:167
 msgid "Configure..."
 msgstr "Anpassa..."
 
-#: trayicon.cpp:176
+#: trayicon.cpp:172
 msgid "File"
 msgstr "Fil"
 
-#: trayicon.cpp:179
+#: trayicon.cpp:175
 msgid "Clipboard Text"
 msgstr "Klippbordstext"
 
-#: trayicon.cpp:181
+#: trayicon.cpp:177
 msgid "Device Manager"
 msgstr "Enhetshanterare"
 
-#: trayicon.cpp:186
+#: trayicon.cpp:182
 msgid "Received files"
 msgstr "Tog emot filer"
 
-#: trayicon.cpp:187
+#: trayicon.cpp:183
 msgid "Bluetooth Adapters"
 msgstr "Blåtandsanslutningar"
 
-#: trayicon.cpp:188
+#: trayicon.cpp:184
 msgid "Obex server"
 msgstr "OBEX-server"
 
-#: trayicon.cpp:195
+#: trayicon.cpp:192
 msgid "About"
 msgstr "Om"
 
-#: trayicon.cpp:322
+#: trayicon.cpp:321
 msgid "No Bluetooth Adapter"
 msgstr "Ingen Blåtandsanslutning"
 
-#: trayicon.cpp:425
+#: trayicon.cpp:424
 msgid "Select File"
 msgstr "Markera fil"
 
-#: trayicon.cpp:430 trayicon.cpp:455
+#: trayicon.cpp:432 trayicon.cpp:462
 msgid "Selecting a device starts the file transfer."
 msgstr "Att markera en enhet startar filöverföringen."
 
-#: trayicon.cpp:516
+#: trayicon.cpp:536
 msgid "Select"
 msgstr "Markera"
 
-#: trayicon.cpp:517 trayicon.cpp:572
+#: trayicon.cpp:537 trayicon.cpp:592
 msgid ""
 "Selecting a device enables KBlueLock (a balloon message will pop up from the "
 "tray when your target device is found and KBlueLock is ready).\n"
@@ -460,12 +463,12 @@ msgstr ""
 "ikonen i systembrickan när målenheten hittats och Kbluelock är klar).\n"
 "Om enheten försvinner, låses bildskärmen."
 
-#: trayicon.cpp:611
+#: trayicon.cpp:631
 msgid "Received files directory:"
 msgstr "Tog emot filernas katalog:"
 
-#: trayicon.cpp:718
-msgid "Receive files over bluetooth ?"
+#: trayicon.cpp:749
+msgid "Receive files over bluetooth?"
 msgstr "Ta emot filer via Blåtand?"
 
 #: agent/confirmdialog.cpp:49
@@ -480,54 +483,46 @@ msgstr "Bekräfta lösennyckel?"
 msgid "PassKey: "
 msgstr "Lösennyckel: "
 
-#: deviceselector/devicesel.cpp:93
+#: deviceselector/devicesel.cpp:107
 msgid "&Stop Searching"
 msgstr "&Stoppa sökning"
 
-#: obexserver/obexserver.cpp:109
-msgid "Error creating Bluetooth Server"
-msgstr "Fel när Blåtandsserver skulle skapas"
-
-#: device-manager/devicemanager.cpp:158 device-manager/devicemanager.cpp:243
+#: device-manager/devicemanager.cpp:153 device-manager/devicemanager.cpp:246
 msgid "Connected"
 msgstr "Uppkopplad"
 
-#: device-manager/devicemanager.cpp:159 device-manager/devicemanager.cpp:244
+#: device-manager/devicemanager.cpp:154 device-manager/devicemanager.cpp:247
 msgid "Disconnect"
 msgstr "Koppla ner"
 
-#: device-manager/devicemanager.cpp:161 device-manager/devicemanager.cpp:247
+#: device-manager/devicemanager.cpp:156 device-manager/devicemanager.cpp:250
 msgid "Not connected"
 msgstr "Inte uppkopplad"
 
-#: device-manager/devicemanager.cpp:167 device-manager/devicemanager.cpp:254
+#: device-manager/devicemanager.cpp:162 device-manager/devicemanager.cpp:257
 msgid "Always trust"
 msgstr "Lita alltid på"
 
-#: device-manager/devicemanager.cpp:170 device-manager/devicemanager.cpp:258
+#: device-manager/devicemanager.cpp:165 device-manager/devicemanager.cpp:261
 msgid "Not trusted"
 msgstr "Opålitlig"
 
-#: device-manager/devicemanager.cpp:171 device-manager/devicemanager.cpp:259
-msgid "Set Trusted"
-msgstr "Anse som pålitlig"
-
-#: device-manager/devicemanager.cpp:245
+#: device-manager/devicemanager.cpp:248
 #, kde-format
 msgid "Connected to %1"
 msgstr "Ansluten till %1"
 
-#: device-manager/devicemanager.cpp:249
+#: device-manager/devicemanager.cpp:252
 #, kde-format
 msgid "Disconnected from %1"
 msgstr "Nerkopplad från %1"
 
-#: device-manager/devicemanager.cpp:256
+#: device-manager/devicemanager.cpp:259
 #, kde-format
 msgid "Permanent Trust added for %1"
 msgstr "Permanent pålitlighet tillagd för %1"
 
-#: device-manager/devicemanager.cpp:260
+#: device-manager/devicemanager.cpp:263
 #, kde-format
 msgid "Permanent Trust removed for %1"
 msgstr "Permanent pålitlighet borttagen för %1"
@@ -556,7 +551,7 @@ msgstr "<b>Om enheten inte finns i listan:</b>"
 msgid "Summary"
 msgstr "Sammanfattning"
 
-#: inputwizard/wizarddialog.cpp:141 inputwizard/wizarddialog.cpp:353
+#: inputwizard/wizarddialog.cpp:141 inputwizard/wizarddialog.cpp:347
 msgid "Connection will be established to this Bluetooth device"
 msgstr "Anslutning kommer att upprättas till denna Blåtandsenhet"
 
@@ -565,7 +560,7 @@ msgid "Finished"
 msgstr "Klar"
 
 #: inputwizard/wizarddialog.cpp:171
-msgid "Please wait, until the connection to your Bluetooth Device is done ..."
+msgid "Please wait, until the connection to your Bluetooth Device is done..."
 msgstr "Vänta till anslutningen till Blåtandsenheten är klar..."
 
 #: inputwizard/wizarddialog.cpp:235
@@ -576,28 +571,34 @@ msgstr "&Stoppa sökning"
 msgid "Checking your Bluetooth Device for input capabilities..."
 msgstr "Kontrollerar Blåtandsenhetens indatastöd..."
 
-#: inputwizard/wizarddialog.cpp:324
+#: inputwizard/wizarddialog.cpp:316
 msgid "Your Device is setup properly and should work now."
 msgstr "Enheten är riktigt inställd och ska nu fungera."
 
-#: inputwizard/wizarddialog.cpp:354
+#: inputwizard/wizarddialog.cpp:348
 #, kde-format
 msgid "<b>Name: </b>%1"
 msgstr "<b>Namn: </b>%1"
 
-#: inputwizard/wizarddialog.cpp:355
+#: inputwizard/wizarddialog.cpp:349
 #, kde-format
 msgid "<b>Address: </b>%1"
 msgstr "<b>Adress: </b>%1"
 
-#: inputwizard/wizarddialog.cpp:356
+#: inputwizard/wizarddialog.cpp:350
 #, kde-format
 msgid "<b>Device class: </b>%1"
 msgstr "<b>Enhetsklass: </b>%1"
 
-#: inputwizard/wizarddialog.cpp:364
+#: inputwizard/wizarddialog.cpp:358
 msgid "Sorry your Bluetooth Device does not support input Service."
 msgstr "Tyvärr stöder inte Blåtandsenheten indatatjänst."
+
+#~ msgid "Error creating Bluetooth Server"
+#~ msgstr "Fel när Blåtandsserver skulle skapas"
+
+#~ msgid "Tasks"
+#~ msgstr "Aktiviteter"
 
 #~ msgid "kbluetooth4-agent"
 #~ msgstr "kbluetooth4-agent"

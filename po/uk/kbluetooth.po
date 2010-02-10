@@ -2,19 +2,19 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2009.
+# Yuri Chornoivan <yurchor@ukr.net>, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: kbluetooth4\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-09-30 07:22+0200\n"
-"PO-Revision-Date: 2009-09-27 09:59+0300\n"
+"POT-Creation-Date: 2009-12-08 06:55+0100\n"
+"PO-Revision-Date: 2010-01-29 17:49+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 0.3\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
@@ -28,7 +28,7 @@ msgstr "KBluetooth"
 
 #: main.cpp:41 device-manager/main.cpp:40 inputwizard/main.cpp:41
 msgid "(c) 2008-2009, The KBluetooth Developers"
-msgstr "© 2008-2009, Розробники KBluetooth"
+msgstr "© Розробники KBluetooth, 2008–2009"
 
 #: main.cpp:43 device-manager/main.cpp:42 inputwizard/main.cpp:43
 msgid "Alex Fiestas"
@@ -86,7 +86,7 @@ msgstr "MAC-адреса: "
 
 #. i18n: file: adapterWidget.ui:79
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: rc.cpp:22 rc.cpp:70 trayicon.cpp:184
+#: rc.cpp:22 rc.cpp:70 trayicon.cpp:180
 msgid "Settings"
 msgstr "Параметри"
 
@@ -301,159 +301,162 @@ msgstr "* Повторіть пошук"
 
 #. i18n: file: deviceselector/deviceselector.ui:94
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: rc.cpp:192 deviceselector/devicesel.cpp:91 deviceselector/devicesel.cpp:104
-#: inputwizard/wizarddialog.cpp:112 inputwizard/wizarddialog.cpp:229
-#: inputwizard/wizarddialog.cpp:245
+#: rc.cpp:192 deviceselector/devicesel.cpp:105
+#: deviceselector/devicesel.cpp:118 inputwizard/wizarddialog.cpp:112
+#: inputwizard/wizarddialog.cpp:229 inputwizard/wizarddialog.cpp:245
 msgid "&Search"
 msgstr "&Пошук"
 
 #. i18n: file: deviceselector/deviceselector.ui:127
 #. i18n: ectx: property (text), widget (QPushButton, sendButton)
-#: rc.cpp:198 trayicon.cpp:174
+#: rc.cpp:198 trayicon.cpp:170
 msgid "Send"
 msgstr "Надіслати"
 
-#. i18n: file: device-manager/deviceman.ui:13
+#. i18n: file: device-manager/deviceman.ui:14
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, DeviceManager)
 #: rc.cpp:201
 msgid "Bluetooth Device Manager"
 msgstr "Керування пристроями Bluetooth"
 
-#. i18n: file: device-manager/deviceman.ui:40
+#. i18n: file: device-manager/deviceman.ui:33
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.cpp:204
 msgid "Address:"
 msgstr "Адреса:"
 
-#. i18n: file: device-manager/deviceman.ui:71
+#. i18n: file: device-manager/deviceman.ui:64
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: rc.cpp:207
 msgid "Type:"
 msgstr "Тип:"
 
-#. i18n: file: device-manager/deviceman.ui:102
+#. i18n: file: device-manager/deviceman.ui:95
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: rc.cpp:210
 msgid "Trust:"
 msgstr "Довіра:"
 
-#. i18n: file: device-manager/deviceman.ui:133
+#. i18n: file: device-manager/deviceman.ui:126
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: rc.cpp:213
 msgid "Status:"
 msgstr "Стан:"
 
-#. i18n: file: device-manager/deviceman.ui:220
+#. i18n: file: device-manager/deviceman.ui:213
 #. i18n: ectx: property (text), widget (QPushButton, newDevButton)
-#. i18n: file: device-manager/deviceman.ui:290
+#. i18n: file: device-manager/deviceman.ui:265
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
-#: rc.cpp:216 rc.cpp:228
+#: rc.cpp:216 rc.cpp:231
 msgid "New..."
 msgstr "Створити..."
 
-#. i18n: file: device-manager/deviceman.ui:227
+#. i18n: file: device-manager/deviceman.ui:220
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
-#. i18n: file: device-manager/deviceman.ui:295
+#. i18n: file: device-manager/deviceman.ui:270
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
-#: rc.cpp:219 rc.cpp:231
+#: rc.cpp:219 rc.cpp:234
 msgid "Remove"
 msgstr "Вилучити"
 
-#. i18n: file: device-manager/deviceman.ui:247
-#. i18n: ectx: property (text), widget (QPushButton, closeButton)
-#: rc.cpp:222
-msgid "Close"
-msgstr "Закрити"
-
-#. i18n: file: device-manager/deviceman.ui:266
-#. i18n: ectx: property (title), widget (QMenu, menuEdit)
-#: rc.cpp:225
-msgid "Tasks"
-msgstr "Завдання"
-
-#. i18n: file: device-manager/deviceman.ui:300
+#. i18n: file: device-manager/deviceman.ui:227
+#. i18n: ectx: property (text), widget (QPushButton, connectButton)
+#. i18n: file: device-manager/deviceman.ui:275
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
-#: rc.cpp:234 device-manager/devicemanager.cpp:162
-#: device-manager/devicemanager.cpp:187 device-manager/devicemanager.cpp:248
+#: rc.cpp:222 rc.cpp:237 device-manager/devicemanager.cpp:157
+#: device-manager/devicemanager.cpp:182 device-manager/devicemanager.cpp:251
 msgid "Connect"
 msgstr "З'єднати"
 
-#. i18n: file: device-manager/deviceman.ui:305
+#. i18n: file: device-manager/deviceman.ui:234
+#. i18n: ectx: property (text), widget (QPushButton, setTrustButton)
+#: rc.cpp:225 device-manager/devicemanager.cpp:166
+#: device-manager/devicemanager.cpp:262
+msgid "Set Trusted"
+msgstr "Надійний"
+
+#. i18n: file: device-manager/deviceman.ui:254
+#. i18n: ectx: property (text), widget (QPushButton, closeButton)
+#: rc.cpp:228
+msgid "Close"
+msgstr "Закрити"
+
+#. i18n: file: device-manager/deviceman.ui:280
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
-#: rc.cpp:237 device-manager/devicemanager.cpp:168
-#: device-manager/devicemanager.cpp:255
+#: rc.cpp:240 device-manager/devicemanager.cpp:163
+#: device-manager/devicemanager.cpp:258
 msgid "Remove Trust"
 msgstr "Зняти довіру"
 
-#. i18n: file: device-manager/deviceman.ui:310
+#. i18n: file: device-manager/deviceman.ui:285
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
-#: rc.cpp:240
+#: rc.cpp:243
 msgid "Quit"
 msgstr "Вийти"
 
-#. i18n: file: device-manager/deviceman.ui:315
+#. i18n: file: device-manager/deviceman.ui:290
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
-#: rc.cpp:243
+#: rc.cpp:246
 msgid "Pair"
 msgstr "Пара"
 
-#: trayicon.cpp:165
+#: trayicon.cpp:161
 msgid "KBlueLock"
 msgstr "KBlueLock"
 
-#: trayicon.cpp:167
+#: trayicon.cpp:163
 msgid "Enable"
 msgstr "Увімкнути"
 
-#: trayicon.cpp:171
+#: trayicon.cpp:167
 msgid "Configure..."
 msgstr "Налаштувати..."
 
-#: trayicon.cpp:176
+#: trayicon.cpp:172
 msgid "File"
 msgstr "Файл"
 
-#: trayicon.cpp:179
+#: trayicon.cpp:175
 msgid "Clipboard Text"
 msgstr "Текст у буфері"
 
-#: trayicon.cpp:181
+#: trayicon.cpp:177
 msgid "Device Manager"
 msgstr "Менеджер пристроїв"
 
-#: trayicon.cpp:186
+#: trayicon.cpp:182
 msgid "Received files"
 msgstr "Отримані файли"
 
-#: trayicon.cpp:187
+#: trayicon.cpp:183
 msgid "Bluetooth Adapters"
 msgstr "Адаптери Bluetooth"
 
-#: trayicon.cpp:188
+#: trayicon.cpp:184
 msgid "Obex server"
 msgstr "Сервер Obex"
 
-#: trayicon.cpp:195
+#: trayicon.cpp:192
 msgid "About"
 msgstr "Про програму"
 
-#: trayicon.cpp:322
+#: trayicon.cpp:321
 msgid "No Bluetooth Adapter"
 msgstr "Адаптерів Bluetooth не виявлено"
 
-#: trayicon.cpp:425
+#: trayicon.cpp:424
 msgid "Select File"
 msgstr "Обрати файл"
 
-#: trayicon.cpp:430 trayicon.cpp:455
+#: trayicon.cpp:432 trayicon.cpp:462
 msgid "Selecting a device starts the file transfer."
 msgstr "Вибір пристрою призведе до початку перенесення файлів."
 
-#: trayicon.cpp:516
+#: trayicon.cpp:536
 msgid "Select"
 msgstr "Вибрати"
 
-#: trayicon.cpp:517 trayicon.cpp:572
+#: trayicon.cpp:537 trayicon.cpp:592
 msgid ""
 "Selecting a device enables KBlueLock (a balloon message will pop up from the "
 "tray when your target device is found and KBlueLock is ready).\n"
@@ -463,12 +466,12 @@ msgstr ""
 "у разі виявлення пристрою і готовності KBlueLock).\n"
 "Якщо пристрій зникне, ваш екран буде заблоковано."
 
-#: trayicon.cpp:611
+#: trayicon.cpp:631
 msgid "Received files directory:"
 msgstr "Каталог отриманих файлів:"
 
-#: trayicon.cpp:718
-msgid "Receive files over bluetooth ?"
+#: trayicon.cpp:749
+msgid "Receive files over bluetooth?"
 msgstr "Отримати файли за допомогою bluetooth?"
 
 #: agent/confirmdialog.cpp:49
@@ -483,54 +486,46 @@ msgstr "Підтвердити ключ?"
 msgid "PassKey: "
 msgstr "Ключ: "
 
-#: deviceselector/devicesel.cpp:93
+#: deviceselector/devicesel.cpp:107
 msgid "&Stop Searching"
 msgstr "П&рипинити пошук"
 
-#: obexserver/obexserver.cpp:109
-msgid "Error creating Bluetooth Server"
-msgstr "Помилка під час спроби створення сервера Bluetooth"
-
-#: device-manager/devicemanager.cpp:158 device-manager/devicemanager.cpp:243
+#: device-manager/devicemanager.cpp:153 device-manager/devicemanager.cpp:246
 msgid "Connected"
 msgstr "З'єднано"
 
-#: device-manager/devicemanager.cpp:159 device-manager/devicemanager.cpp:244
+#: device-manager/devicemanager.cpp:154 device-manager/devicemanager.cpp:247
 msgid "Disconnect"
 msgstr "Роз'єднати"
 
-#: device-manager/devicemanager.cpp:161 device-manager/devicemanager.cpp:247
+#: device-manager/devicemanager.cpp:156 device-manager/devicemanager.cpp:250
 msgid "Not connected"
 msgstr "Не з’єднано"
 
-#: device-manager/devicemanager.cpp:167 device-manager/devicemanager.cpp:254
+#: device-manager/devicemanager.cpp:162 device-manager/devicemanager.cpp:257
 msgid "Always trust"
 msgstr "Завжди довіряти"
 
-#: device-manager/devicemanager.cpp:170 device-manager/devicemanager.cpp:258
+#: device-manager/devicemanager.cpp:165 device-manager/devicemanager.cpp:261
 msgid "Not trusted"
 msgstr "Ненадійний"
 
-#: device-manager/devicemanager.cpp:171 device-manager/devicemanager.cpp:259
-msgid "Set Trusted"
-msgstr "Надійний"
-
-#: device-manager/devicemanager.cpp:245
+#: device-manager/devicemanager.cpp:248
 #, kde-format
 msgid "Connected to %1"
 msgstr "З'єднано з %1"
 
-#: device-manager/devicemanager.cpp:249
+#: device-manager/devicemanager.cpp:252
 #, kde-format
 msgid "Disconnected from %1"
 msgstr "Від’єднано від %1"
 
-#: device-manager/devicemanager.cpp:256
+#: device-manager/devicemanager.cpp:259
 #, kde-format
 msgid "Permanent Trust added for %1"
 msgstr "Додано позначку постійної довіри до %1"
 
-#: device-manager/devicemanager.cpp:260
+#: device-manager/devicemanager.cpp:263
 #, kde-format
 msgid "Permanent Trust removed for %1"
 msgstr "Вилучено позначку постійної довіри з %1"
@@ -559,7 +554,7 @@ msgstr "<b>Якщо вашого пристрою немає у списку:</b
 msgid "Summary"
 msgstr "Резюме"
 
-#: inputwizard/wizarddialog.cpp:141 inputwizard/wizarddialog.cpp:353
+#: inputwizard/wizarddialog.cpp:141 inputwizard/wizarddialog.cpp:347
 msgid "Connection will be established to this Bluetooth device"
 msgstr "З’єднання буде встановлено з цим пристроєм Bluetooth"
 
@@ -568,7 +563,7 @@ msgid "Finished"
 msgstr "Завершено"
 
 #: inputwizard/wizarddialog.cpp:171
-msgid "Please wait, until the connection to your Bluetooth Device is done ..."
+msgid "Please wait, until the connection to your Bluetooth Device is done..."
 msgstr ""
 "Будь ласка, зачекайте доки буде встановлено з’єднання з вашим пристроєм "
 "Bluetooth..."
@@ -582,28 +577,34 @@ msgid "Checking your Bluetooth Device for input capabilities..."
 msgstr ""
 "Перевірка вашого пристрою Bluetooth на можливості щодо отримання даних..."
 
-#: inputwizard/wizarddialog.cpp:324
+#: inputwizard/wizarddialog.cpp:316
 msgid "Your Device is setup properly and should work now."
 msgstr "Ваш пристрій належно налаштовано, тепер ви можете з ним працювати."
 
-#: inputwizard/wizarddialog.cpp:354
+#: inputwizard/wizarddialog.cpp:348
 #, kde-format
 msgid "<b>Name: </b>%1"
 msgstr "<b>Назва: </b>%1"
 
-#: inputwizard/wizarddialog.cpp:355
+#: inputwizard/wizarddialog.cpp:349
 #, kde-format
 msgid "<b>Address: </b>%1"
 msgstr "<b>Адреса: </b>%1"
 
-#: inputwizard/wizarddialog.cpp:356
+#: inputwizard/wizarddialog.cpp:350
 #, kde-format
 msgid "<b>Device class: </b>%1"
 msgstr "<b>Клас пристрою: </b>%1"
 
-#: inputwizard/wizarddialog.cpp:364
+#: inputwizard/wizarddialog.cpp:358
 msgid "Sorry your Bluetooth Device does not support input Service."
 msgstr "Вибачте, ваш пристрій Bluetooth не підтримує вхідних служб."
+
+#~ msgid "Error creating Bluetooth Server"
+#~ msgstr "Помилка під час спроби створення сервера Bluetooth"
+
+#~ msgid "Tasks"
+#~ msgstr "Завдання"
 
 #~ msgid "kbluetooth4-agent"
 #~ msgstr "kbluetooth4-agent"

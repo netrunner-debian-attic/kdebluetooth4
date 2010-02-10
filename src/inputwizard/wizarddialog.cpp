@@ -168,7 +168,7 @@ WizardPage* BTWizard::createFinalPage()
 	finalPage = new WizardPage;
 	finalPage->setComplete(false);
 	finalPage->setTitle(i18n("Finished"));
-	finalLabel = new QLabel(i18n("Please wait, until the connection to your Bluetooth Device is done ..."),connPage);
+	finalLabel = new QLabel(i18n("Please wait, until the connection to your Bluetooth Device is done..."),connPage);
 	finalLabel->setWordWrap(true);
 	finalLayout = new QVBoxLayout(finalPage);
 	finalLayout->addWidget(finalLabel);
@@ -340,6 +340,8 @@ void BTWizard::slotDeviceCreated(const QString& ubi)
 	} else {  */
 
 	QStringList uuids = dev->uuids();
+	qDebug() << "Device UUIDS:";
+	qDebug() << uuids;
 	if (uuids.contains(HID,Qt::CaseInsensitive)) {
 
 		connLabel->setText(i18n("Connection will be established to this Bluetooth device"));
