@@ -23,7 +23,7 @@
 #include <QDBusObjectPath>
 
 #include <KDebug>
-#include <KMessageBox>
+// #include <KMessageBox>
 #include <KLocale>
 
 typedef QMap<QString, QString> StringMapReply;
@@ -50,12 +50,7 @@ ObexServer::ObexServer(QObject* parent, const QString& addr, const QString& patt
 	kDebug() << addr;
 
 	manager = new QDBusInterface(obexService,path,iface,dbusconn);
-	
-	//openObex service Must be present.
-	if(!manager->isValid()){
-		error = true;
-		return;
-	}
+
 	QList<QVariant> args;
 	args << addr << pattern << require_pairing;
 	kDebug() << args;
@@ -66,6 +61,7 @@ ObexServer::ObexServer(QObject* parent, const QString& addr, const QString& patt
 
 ObexServer::~ObexServer() 
 {
+	kDebug() << "Destructing obexServer :/";
 	if(session)
 		delete session;
 	delete manager;
@@ -106,7 +102,7 @@ void ObexServer::serverCreated(QDBusObjectPath path)
 void ObexServer::serverCreatedError(QDBusError err)
 {
 	kDebug() << "Error creating Bluetooth Server: " << err.message();
-	KMessageBox::error(0 , err.message(), i18n("Error creating Bluetooth Server"));
+// 	KMessageBox::error(0 , err.message(), i18n("Error creating Bluetooth Server"));
 }
 
 void ObexServer::start(const QString& path, bool allow_write, bool auto_accept) {

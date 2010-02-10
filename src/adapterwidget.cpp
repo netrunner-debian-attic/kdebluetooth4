@@ -23,14 +23,18 @@
 AdapterWidget::AdapterWidget(QString ubi, QWidget* parent) : Ui_AdapterWidget(),m_ubi(ubi)
 {
 	setupUi(this);
-        setParent(parent);
+	setParent(parent);
 
 	iface = new Solid::Control::BluetoothInterface(ubi);
 	
 	timeoutLabel->setEnabled(false);
 	timeoutHorizontalSlider->setEnabled(false);
 
-	connect(modeComboBox,SIGNAL(currentIndexChanged(const QString&)),this,SLOT(slotModeChanged(const QString&)));
+	// Set non-translated datas for the combo box items for further matching in slots
+	modeComboBox->setItemData(0, QVariant(QString("hidden")));
+	modeComboBox->setItemData(1, QVariant(QString("discoverable")));
+
+	connect(modeComboBox,SIGNAL(currentIndexChanged(int)),this,SLOT(slotModeChanged(int)));
 	connect(timeoutHorizontalSlider,SIGNAL(sliderMoved(int)),this,SLOT(slotSliderMoved(int)));
 	connect(nameLineEdit,SIGNAL(editingFinished()),this,SLOT(slotNameChanged()));
 
@@ -100,10 +104,11 @@ int AdapterWidget::getDiscoverableTimeout()
 	return timeoutHorizontalSlider->value();
 }
 
-void AdapterWidget::slotModeChanged(const QString& mode)
+void AdapterWidget::slotModeChanged(int index)
 {
 	bool discoverable = false;
-	if (mode == "discoverable") {
+
+	if (modeComboBox->itemData(index) == "discoverable") {
 		timeoutHorizontalSlider->setEnabled(true);
 		timeoutLabel->setEnabled(true);
                 discoverable = true;

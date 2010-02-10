@@ -21,7 +21,7 @@
 #ifndef KBLUETRAY_H
 #define KBLUETRAY_H
 
-#include "kdeversion.h"
+#include <kdeversion.h>
 #include "adapterconfig.h"
 #include "inputwizard/wizarddialog.h"
 #include "device-manager/devicemanager.h"
@@ -47,11 +47,12 @@
 #include <solid/control/bluetoothsecurity.h>
 #include <kwallet.h>
 
-#if KDE_IS_VERSION(4,3,65)
-	#include <KNotificationItem>
+#if KDE_IS_VERSION(4,3,73)
+	#include <KStatusNotifierItem>
+	typedef KStatusNotifierItem KNotificationItem;
 #else
-	#include <knotificationitem-1/knotificationitem.h>
-	using namespace Experimental;
+    #include <knotificationitem-1/knotificationitem.h>
+    using namespace Experimental;
 #endif
 
 class KBlueTray : public KNotificationItem
@@ -141,6 +142,7 @@ public slots:
 	void onlineMode();
 	void offlineMode();
 
+	void createObexServer();
 	void slotPropertyChanged(const QString&, const QVariant&);
 	void adapterAdded(const QString&);
 	void adapterRemoved(const QString&);
@@ -181,5 +183,6 @@ private slots:
 	void lockEnabled();
 	void lockDisabled();
 	void lockReady();
+	void obexServerClosed();
 };
 #endif

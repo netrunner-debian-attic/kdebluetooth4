@@ -86,6 +86,20 @@ void DeviceSel::slotRemoteDeviceFound(const QString& addr, const QMap<QString,QV
 	}
 }
 
+void DeviceSel::configuredDevices(){
+	Solid::Control::BluetoothRemoteDeviceList devList;
+	devList = adapter->listDevices();
+	qDebug() << "Device List Size: " << devList.size();
+	if (devList.size() > 0) {
+		Solid::Control::BluetoothRemoteDevice* dev;
+		foreach(dev,devList) {
+			qDebug() << dev->name();
+			macMap[dev->address()] = dev->getProperties();
+			item = new QListWidgetItem(KIcon(dev->icon()),dev->name() + " - " + dev->address(),deviceListWidget);
+		}
+	}
+}
+
 void DeviceSel::slotSearch()
 {
 	if (searchButton->text() == i18n("&Search")) {
@@ -93,7 +107,7 @@ void DeviceSel::slotSearch()
 		searchButton->setText(i18n("&Stop Searching"));
 		sendButton->setEnabled(false);
 		deviceListWidget->clear();
-
+		configuredDevices();
 		adapter->startDiscovery();
 		connect(adapter,SIGNAL(deviceFound( const QString&, const QMap< QString,QVariant > & )),this,SLOT(slotRemoteDeviceFound(const QString&, const QMap< QString,QVariant > & )));
 		logoTimer->start(400);

@@ -24,7 +24,7 @@ kde4_add_ui_files(inputwizard_SRCS
 kde4_add_executable(kbluetooth-inputwizard ${inputwizard_SRCS})
 
 target_link_libraries(kbluetooth-inputwizard
-                      ${KDE4_KIO_LIBRARY} ${KDE4_KDEUI_LIBS} ${KDE4_SOLID_LIBS} solidcontrol)
+                      ${KDE4_KIO_LIBRARY} ${KDE4_KDEUI_LIBS} ${KDE4_SOLID_LIBS} ${KDE4WORKSPACE_SOLIDCONTROL_LIBRARY})
  
 install(TARGETS kbluetooth-inputwizard
         DESTINATION ${KDE4_BIN_INSTALL_DIR})

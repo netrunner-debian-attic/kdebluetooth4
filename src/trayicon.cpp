@@ -27,8 +27,9 @@
 #include <QDesktopServices>
 #include <QClipboard>
 
-#if KDE_IS_VERSION(4,3,65)
-	#include <KNotificationItem>
+#if KDE_IS_VERSION(4,3,73)
+	#include <KStatusNotifierItem>
+	typedef KStatusNotifierItem KNotificationItem;
 #else
 	#include <knotificationitem-1/knotificationitem.h>
 #endif
@@ -76,8 +77,10 @@ KBlueTray::KBlueTray(const QString& path, QObject* parent) : KNotificationItem(p
 	setParent(kapp);
 	setIconByName("kbluetooth");
 	setToolTip("kbluetooth", "KBluetooth", "KDE bluetooth framework");
-	setCategory(KNotificationItem::Hardware);
 
+    setCategory(KNotificationItem::Hardware);
+	setStandardActionsEnabled(false);//We do not want restore :(
+	setAssociatedWidget(contextMenu());
 	//If the object already exists or can't be created, at least kdebug it
 	if(!QDBusConnection::systemBus().registerObject(agentPath, kapp)){
 		kDebug() << "The dbus object can't be registered";
@@ -97,7 +100,7 @@ KBlueTray::KBlueTray(const QString& path, QObject* parent) : KNotificationItem(p
 	connect(&man,SIGNAL(defaultInterfaceChanged(const QString&)),this,SLOT(defaultAdapterChanged(const QString&)));
 
 	kblueLockEnabled = false;
-	
+
 	if ( man.bluetoothInterfaces().size() > 0 ) {
 		defaultAdapterUBI = man.defaultInterface();
 		onlineMode();
@@ -117,17 +120,12 @@ KBlueTray::KBlueTray(const QString& path, QObject* parent) : KNotificationItem(p
 
 KBlueTray::~KBlueTray()
 {
-	if (adapter) {
-		adapter->unregisterAgent(agentPath);
-		adapter->stopDiscovery();
-		delete adapter;
-	}
 	delete agent;
 
 	delete session;
 	delete progress;
-//		delete devSelector;
-//		delete lockSelector;
+// 		delete devSelector;
+// 		delete lockSelector;
 
 	if(server) {
 		server->stop();
@@ -147,7 +145,6 @@ KBlueTray::~KBlueTray()
 	delete m_kBlueLock;
 	
 	delete m_aboutDialog;
-
 	qDebug() << "bye bye";
 }
 
@@ -171,10 +168,10 @@ void KBlueTray::initMenu() {
 	lockConfigureAction->setDisabled(true);
 
 	m_sendMenu = contextMenu()->addMenu(KIcon("text-directory"), i18n("Send"));
-	
+
 	sendToAction = m_sendMenu->addAction(KIcon("text-directory"), i18n("File"), this, SLOT(sendFile()));
 	sendToAction->setDisabled(false);
-	
+
 	m_sendClipboardText = m_sendMenu->addAction(KIcon("edit-paste"), i18n("Clipboard Text"), this, SLOT(sendClipboardText()));
 
 	wizardAction = contextMenu()->addAction(KIcon("kbluetooth"), i18n("Device Manager"), this, SLOT(showManager()));
@@ -188,10 +185,13 @@ void KBlueTray::initMenu() {
 	serverAction->setCheckable(true);
 	KConfigGroup obexServerConfig(config, "ObexServer");
 	if(obexServerConfig.readEntry("Autostart") == "true") {
+		kDebug() << "Enabling obex server";
 		serverAction->setChecked(true);
 	}
 
 	aboutAction = contextMenu()->addAction(KIcon("folder-remote"), i18n("About"), this, SLOT(showAboutInfo()));
+	contextMenu()->addSeparator();
+	contextMenu()->addAction((QAction*)KStandardAction::quit(this,SLOT(slotQuitApp(bool)),this));
 }
 
 void KBlueTray::initConfig() {
@@ -230,13 +230,14 @@ void KBlueTray::initConfig() {
 void KBlueTray::onlineMode()
 {
 	kDebug() << "online Mode";
-	Solid::Control::BluetoothManager &man = Solid::Control::BluetoothManager::self();	
+	Solid::Control::BluetoothManager &man = Solid::Control::BluetoothManager::self();
 	kDebug() << "adapter size " << Solid::Control::BluetoothManager::self().bluetoothInterfaces().size();
 
 	online = true;
-	setStatus(KNotificationItem::Active);
+    setStatus(KNotificationItem::Active);
+
 	setIconByPixmap( m_IconEnabled );
-	
+
 	adapter = new Solid::Control::BluetoothInterface(man.defaultInterface());
 	connect(adapter,SIGNAL(propertyChanged(const QString&, const QVariant&)),this,SLOT(slotPropertyChanged(const QString&, const QVariant&)));
 
@@ -255,28 +256,25 @@ void KBlueTray::onlineMode()
 	adapterAction->setEnabled(true);
 	kbluelockMenu->setEnabled(true);
 	settingsMenu->setEnabled(true);
+	m_sendClipboardText->setEnabled(true);
+	m_sendMenu->setEnabled(true);
 
-	if (!server) {
-		server = new ObexServer(this, adapter->address(), "opp", false);
-		//TODO: Make this error beatiful
-		if(server->error){
-			delete server;
-			server = 0;
-			serverAction->setEnabled(false);
-			return;
+	if(serverAction->isChecked()) {
+		if (server) {
+			KConfigGroup obexServerConfig(config, "ObexServer");
+			server->start(config->group("ObexServer").readEntry("savePath"), true, false);
+		} else {
+			createObexServer();
 		}
-		connect(server, SIGNAL(openObexError()), this, SLOT(openObexError()));
-		connect(server, SIGNAL(serverReady()), this, SLOT(slotServerReady()));
-		connect(server, SIGNAL(started()), this, SLOT(slotServerStarted()));
-		connect(server, SIGNAL(stopped()), this, SLOT(slotServerStopped()));
-		connect(server, SIGNAL(closed()), this, SLOT(slotServerClosed()));
-		connect(server, SIGNAL(sessionCreated(const QString&)), this, SLOT(slotServerSessionCreated(const QString&)));
-		connect(server, SIGNAL(sessionRemoved(const QString&)), this, SLOT(slotServerSessionRemoved(const QString&)));
-		connect(server, SIGNAL(errorOccured(const QString&, const QString&)), this, SLOT(slotServerErrorOccured(const QString&, const QString&)));
-	} else {
-		KConfigGroup obexServerConfig(config, "ObexServer");
-		server->start(config->group("ObexServer").readEntry("savePath"), true, false);
 	}
+}
+
+void KBlueTray::createObexServer()
+{
+	//TODO: Make this error beatiful
+	server = new ObexServer(this, adapter->address(), "opp", false);
+	connect(server, SIGNAL(openObexError()), this, SLOT(openObexError()));
+	connect(server, SIGNAL(serverReady()), this, SLOT(slotServerReady()));
 }
 
 void KBlueTray::offlineMode()
@@ -290,20 +288,16 @@ void KBlueTray::offlineMode()
 	adapterAction->setEnabled(false);
 	kbluelockMenu->setEnabled(false);
 	settingsMenu->setEnabled(false);
-	
-	setStatus(KNotificationItem::Passive);
+	m_sendClipboardText->setEnabled(false);
+	m_sendMenu->setEnabled(false);
+
+    setStatus(KNotificationItem::Passive);
+
 	setIconByPixmap( m_IconDisabled );
-		
-	if (adapter) {
-		kDebug() << "Unregistering Agent";
-		adapter->unregisterAgent(agentPath);
-		disconnect(adapter,0,0,0);
-		delete adapter;
-		adapter = 0;
-	}
-	
+
 	if(server) {
-		server->stop();
+		server->close();
+		connect(server,SIGNAL(closed()),this,SLOT(obexServerClosed()));
 	}
 
 	if(serversession) {
@@ -313,6 +307,12 @@ void KBlueTray::offlineMode()
 		serversession = 0;
 	}
 
+}
+
+void KBlueTray::obexServerClosed()
+{
+	delete server;
+	server = 0;
 }
 
 void KBlueTray::updateTooltip() {
@@ -413,7 +413,7 @@ void KBlueTray::showManager()
 	KProcess process;
 	process.setProgram("kbluetooth-devicemanager");
 	process.startDetached();
-	
+
 //	manager.exec();
 }
 
@@ -423,11 +423,15 @@ void KBlueTray::sendFile()
 {
 	QStringList filesNames = KFileDialog::getOpenFileNames(KUrl("./"), "*", 0, i18n("Select File"));
 	if (!filesNames.isEmpty()) {
+		//We're going to asume that right now the sendFile action is going on
+		sendToAction->setDisabled(true);
+		m_sendClipboardText->setDisabled(true);
 		filesToSend = filesNames;
 		devSelector = new DeviceSel(this,QString("computer,phone").split(','));
 		devSelector->hideExtraCheckBox();
 		devSelector->setInfoLabel(i18n("Selecting a device starts the file transfer."));
 		connect(devSelector,SIGNAL(deviceSelected(const QString&)),this,SLOT(slotSendFile(const QString&)));
+		connect(devSelector,SIGNAL(selectorCancelled()),this,SLOT(sendOpenObexError()));
 	}
 }
 
@@ -440,6 +444,8 @@ void KBlueTray::slotSendFile(const QString& mac)
 	session = new ObexSession(this,adapter->address(),mac,"opp");
 	//TODO: handle this beatiful
 	if(session->error == true){
+		sendToAction->setDisabled(false);
+		m_sendClipboardText->setDisabled(false);
 		return;
 	}
 	kDebug() << filesToSend;
@@ -449,10 +455,13 @@ void KBlueTray::slotSendFile(const QString& mac)
 
 void KBlueTray::sendClipboardText()
 {
+	sendToAction->setDisabled(true);
+	m_sendClipboardText->setDisabled(true);
 	devSelector = new DeviceSel(this, QString("computer,phone").split(','));
 	devSelector->hideExtraCheckBox();
 	devSelector->setInfoLabel(i18n("Selecting a device starts the file transfer."));
 	connect(devSelector, SIGNAL(deviceSelected(QString)), this, SLOT(slotSendClipboardText(QString)));
+	connect(devSelector, SIGNAL(selectorCancelled()), this, SLOT(sendOpenObexError()));
 }
 
 void KBlueTray::slotSendClipboardText(const QString& address)
@@ -463,19 +472,29 @@ void KBlueTray::slotSendClipboardText(const QString& address)
 	if(tempFile.open()) {
 		stream << QApplication::clipboard()->text();
 		kDebug() << "Clipboard file: " << tempFile.fileName();
-		fileToSend = tempFile.fileName();
+		filesToSend = QStringList(tempFile.fileName());
 		tempFile.close();
+		slotSendFile(address);
+	} else {
+		kWarning() << "Can't create a temporary file to send the clipboard text";
+		sendToAction->setDisabled(false);
+		m_sendClipboardText->setDisabled(false);
 	}
-	slotSendFile(address);
 }
 
 void KBlueTray::obexSessionReady()
 {
 	if(session->error == false){
+		//this is jut to be sure, in 0.5 we'll remove that and add multiple send support
+		sendToAction->setDisabled(true);
+		m_sendClipboardText->setDisabled(true);
 		KJob* fileTransfer = session->sendFile(fileToSend);
 		connect(fileTransfer, SIGNAL( result(KJob*) ), this, SLOT( slotFileTransferCompleted(KJob*) ));
 		KIO::getJobTracker()->registerJob(fileTransfer);
 		fileTransfer->start();
+	}else{
+		sendToAction->setDisabled(false);
+		m_sendClipboardText->setDisabled(false);
 	}
 }
 
@@ -500,6 +519,8 @@ void KBlueTray::fileTransferFinal()
 	session = 0;
 	delete devSelector;
 	devSelector = 0;
+	sendToAction->setDisabled(false);
+	m_sendClipboardText->setDisabled(false);
 }
 
 // ######################################### KBlueLock #####################################################
@@ -518,7 +539,7 @@ void KBlueTray::enableLock()
 			connect(lockSelector, SIGNAL(deviceSelected(QString)), m_kBlueLock, SLOT(enable(QString)));
 			connect(lockSelector,SIGNAL(selectorCancelled()),this,SLOT(slotBlueSelectorCancelled()));
 			connect(lockSelector, SIGNAL(unlockChanged(bool)), m_kBlueLock, SLOT(unlockEnable(bool)));
-			
+
 			connect(m_kBlueLock, SIGNAL(lockEnabled()), this, SLOT(lockEnabled()));
 			connect(m_kBlueLock, SIGNAL(lockDisabled()), this, SLOT(lockDisabled()));
 			connect(m_kBlueLock, SIGNAL(lockReady()), this, SLOT(lockReady()));
@@ -630,7 +651,8 @@ void KBlueTray::openObexError() {
 }
 
 void KBlueTray::sendOpenObexError(){
-	
+	sendToAction->setDisabled(false);
+	m_sendClipboardText->setDisabled(false);
 }
 
 void KBlueTray::slotServerReady() {
@@ -639,23 +661,33 @@ void KBlueTray::slotServerReady() {
 			server->start(config->group("ObexServer").readEntry("savePath"), true, false);
 		}
 	}
+	connect(server, SIGNAL(started()), this, SLOT(slotServerStarted()));
+	connect(server, SIGNAL(stopped()), this, SLOT(slotServerStopped()));
+	connect(server, SIGNAL(closed()), this, SLOT(slotServerClosed()));
+	connect(server, SIGNAL(sessionCreated(const QString&)), this, SLOT(slotServerSessionCreated(const QString&)));
+	connect(server, SIGNAL(sessionRemoved(const QString&)), this, SLOT(slotServerSessionRemoved(const QString&)));
+	connect(server, SIGNAL(errorOccured(const QString&, const QString&)), this, SLOT(slotServerErrorOccured(const QString&, const QString&)));
 	updateTooltip();
 }
 
 void KBlueTray::slotServerErrorOccured(const QString& error_name, const QString& error_message) {
 	kDebug() << error_name << ": " << error_message;
-	KMessageBox::error(0, error_name, error_message);
+// 	KMessageBox::error(0, error_name, error_message);
 }
 
 void KBlueTray::enableServer() {
 	if(serverAction->isChecked()) {
 		config->group("ObexServer").writeEntry("Autostart", "true");
-		if(server)
+		if(server) {
+			kDebug() << "THIS SHOULD NOT HAPPEN!";
 			slotServerReady();
+		} else {
+			createObexServer();
+		}
 	} else {
 		config->group("ObexServer").writeEntry("Autostart", "false");
 		if(server)
-			server->stop();
+			server->close();
 	}
 }
 
@@ -714,7 +746,7 @@ void KBlueTray::slotServerSessionTransferStarted(KJob* job) {
 
 		KDialog *dialog = new KDialog();
 		dialog->setMainWidget(mainWidget);
-		dialog->setCaption(i18n("Receive files over bluetooth ?"));
+		dialog->setCaption(i18n("Receive files over bluetooth?"));
 		dialog->setButtons(KDialog::Ok | KDialog::Cancel);
 		dialog->setFixedSize(380,105);
 		int response = dialog->exec();
@@ -747,7 +779,7 @@ void KBlueTray::slotServerSessionTransferStarted(KJob* job) {
 #endif
 	KIO::getJobTracker()->registerJob(fileTransfer);
 	fileTransfer->start();
-// 	kDebug() << "Remote addr: " << fileTransfer->remoteAddr();
+//	kDebug() << "Remote addr: " << fileTransfer->remoteAddr();
 	/*KNotification* notification = new KNotification("receiveFiles", 0, KNotification::Persistent);
 	notification->setText("Recieve files over bluetooth?");
 	notification->setPixmap( KIcon("kbluetooth4").pixmap(20, 20) );

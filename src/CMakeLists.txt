@@ -6,6 +6,7 @@ include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}
 	${CMAKE_CURRENT_BINARY_DIR}
 	${KDE4_INCLUDES}
+	${KDE4WORKSPACE_INCLUDE_DIR}
 )
 
 add_subdirectory(inputwizard)
@@ -43,14 +44,8 @@ kde4_add_executable(kbluetooth ${kbluetray_SRCS})
 
 configure_file(config-nepomuk.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-nepomuk.h)
 
-# If major than 4.3.9 which means 4.4.0 link against KDE4_KDEUI
-if(${KDE_VERSION} VERSION_GREATER 4.3.9)
-	target_link_libraries(kbluetooth
-                      ${KDE4_KIO_LIBRARY} ${KDE4_KDEUI_LIBS} ${KDE4_SOLID_LIBS} ${KDE4_KFILE_LIBS} solidcontrol)
-elseif(${KDE_VERSION} VERSION_GREATER 4.2.9 AND ${KDE_VERSION} VERSION_LESS 4.4.0)
-	target_link_libraries(kbluetooth
-                      ${KDE4_KIO_LIBRARY} ${KDE4_KDEUI_LIBS} ${KDE4_SOLID_LIBS} ${KDE4_KFILE_LIBS} solidcontrol knotificationitem-1)
-endif(${KDE_VERSION} VERSION_GREATER 4.3.9)
+target_link_libraries(kbluetooth
+	${KDE4_KIO_LIBRARY} ${KDE4_KDEUI_LIBS} ${KDE4_SOLID_LIBS} ${KDE4_KFILE_LIBS} ${KDE4WORKSPACE_SOLIDCONTROL_LIBRARY} ${KBLUETOOTH_LIBKNOTIFICATION})
 
 if(HAVE_NEPOMUK)
 	target_link_libraries(kbluetooth ${NEPOMUK_LIBRARIES})

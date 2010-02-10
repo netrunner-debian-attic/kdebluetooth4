@@ -53,6 +53,7 @@ ObexServerSession::ObexServerSession(QObject* parent, ObexServer* obexServer, co
 ObexServerSession::~ObexServerSession() 
 {
 	delete manager;
+	delete fileTransfer;
 }
 
 void ObexServerSession::accept() {
@@ -103,6 +104,8 @@ void ObexServerSession::slotDisconnected()
 
 void ObexServerSession::slotTransferStarted(const QString& filename, const QString& local_path, qulonglong total_bytes)
 {
+	kDebug() << filename;
+	kDebug() << local_path;
 	fileTransfer = new ObexServerSessionFileTransfer(this, manager, filename, local_path, total_bytes);
 	emit transferStarted(fileTransfer);
 }

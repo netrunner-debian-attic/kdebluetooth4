@@ -53,7 +53,7 @@ private:
 
 public slots:
 	void slotSliderMoved(int);
-	void slotModeChanged(const QString&);
+	void slotModeChanged(int);
 	void setDiscoverableTimeout(int);
 	void setName(QString);
 	void slotNameChanged();

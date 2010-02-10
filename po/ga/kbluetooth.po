@@ -1,22 +1,20 @@
-# translation of kbluetooth4.po to Low Saxon
-# Copyright (C) YEAR This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
-#
-# Manfred Wiese <m.j.wiese@web.de>, 2009.
+# Irish translation of kbluetooth
+# Copyright (C) 2009 This_file_is_part_of_KDE
+# This file is distributed under the same license as the kbluetooth package.
+# Kevin Scannell <kscanne@gmail.com>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: kbluetooth4\n"
+"Project-Id-Version: kbluetooth\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
 "POT-Creation-Date: 2009-12-08 06:55+0100\n"
-"PO-Revision-Date: 2009-05-27 07:17+0200\n"
-"Last-Translator: Manfred Wiese <m.j.wiese@web.de>\n"
-"Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
+"PO-Revision-Date: 2009-12-24 06:59-0500\n"
+"Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
+"Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nds\n"
-"X-Generator: Lokalize 0.3\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
+"3 : 4\n"
 
 #: main.cpp:30 device-manager/main.cpp:29 inputwizard/main.cpp:30
 msgid "Bluetooth management software"
@@ -36,15 +34,15 @@ msgstr ""
 
 #: main.cpp:43 device-manager/main.cpp:42 inputwizard/main.cpp:43
 msgid "Maintainer"
-msgstr ""
+msgstr "Cothaitheoir"
 
 #: main.cpp:44 device-manager/main.cpp:43 inputwizard/main.cpp:44
 msgid "Tom Patzig"
-msgstr "Tom Patzig"
+msgstr ""
 
 #: main.cpp:44 device-manager/main.cpp:43 inputwizard/main.cpp:44
 msgid "Former Developer"
-msgstr ""
+msgstr "Iarfhorbróir"
 
 #. i18n: file: adapterConf.ui:13
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, AdapterUi)
@@ -56,13 +54,13 @@ msgstr ""
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: rc.cpp:6 rc.cpp:54
 msgid "Tab 1"
-msgstr ""
+msgstr "Cluaisín 1"
 
 #. i18n: file: adapterConf.ui:53
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: rc.cpp:9 rc.cpp:57
 msgid "Tab 2"
-msgstr ""
+msgstr "Cluaisín 2"
 
 #. i18n: file: adapterConf.ui:76
 #. i18n: ectx: property (text), widget (QPushButton, closePushButton)
@@ -70,25 +68,25 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QPushButton, okButton)
 #: rc.cpp:12 rc.cpp:60 rc.cpp:164
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #. i18n: file: adapterWidget.ui:22
 #. i18n: ectx: property (title), widget (QGroupBox, infoGroupBox)
 #: rc.cpp:15 rc.cpp:63
 msgid "Information"
-msgstr ""
+msgstr "Eolas"
 
 #. i18n: file: adapterWidget.ui:37
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.cpp:18 rc.cpp:66
 msgid "MAC Address: "
-msgstr "MAC-Adress: "
+msgstr ""
 
 #. i18n: file: adapterWidget.ui:79
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: rc.cpp:22 rc.cpp:70 trayicon.cpp:180
 msgid "Settings"
-msgstr "Instellen"
+msgstr "Socruithe"
 
 #. i18n: file: adapterWidget.ui:94
 #. i18n: ectx: property (text), widget (QLabel, label_3)
@@ -100,13 +98,13 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: rc.cpp:28 rc.cpp:76 agent/confirmdialog.cpp:50
 msgid "Mode: "
-msgstr ""
+msgstr "Mód: "
 
 #. i18n: file: adapterWidget.ui:132
 #. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
 #: rc.cpp:31 rc.cpp:79
 msgid "hidden"
-msgstr "versteken"
+msgstr ""
 
 #. i18n: file: adapterWidget.ui:137
 #. i18n: ectx: property (text), item, widget (QComboBox, modeComboBox)
@@ -124,7 +122,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, timeoutLabel)
 #: rc.cpp:40 rc.cpp:88
 msgid "none"
-msgstr ""
+msgstr "neamhní"
 
 #. i18n: file: receiveDialogWidget.ui:26
 #. i18n: ectx: property (text), widget (QLabel, saveToLbl)
@@ -141,12 +139,12 @@ msgstr ""
 #: rc.cpp:47
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Manfred Wiese"
+msgstr ""
 
 #: rc.cpp:48
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "m.j.wiese@web.de"
+msgstr ""
 
 #. i18n: file: agent/authdialog.ui:19
 #. i18n: ectx: property (windowTitle), widget (QDialog, AuthDialog)
@@ -156,7 +154,7 @@ msgstr "m.j.wiese@web.de"
 #. i18n: ectx: property (windowTitle), widget (QDialog, PasskeyDialog)
 #: rc.cpp:97 rc.cpp:125 rc.cpp:146
 msgid "Dialog"
-msgstr "Dialoog"
+msgstr "Dialóg"
 
 #. i18n: file: agent/authdialog.ui:31
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -173,7 +171,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: rc.cpp:103 rc.cpp:129 rc.cpp:152
 msgid "Name: "
-msgstr ""
+msgstr "Ainm: "
 
 #. i18n: file: agent/authdialog.ui:77
 #. i18n: ectx: property (text), widget (QLabel, label_3)
@@ -183,25 +181,25 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: rc.cpp:107 rc.cpp:133 rc.cpp:156
 msgid "Address: "
-msgstr "Adress:"
+msgstr ""
 
 #. i18n: file: agent/authdialog.ui:101
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: rc.cpp:111
 msgid "Service: "
-msgstr "Deenst: "
+msgstr ""
 
 #. i18n: file: agent/authdialog.ui:133
 #. i18n: ectx: property (text), widget (QPushButton, allwTrustButton)
 #: rc.cpp:116
 msgid "Always Trust"
-msgstr "Jümmers vertroen"
+msgstr ""
 
 #. i18n: file: agent/authdialog.ui:140
 #. i18n: ectx: property (text), widget (QPushButton, trustButton)
 #: rc.cpp:119
 msgid "Trust"
-msgstr "Vertroen"
+msgstr "Iontaoibh"
 
 #. i18n: file: agent/authdialog.ui:147
 #. i18n: ectx: property (text), widget (QPushButton, cancelButton)
@@ -211,19 +209,19 @@ msgstr "Vertroen"
 #. i18n: ectx: property (text), widget (QPushButton, cancelButton)
 #: rc.cpp:122 rc.cpp:167 rc.cpp:195
 msgid "Cancel"
-msgstr "Afbreken"
+msgstr "Cealaigh"
 
 #. i18n: file: agent/confirmdialog.ui:129
 #. i18n: ectx: property (text), widget (QPushButton, yesButton)
 #: rc.cpp:140
 msgid "Yes"
-msgstr "Jo"
+msgstr "Déan"
 
 #. i18n: file: agent/confirmdialog.ui:136
 #. i18n: ectx: property (text), widget (QPushButton, noButton)
 #: rc.cpp:143
 msgid "No"
-msgstr "Nee"
+msgstr "Ná Déan"
 
 #. i18n: file: agent/passkeydialog.ui:19
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -291,13 +289,13 @@ msgstr ""
 #: deviceselector/devicesel.cpp:118 inputwizard/wizarddialog.cpp:112
 #: inputwizard/wizarddialog.cpp:229 inputwizard/wizarddialog.cpp:245
 msgid "&Search"
-msgstr ""
+msgstr "&Cuardach"
 
 #. i18n: file: deviceselector/deviceselector.ui:127
 #. i18n: ectx: property (text), widget (QPushButton, sendButton)
 #: rc.cpp:198 trayicon.cpp:170
 msgid "Send"
-msgstr ""
+msgstr "Seol"
 
 #. i18n: file: device-manager/deviceman.ui:14
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, DeviceManager)
@@ -309,25 +307,25 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.cpp:204
 msgid "Address:"
-msgstr "Adress:"
+msgstr "Seoladh:"
 
 #. i18n: file: device-manager/deviceman.ui:64
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: rc.cpp:207
 msgid "Type:"
-msgstr "Typ:"
+msgstr "Cineál:"
 
 #. i18n: file: device-manager/deviceman.ui:95
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: rc.cpp:210
 msgid "Trust:"
-msgstr "Vertroen:"
+msgstr "Iontaoibh:"
 
 #. i18n: file: device-manager/deviceman.ui:126
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: rc.cpp:213
 msgid "Status:"
-msgstr "Status:"
+msgstr "Stádas:"
 
 #. i18n: file: device-manager/deviceman.ui:213
 #. i18n: ectx: property (text), widget (QPushButton, newDevButton)
@@ -335,7 +333,7 @@ msgstr "Status:"
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
 #: rc.cpp:216 rc.cpp:231
 msgid "New..."
-msgstr "Nieg..."
+msgstr "Nua..."
 
 #. i18n: file: device-manager/deviceman.ui:220
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
@@ -343,7 +341,7 @@ msgstr "Nieg..."
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
 #: rc.cpp:219 rc.cpp:234
 msgid "Remove"
-msgstr "Wegmaken"
+msgstr "Bain"
 
 #. i18n: file: device-manager/deviceman.ui:227
 #. i18n: ectx: property (text), widget (QPushButton, connectButton)
@@ -352,7 +350,7 @@ msgstr "Wegmaken"
 #: rc.cpp:222 rc.cpp:237 device-manager/devicemanager.cpp:157
 #: device-manager/devicemanager.cpp:182 device-manager/devicemanager.cpp:251
 msgid "Connect"
-msgstr "Tokoppeln"
+msgstr "Ceangail"
 
 #. i18n: file: device-manager/deviceman.ui:234
 #. i18n: ectx: property (text), widget (QPushButton, setTrustButton)
@@ -365,7 +363,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QPushButton, closeButton)
 #: rc.cpp:228
 msgid "Close"
-msgstr "Tomaken"
+msgstr "Dún"
 
 #. i18n: file: device-manager/deviceman.ui:280
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
@@ -378,7 +376,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
 #: rc.cpp:243
 msgid "Quit"
-msgstr ""
+msgstr "Scoir"
 
 #. i18n: file: device-manager/deviceman.ui:290
 #. i18n: ectx: property (text), widget (QStatusBar, statusbar)
@@ -392,15 +390,15 @@ msgstr ""
 
 #: trayicon.cpp:163
 msgid "Enable"
-msgstr ""
+msgstr "Cumasaigh"
 
 #: trayicon.cpp:167
 msgid "Configure..."
-msgstr ""
+msgstr "Cumraigh..."
 
 #: trayicon.cpp:172
 msgid "File"
-msgstr ""
+msgstr "Comhad"
 
 #: trayicon.cpp:175
 msgid "Clipboard Text"
@@ -408,7 +406,7 @@ msgstr ""
 
 #: trayicon.cpp:177
 msgid "Device Manager"
-msgstr ""
+msgstr "Bainisteoir na nGléasanna"
 
 #: trayicon.cpp:182
 msgid "Received files"
@@ -424,7 +422,7 @@ msgstr ""
 
 #: trayicon.cpp:192
 msgid "About"
-msgstr ""
+msgstr "Eolas"
 
 #: trayicon.cpp:321
 msgid "No Bluetooth Adapter"
@@ -432,7 +430,7 @@ msgstr ""
 
 #: trayicon.cpp:424
 msgid "Select File"
-msgstr ""
+msgstr "Roghnaigh Comhad"
 
 #: trayicon.cpp:432 trayicon.cpp:462
 msgid "Selecting a device starts the file transfer."
@@ -440,7 +438,7 @@ msgstr ""
 
 #: trayicon.cpp:536
 msgid "Select"
-msgstr ""
+msgstr "Roghnaigh"
 
 #: trayicon.cpp:537 trayicon.cpp:592
 msgid ""
@@ -474,22 +472,16 @@ msgid "&Stop Searching"
 msgstr ""
 
 #: device-manager/devicemanager.cpp:153 device-manager/devicemanager.cpp:246
-#, fuzzy
-#| msgid "Connect"
 msgid "Connected"
-msgstr "Tokoppeln"
+msgstr "Ceangailte"
 
 #: device-manager/devicemanager.cpp:154 device-manager/devicemanager.cpp:247
-#, fuzzy
-#| msgid "Connect"
 msgid "Disconnect"
-msgstr "Tokoppeln"
+msgstr "Dícheangail"
 
 #: device-manager/devicemanager.cpp:156 device-manager/devicemanager.cpp:250
-#, fuzzy
-#| msgid "Connect"
 msgid "Not connected"
-msgstr "Tokoppeln"
+msgstr "Gan cheangal"
 
 #: device-manager/devicemanager.cpp:162 device-manager/devicemanager.cpp:257
 msgid "Always trust"
@@ -500,16 +492,14 @@ msgid "Not trusted"
 msgstr ""
 
 #: device-manager/devicemanager.cpp:248
-#, fuzzy, kde-format
-#| msgid "Connect"
+#, kde-format
 msgid "Connected to %1"
-msgstr "Tokoppeln"
+msgstr "Ceangailte le %1"
 
 #: device-manager/devicemanager.cpp:252
-#, fuzzy, kde-format
-#| msgid "Connect"
+#, kde-format
 msgid "Disconnected from %1"
-msgstr "Tokoppeln"
+msgstr ""
 
 #: device-manager/devicemanager.cpp:259
 #, kde-format
@@ -543,7 +533,7 @@ msgstr ""
 
 #: inputwizard/wizarddialog.cpp:140
 msgid "Summary"
-msgstr "Tosammenfaten"
+msgstr "Achoimre"
 
 #: inputwizard/wizarddialog.cpp:141 inputwizard/wizarddialog.cpp:347
 msgid "Connection will be established to this Bluetooth device"
@@ -551,7 +541,7 @@ msgstr ""
 
 #: inputwizard/wizarddialog.cpp:170
 msgid "Finished"
-msgstr "Afslaten"
+msgstr "Críochnaithe"
 
 #: inputwizard/wizarddialog.cpp:171
 msgid "Please wait, until the connection to your Bluetooth Device is done..."
@@ -559,7 +549,7 @@ msgstr ""
 
 #: inputwizard/wizarddialog.cpp:235
 msgid "&Stop Search"
-msgstr ""
+msgstr "&Stop an Cuardach"
 
 #: inputwizard/wizarddialog.cpp:275
 msgid "Checking your Bluetooth Device for input capabilities..."
@@ -572,21 +562,18 @@ msgstr ""
 #: inputwizard/wizarddialog.cpp:348
 #, kde-format
 msgid "<b>Name: </b>%1"
-msgstr "<b>Naam: </b>%1"
+msgstr ""
 
 #: inputwizard/wizarddialog.cpp:349
 #, kde-format
 msgid "<b>Address: </b>%1"
-msgstr "<b>Adress: </b>%1"
+msgstr ""
 
 #: inputwizard/wizarddialog.cpp:350
 #, kde-format
 msgid "<b>Device class: </b>%1"
-msgstr "<b>Reedschapklass: </b>%1"
+msgstr ""
 
 #: inputwizard/wizarddialog.cpp:358
 msgid "Sorry your Bluetooth Device does not support input Service."
 msgstr ""
-
-#~ msgid "Tasks"
-#~ msgstr "Opgaven"

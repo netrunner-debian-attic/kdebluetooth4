@@ -23,7 +23,7 @@
 #include <QVariant>
 
 #include <KDebug>
-#include <KMessageBox>
+// #include <KMessageBox>
 
 ObexSession::ObexSession(QObject* parent, const QString& srcAddr, const QString& addr, const QString& service) : error(false), m_parent(parent)
 {
@@ -101,7 +101,7 @@ void ObexSession::sessionCreated(QDBusObjectPath path)
 void ObexSession::sessionCreatedError(QDBusError err)
 {
 	kDebug() << "Error creating Bluetooth Session: " << err.message();
-	KMessageBox::error(0 , err.message(), "Error creating Bluetooth Session");
+// 	KMessageBox::error(0 , err.message(), "Error creating Bluetooth Session");
 }
 
 void ObexSession::connect()
