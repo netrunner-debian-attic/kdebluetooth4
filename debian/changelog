@@ -8,6 +8,9 @@ kdebluetooth (1:0.4.1-1) UNRELEASED; urgency=low
   * Merging from Ubuntu:
     - Raise an exception and exit when DBus is unavailable rather than
       crashing (LP: #139154)
+    - Remove build-depend on libknotificationitem-dev; the library got
+      renamed/moved to KStatusNotifier inside of kdelibs for 4.4.
+    - Bump kdelibs5-dev build-dep version to 4.3.73 or higher for the above
   * Patches:
     - Refresh kubuntu_01_document_path.diff
   * Bump Standards-Version, no changes needed.
