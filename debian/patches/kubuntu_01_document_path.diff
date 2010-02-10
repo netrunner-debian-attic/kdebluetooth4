@@ -1,14 +1,15 @@
-diff -Nur -x '*.orig' -x '*~' kdebluetooth-0.4~beta1b/src/trayicon.cpp kdebluetooth-0.4~beta1b.new/src/trayicon.cpp
---- kdebluetooth-0.4~beta1b/src/trayicon.cpp	2009-09-18 03:14:27.000000000 +0200
-+++ kdebluetooth-0.4~beta1b.new/src/trayicon.cpp	2009-09-29 09:37:27.177320178 +0200
-@@ -55,6 +55,7 @@
- #include <KMenu>
+Index: kdebluetooth-0.4/src/trayicon.cpp
+===================================================================
+--- kdebluetooth-0.4.orig/src/trayicon.cpp	2010-02-01 15:37:39.000000000 -0500
++++ kdebluetooth-0.4/src/trayicon.cpp	2010-02-01 18:06:38.057388962 -0500
+@@ -57,6 +57,7 @@
  #include <KApplication>
+ #include <KStandardAction>
  #include <kwallet.h>
 +#include <kglobalsettings.h>
  
  using KWallet::Wallet;
- KBlueTray::KBlueTray(const QString& path, QObject* parent) : KNotificationItem(parent), agentPath(path)
+ KBlueTray::KBlueTray(const QString& path, QObject* parent) : KNotificationItem(parent), agentPath(path),m_aboutDialog(0)
 @@ -199,13 +200,7 @@
  	confGroup = new KConfigGroup(config, "General");
  	KConfigGroup obexServerConfig(config, "ObexServer");
