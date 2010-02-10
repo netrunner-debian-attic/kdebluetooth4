@@ -1,6 +1,7 @@
 kdebluetooth (1:0.4.1-1) UNRELEASED; urgency=low
 
   * Imported upstream version 0.4.1
+  * Change Homepage from SourceForge to KDE-Apps.org
   * Bump Standards-Version, no changes needed.
 
  -- Didier Raboud <didier@raboud.com>  Wed, 10 Feb 2010 09:55:11 +0100
