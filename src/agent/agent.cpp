@@ -69,6 +69,7 @@ int Agent::execDialog(QDialog* dialog)
 	int ret;
 
 	currentDialog = dialog;
+	currentDialog->setModal(true);
 	ret = currentDialog->exec();
 
 	currentDialog = 0;
@@ -93,8 +94,7 @@ void Agent::Authorize(QDBusObjectPath device, const QString& uuid, const QDBusMe
 			return;
 		}
 		case(1): {
-			QDBusMessage error = msg.createErrorReply("org.bluez.Error.Rejected", "Authorization rejected");
-			QDBusConnection::systemBus().send(error);
+            //No error no anything means OK, and this case is for the Trust button
 			return;
 		}
 		case(0): {

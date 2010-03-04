@@ -73,7 +73,7 @@ KBlueTray::KBlueTray(const QString& path, QObject* parent) : KNotificationItem(p
 	m_kBlueLock = 0;
 	m_wallet = 0;
 	modes << "Off" << "Discoverable" << "Connectable" ;
-	
+
 	setParent(kapp);
 	setIconByName("kbluetooth");
 	setToolTip("kbluetooth", "KBluetooth", "KDE bluetooth framework");
@@ -132,18 +132,18 @@ KBlueTray::~KBlueTray()
 		server->close();
 		delete server;
 	}
-	
+
 	if(serversession) {
 		serversession->cancel();
 		serversession->disconnect();
 		delete serversession;
 	}
-	
+
 	delete confGroup;
 	delete config;
-	
+
 	delete m_kBlueLock;
-	
+
 	delete m_aboutDialog;
 	qDebug() << "bye bye";
 }
@@ -250,7 +250,7 @@ void KBlueTray::onlineMode()
 		agent->setExitOnRelease(false);
 
 	updateTooltip();
-	
+
 	sendToAction->setEnabled(true);
 	wizardAction->setEnabled(true);
 	adapterAction->setEnabled(true);
@@ -316,32 +316,32 @@ void KBlueTray::obexServerClosed()
 }
 
 void KBlueTray::updateTooltip() {
-	kDebug() << "Updating Tooltip";	
+	kDebug() << "Updating Tooltip";
 	if(!online) {
 		toolTipInfo = i18n("No Bluetooth Adapter");
 		return;
 	}
 
-	if(!adapter || !server ) 
+	if(!adapter || !server )
 		return;
-	
-	
+
+
 	toolTipInfo = 	"<b>Name:</b> " + adapter->name() + "<br />" \
 			+	"<b>Address:</b> " + adapter->address() + "<br />" \
 			+	"<b>KBlueLock:</b> ";
 
 	if (!kblueLockEnabled)
-		toolTipInfo += "Disabled"; 
+		toolTipInfo += "Disabled";
 	else
 		toolTipInfo += ("Enabled for " + lockDeviceName);
-		
+
 	toolTipInfo += "<br /><b>Receiving Files:</b> ";
 	if(server) {
 		toolTipInfo += ((server->isStarted()) ? "Enabled" : "Disabled");
 	} else {
 		toolTipInfo += "Disabled";
 	}
-	
+
 	//tray->setToolTip(toolTipInfo);
 }
 
@@ -383,7 +383,7 @@ void KBlueTray::showAboutInfo()
 		m_aboutDialog = new KAboutApplicationDialog(KGlobal::mainComponent().aboutData());
 		m_aboutDialog->exec();
 	}
-	
+
 	if(m_aboutDialog->isVisible()){
 		m_aboutDialog->raise();
 	}else{
@@ -507,7 +507,7 @@ void KBlueTray::slotFileTransferCompleted(KJob* ) {
 		obexSessionReady();
 	}else{
 		kDebug() << "Calling disconnect";
-		connect(session,SIGNAL(disconnected()),this,SLOT(fileTransferFinal()));
+		connect(session,SIGNAL(closed()),this,SLOT(fileTransferFinal()));
 		session->disconnect();
 	}
 }
@@ -583,18 +583,18 @@ void KBlueTray::slotConfigureKBlueLock()
 {
 		m_kBlueLock->disable();
 		kDebug() << "Periodic Discovery Stopped";
-		
+
 		m_kBlueLock = new KBlueLock(adapter);
 		m_kBlueLock->unlockEnable(true);
 
 		lockSelector = new DeviceSel(this,QString("computer,phone").split(','));
 		lockSelector->setOkButtonText("Select");
 		lockSelector->setInfoLabel(i18n("Selecting a device enables KBlueLock (a balloon message will pop up from the tray when your target device is found and KBlueLock is ready).\nIf the device disappears, your screen will be locked."));
-		
+
 		connect(lockSelector, SIGNAL(deviceSelected(QString)), m_kBlueLock, SLOT(enable(QString)));
 		connect(lockSelector,SIGNAL(selectorCancelled()),this,SLOT(slotBlueSelectorCancelled()));
 		connect(lockSelector, SIGNAL(unlockChanged(bool)), m_kBlueLock, SLOT(unlockEnable(bool)));
-		
+
 		connect(m_kBlueLock, SIGNAL(lockEnabled()), this, SLOT(lockEnabled()));
 		connect(m_kBlueLock, SIGNAL(lockDisabled()), this, SLOT(lockDisabled()));
 		connect(m_kBlueLock, SIGNAL(lockReady()), this, SLOT(lockReady()));
@@ -631,6 +631,7 @@ void KBlueTray::receivedConfig()
 	dialog->setCaption(i18n("Received files directory:"));
 	dialog->setButtons(KDialog::Ok | KDialog::Cancel);
 	dialog->setMinimumWidth(430);
+    dialog->setModal(true);
 	int response = dialog->exec();
 	QString saveUrl = urlR->url().path();
 
@@ -640,7 +641,7 @@ void KBlueTray::receivedConfig()
 		config->group("ObexServer").sync();
 	}
 	delete dialog;
-	
+
 }
 
 void KBlueTray::openObexError() {
@@ -774,6 +775,9 @@ void KBlueTray::slotServerSessionTransferStarted(KJob* job) {
 		fileTransfer->setLocalPath(saveUrl);
 	}
 	kDebug() << "transfer started";
+    if (!fileTransfer) {
+        return;
+    }
 #ifdef HAVE_NEPOMUK
 	connect(fileTransfer, SIGNAL( result(KJob*) ), this, SLOT( slotFileReceiveComplete(KJob*) ));
 #endif

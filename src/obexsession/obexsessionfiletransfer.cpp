@@ -71,15 +71,24 @@ void ObexSessionFileTransfer::slotTransferStarted(const QString& filename, const
 	setTotalAmount(Bytes, totalSize);
 	m_totalFileSize = totalSize;
 	setProcessedAmount(Bytes, 0);
+	m_time = QTime::currentTime();
+	m_procesedBytes = 0;
 }
 
 void ObexSessionFileTransfer::slotTransferProgress(qulonglong transferred) {
-	kDebug() << "Transfer progress ...";
-	ulong currentPercent = percent();
+	kDebug() << "Transfer progress ..." << transferred;
+
+	QTime currentTime = QTime::currentTime();
+	int time = m_time.secsTo(currentTime);
+	if (time != 0) {
+		qulonglong diffBytes = transferred - m_procesedBytes;
+		float speed = diffBytes / time;
+		kDebug() << "Bytes: " << diffBytes << " Speed: " << speed;
+		emitSpeed(speed);
+		m_time = currentTime;
+		m_procesedBytes = transferred;
+	}
 	setProcessedAmount(Bytes, transferred);
-	ulong newPercent = percent();
-	double unit = m_totalFileSize / 100.0;
-	emitSpeed(newPercent*unit - currentPercent*unit);
 }
 
 void ObexSessionFileTransfer::slotTransferCompleted() {

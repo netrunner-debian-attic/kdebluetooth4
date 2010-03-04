@@ -77,15 +77,24 @@ void ObexServerSessionFileTransfer::receiveFiles() {
 	setTotalAmount(Bytes, m_totalFileSize);
 	setProcessedAmount(Bytes, 0);
 	m_dbusSession->call("Accept");
+	m_time = QTime::currentTime();
+	m_procesedBytes = 0;
 }
 
 void ObexServerSessionFileTransfer::slotTransferProgress(qulonglong transferred) {
-	kDebug() << "Transfer progress ...";
-	ulong currentPercent = percent();
+	kDebug() << "Transfer progress ..." << transferred;
+
+	QTime currentTime = QTime::currentTime();
+	int time = m_time.secsTo(currentTime);
+	if (time != 0) {
+		qulonglong diffBytes = transferred - m_procesedBytes;
+		float speed = diffBytes / time;
+		kDebug() << "Bytes: " << diffBytes << " Speed: " << speed;
+		emitSpeed(speed);
+		m_time = currentTime;
+		m_procesedBytes = transferred;
+	}
 	setProcessedAmount(Bytes, transferred);
-	ulong newPercent = percent();
-	double unit = m_totalFileSize / 100.0;
-	emitSpeed(newPercent*unit - currentPercent*unit);
 }
 
 void ObexServerSessionFileTransfer::slotTransferCompleted() {

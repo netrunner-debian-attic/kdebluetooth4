@@ -39,7 +39,3 @@ include_directories(
    )
 add_subdirectory ( src )
 add_subdirectory( icons )
-find_package(Msgfmt REQUIRED)
-find_package(Gettext REQUIRED)
-add_subdirectory( po )
-add_subdirectory( doc-translations )

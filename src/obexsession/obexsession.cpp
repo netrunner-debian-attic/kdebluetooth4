@@ -111,7 +111,9 @@ void ObexSession::connect()
 
 void ObexSession::disconnect()
 {
+	kDebug() << "CAlling disconnect";
 	session->call("Disconnect");
+	session->call("Close");
 }
 
 void ObexSession::close()

@@ -21,6 +21,7 @@
 #define OBEXSESSIONFILETRANSFER_H
 
 #include <KJob>
+#include <QDate>
 
 class ObexSession;
 class QDBusInterface;
@@ -48,5 +49,7 @@ private:
 	QDBusInterface* m_dbusSession;
 	QString m_localPath;
 	qulonglong m_totalFileSize;
+	QTime m_time;
+	qlonglong m_procesedBytes;
 };
 #endif // OBEXSESSIONFILETRANSFER_H
