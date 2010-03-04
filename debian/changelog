@@ -1,9 +1,9 @@
-kdebluetooth (1:0.4.1-1) UNRELEASED; urgency=low
+kdebluetooth (1:0.4.2-1) UNRELEASED; urgency=low
 
   * New upstream release
 
   [ Didier Raboud ]
-  * Imported upstream version 0.4.1
+  * Imported upstream version 0.4.2
   * Change Homepage from SourceForge to KDE-Apps.org
   * Merging from Ubuntu:
     - Raise an exception and exit when DBus is unavailable rather than
@@ -24,7 +24,7 @@ kdebluetooth (1:0.4.1-1) UNRELEASED; urgency=low
     - Enable parallel build (pass --parallel option to dh)
     - Use kde sequence addon (pass --with kde option to dh)
 
- -- Didier Raboud <didier@raboud.com>  Wed, 10 Feb 2010 09:55:11 +0100
+ -- Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>  Thu, 04 Mar 2010 16:05:42 +0100
 
 kdebluetooth (1:0.4~rc1-1) experimental; urgency=low
 
