@@ -61,6 +61,8 @@ private:
 	QString m_remoteName;
 	QString m_remoteAddr;
 	Solid::Control::BluetoothRemoteDevice bluetoothDevice;
+	QTime m_time;
+	qlonglong m_procesedBytes;
 };
 
 #endif // OBEXSERVERSESSIONFILETRANSFER_H
