@@ -25,6 +25,8 @@ kbluetooth (1:0.4.2-1) UNRELEASED; urgency=low
   * Update debian/rules:
     - Enable parallel build (pass --parallel option to dh)
     - Use kde sequence addon (pass --with kde option to dh)
+  * Remove kblueplugd and kblueplugd.desktop as they are replaced by
+    autostart file
   * Merge from Ubuntu:
     - Add kubuntu_02_autostart.diff patch
     - Don't depend on the bluetooth metapackage, but instead on the individual

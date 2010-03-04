@@ -3,10 +3,4 @@
 %:
 	dh --parallel --with kde $@
 
-override_dh_install:
-	install -D -p -m0755 debian/kblueplugd \
-		$(CURDIR)/debian/kdebluetooth/usr/bin/kblueplugd
-	install -D -p -m0644 debian/kblueplugd.desktop \
-		$(CURDIR)/debian/kdebluetooth/usr/share/autostart/kblueplugd.desktop
-
 .PHONY: override_dh_auto_test
