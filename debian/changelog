@@ -26,11 +26,12 @@ kbluetooth (1:0.4.2-1) UNRELEASED; urgency=low
     - Enable parallel build (pass --parallel option to dh)
     - Use kde sequence addon (pass --with kde option to dh)
   * Merge from Ubuntu:
-    - Add build-depend on shard-desktop-ontologies for Nepomuk support
-      (LP: #354860)
+    - Add kubuntu_02_autostart.diff patch
     - Don't depend on the bluetooth metapackage, but instead on the individual
       packages (bluez, bluez-alsa and bluez-cups).
       bluetooth also includes bluez-gstreamer which is undesirable for KDE
+    - Add build-depend on shard-desktop-ontologies for Nepomuk support
+      (LP: #354860)
 
  -- Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>  Thu, 04 Mar 2010 16:05:42 +0100
 

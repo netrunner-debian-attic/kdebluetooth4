@@ -1,0 +1,8 @@
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -57,4 +57,5 @@ install(TARGETS kbluetooth
+ #install( FILES pics/search.gif DESTINATION ${DATA_INSTALL_DIR}/kbluetooth4 )
+ 
+ install(FILES kbluetooth.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
++install(FILES kbluetooth.desktop DESTINATION ${AUTOSTART_INSTALL_DIR})
+ 
