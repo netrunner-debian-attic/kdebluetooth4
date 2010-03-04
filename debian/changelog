@@ -1,4 +1,4 @@
-kdebluetooth (1:0.4.2-1) UNRELEASED; urgency=low
+kbluetooth (1:0.4.2-1) UNRELEASED; urgency=low
 
   * New upstream release - Imported upstream version 0.4.2
 
@@ -19,6 +19,9 @@ kdebluetooth (1:0.4.2-1) UNRELEASED; urgency=low
   * Update debian/control:
     - Bump build dependencies versions (debhelper and pkg-kde-tools)
     - Remove quilt build dependency
+    - Use net section instead of kde
+    - Rename kdebluetooth in line with upstream to kbluetooth
+    - Add kdebluetooth transitional package
   * Update debian/rules:
     - Enable parallel build (pass --parallel option to dh)
     - Use kde sequence addon (pass --with kde option to dh)

@@ -1,5 +1,5 @@
-Source: kdebluetooth
-Section: kde
+Source: kbluetooth
+Section: net
 Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Michael Meskes <meskes@debian.org>, Achim Bohnet <ach@mpe.mpg.de>,
@@ -13,7 +13,7 @@ Homepage: http://kde-apps.org/content/show.php/kbluetooth?content=112110
 Vcs-Git: git://git.debian.org/pkg-kde/kde-extras/kdebluetooth4.git
 Vcs-Browser: http://git.debian.org/?p=pkg-kde/kde-extras/kdebluetooth4.git
 
-Package: kdebluetooth
+Package: kbluetooth
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
  bluez, obex-data-server, python-qt4-dbus, python-qt4
@@ -24,3 +24,12 @@ Description: KDE Bluetooth Framework
  stack BlueZ. It provides easy access to the most common Bluetooth profiles and
  makes data exchange with Bluetooth devices like phones and PDAs as
  straightforward as possible.
+
+Package: kdebluetooth
+Architecture: all
+Depends: ${misc:Depends}, kbluetooth
+Description: dummy transition package for kdebluetooth to kbluetooth
+ This is a dummy package to help on the transition from kdebluetooth to
+ kbluetooth.
+ .
+ It can also be removed from the Debian package once squeeze is released.
