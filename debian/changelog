@@ -1,11 +1,10 @@
 kdebluetooth (1:0.4.2-1) UNRELEASED; urgency=low
 
-  * New upstream release
+  * New upstream release - Imported upstream version 0.4.2
 
   [ Didier Raboud ]
-  * Imported upstream version 0.4.2
   * Change Homepage from SourceForge to KDE-Apps.org
-  * Merging from Ubuntu:
+  * Merge from Ubuntu:
     - Raise an exception and exit when DBus is unavailable rather than
       crashing (LP: #139154)
     - Remove build-depend on libknotificationitem-dev; the library got
@@ -23,6 +22,12 @@ kdebluetooth (1:0.4.2-1) UNRELEASED; urgency=low
   * Update debian/rules:
     - Enable parallel build (pass --parallel option to dh)
     - Use kde sequence addon (pass --with kde option to dh)
+  * Merge from Ubuntu:
+    - Add build-depend on shard-desktop-ontologies for Nepomuk support
+      (LP: #354860)
+    - Don't depend on the bluetooth metapackage, but instead on the individual
+      packages (bluez, bluez-alsa and bluez-cups).
+      bluetooth also includes bluez-gstreamer which is undesirable for KDE
 
  -- Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>  Thu, 04 Mar 2010 16:05:42 +0100
 
