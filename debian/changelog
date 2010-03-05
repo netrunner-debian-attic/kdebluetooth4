@@ -22,6 +22,7 @@ kbluetooth (1:0.4.2-1) UNRELEASED; urgency=low
     - Use net section instead of kde
     - Rename kdebluetooth in line with upstream to kbluetooth
     - Add kdebluetooth transitional package
+    - Remove python dependencies.
   * Update debian/rules:
     - Enable parallel build (pass --parallel option to dh)
     - Use kde sequence addon (pass --with kde option to dh)
