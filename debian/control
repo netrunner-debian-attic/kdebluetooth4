@@ -6,7 +6,7 @@ Uploaders: Michael Meskes <meskes@debian.org>, Achim Bohnet <ach@mpe.mpg.de>,
  Mark Purcell <msp@debian.org>, Fathi Boudra <fabo@debian.org>,
  Didier Raboud <didier@raboud.com>
 Build-Depends: debhelper (>= 7.4.15), cmake, pkg-kde-tools (>= 0.6.5),
- kdelibs5-dev (>= 4:4.3.73), kdebase-workspace-dev (>= 4:4.2.96),
+ kdelibs5-dev (>= 4:4.3.4), kdebase-workspace-dev (>= 4:4.3.4),
  shared-desktop-ontologies
 Standards-Version: 3.8.4
 Homepage: http://www.kde-apps.org/content/show.php/kbluetooth?content=112110

@@ -9,7 +9,7 @@ kbluetooth (1:0.4.2-1) UNRELEASED; urgency=low
       crashing (LP: #139154)
     - Remove build-depend on libknotificationitem-dev; the library got
       renamed/moved to KStatusNotifier inside of kdelibs for 4.4.
-    - Bump kdelibs5-dev build-dep version to 4.3.73 or higher for the above
+    - Bump kdelibs5-dev build-dep version to 4.3.4 or higher for the above
   * Patches:
     - Refresh kubuntu_01_document_path.diff
   * Bump Standards-Version, no changes needed.
