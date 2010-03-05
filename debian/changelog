@@ -1,18 +1,15 @@
-kbluetooth (1:0.4.2-1) UNRELEASED; urgency=low
+kbluetooth (1:0.4.2-1) experimental; urgency=low
 
   * New upstream release - Imported upstream version 0.4.2
 
   [ Didier Raboud ]
   * Change Homepage from SourceForge to KDE-Apps.org
+  * Bump Standards-Version, no changes needed.
   * Merge from Ubuntu:
     - Raise an exception and exit when DBus is unavailable rather than
       crashing (LP: #139154)
-    - Remove build-depend on libknotificationitem-dev; the library got
-      renamed/moved to KStatusNotifier inside of kdelibs for 4.4.
     - Bump kdelibs5-dev build-dep version to 4.3.4 or higher for the above
-  * Patches:
-    - Refresh kubuntu_01_document_path.diff
-  * Bump Standards-Version, no changes needed.
+    - Refresh kubuntu_01_document_path.diff patch
 
   [ Fathi Boudra ]
   * Switch to dpkg-source 3.0 (quilt) format
@@ -266,59 +263,59 @@ kdebluetooth (0.99+1.0beta1-13) unstable; urgency=low
 kdebluetooth (0.99+1.0beta1-12) unstable; urgency=low
 
   * Recompiled for libbluetooth transition, closes: #376884, #376975
-      
+
  -- Michael Meskes <meskes@debian.org>  Sat,  8 Jul 2006 12:05:24 +0200
- 
+
 kdebluetooth (0.99+1.0beta1-11) unstable; urgency=low
 
   * Patched qserialdevice.cpp to compile correctly with GCC 4.1
-      
+
  -- Michael Meskes <meskes@debian.org>  Tue, 20 Jun 2006 11:24:09 +0200
 
 
 kdebluetooth (0.99+1.0beta1-10) unstable; urgency=low
 
   * Added AM_MAINTAINER_MODE to fix the time-stamp skew problems, closes: #365113
-      
+
  -- Michael Meskes <meskes@debian.org>  Fri, 28 Apr 2006 14:19:39 +0200
 
 
 kdebluetooth (0.99+1.0beta1-9) unstable; urgency=low
 
   * Remade all configure et al. files which hopefully closes: #364658
-      
+
  -- Michael Meskes <meskes@debian.org>  Wed, 26 Apr 2006 14:04:21 +0200
- 
+
 kdebluetooth (0.99+1.0beta1-8) unstable; urgency=low
 
   * Recompiled for openobex transition, closes: #358275
   * Added patch from KDE bugtracking to fix browsing, closes: #359153
-      
+
  -- Michael Meskes <meskes@debian.org>  Sun, 16 Apr 2006 11:51:00 +0200
 
 kdebluetooth (0.99+1.0beta1-7) unstable; urgency=low
 
   * Fixed source to compile with G++ 4.1, closes: #356155
-      
+
  -- Michael Meskes <meskes@debian.org>  Thu, 16 Mar 2006 09:30:55 +0100
 
 kdebluetooth (0.99+1.0beta1-6) unstable; urgency=low
 
   * Package qobex now provides "flexmem"
-      
+
  -- Michael Meskes <meskes@debian.org>  Tue, 22 Nov 2005 22:03:02 +0100
 
 kdebluetooth (0.99+1.0beta1-5) unstable; urgency=low
 
   * Moved qobex back to section "net", repairing the accidental move from -4
-      
+
  -- Michael Meskes <meskes@debian.org>  Mon, 12 Sep 2005 14:46:15 +0200
 
 kdebluetooth (0.99+1.0beta1-4) unstable; urgency=low
 
   * Moved to section "kde"
   * Changed description of qobex to give a more information
-      
+
  -- Michael Meskes <meskes@debian.org>  Thu,  8 Sep 2005 14:30:16 +0200
 
 kdebluetooth (0.99+1.0beta1-3) unstable; urgency=low
@@ -326,7 +323,7 @@ kdebluetooth (0.99+1.0beta1-3) unstable; urgency=low
   * Recompiled against KDE 3.4.2, closes: #326787
   * Uploaded to unstable
   * Disabled support for xmms, closes: #326218
-      
+
  -- Michael Meskes <meskes@debian.org>  Tue,  6 Sep 2005 13:09:10 +0200
 
 kdebluetooth (0.99+1.0beta1-2) experimental; urgency=low
