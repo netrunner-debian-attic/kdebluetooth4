@@ -1,8 +1,8 @@
-kbluetooth (1:0.4.2-2) UNRELEASED; urgency=low
+kbluetooth (1:0.4.2-2) unstable; urgency=low
 
   * Update debian/rules:
-    - Install files into kbluetooth package through dh_auto_install --destdir
-      (Closes: #573546).
+    - Install files into kbluetooth package through dh_auto_install --destdir,
+      closes: #573546
 
  -- Didier Raboud <didier@raboud.com>  Fri, 12 Mar 2010 11:25:47 +0100
 
