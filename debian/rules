@@ -3,4 +3,7 @@
 %:
 	dh --parallel --with kde $@
 
+override_dh_auto_install:
+	dh_auto_install --destdir=debian/kbluetooth
+
 .PHONY: override_dh_auto_test
