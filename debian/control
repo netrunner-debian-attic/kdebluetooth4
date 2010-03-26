@@ -5,9 +5,9 @@ Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Michael Meskes <meskes@debian.org>, Achim Bohnet <ach@mpe.mpg.de>,
  Mark Purcell <msp@debian.org>, Fathi Boudra <fabo@debian.org>,
  Didier Raboud <didier@raboud.com>
-Build-Depends: debhelper (>= 7.4.15), cmake, pkg-kde-tools (>= 0.6.5),
- kdelibs5-dev (>= 4:4.3.4), kdebase-workspace-dev (>= 4:4.3.4),
- libknotificationitem-1-dev, shared-desktop-ontologies
+Build-Depends: debhelper (>= 7.4.15), cmake, pkg-kde-tools (>= 0.6.4),
+ kdelibs5-dev (>= 4:4.4.1), kdebase-workspace-dev (>= 4:4.4.1),
+ shared-desktop-ontologies
 Standards-Version: 3.8.4
 Homepage: http://www.kde-apps.org/content/show.php/kbluetooth?content=112110
 Vcs-Git: git://git.debian.org/pkg-kde/kde-extras/kdebluetooth4.git
