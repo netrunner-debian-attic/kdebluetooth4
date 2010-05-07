@@ -1,9 +1,13 @@
-kbluetooth (1:0.4.2-3) UNRELEASED; urgency=low
+kbluetooth (1:0.4.2-3) unstable; urgency=low
 
+  [ Fathi Boudra ]
   * Bump build dependencies to build against KDE SC 4.4.
   * Drop libknotificationitem-1-dev build dependency.
 
- -- Fathi Boudra <fabo@debian.org>  Fri, 26 Mar 2010 16:18:25 +0100
+  [ Michael Meskes ]
+  * Upload to unstable, closes: #498528, #580295
+
+ -- Michael Meskes <meskes@debian.org>  Fri, 07 May 2010 17:04:50 +0200
 
 kbluetooth (1:0.4.2-2) experimental; urgency=low
 

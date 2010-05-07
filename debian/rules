@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 %:
-	dh --parallel --with kde $@
+	dh --parallel --with kde,quilt $@
 
 override_dh_auto_install:
 	dh_auto_install --destdir=debian/kbluetooth
